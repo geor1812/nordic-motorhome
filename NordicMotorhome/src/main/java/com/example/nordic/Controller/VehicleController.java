@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/vehicle")
 public class VehicleController {
 
+    /***
+     * Get request for the vehicle menu page
+     * @return vehicleMenu view
+     */
     @GetMapping("/vehicleMenu")
     public String vehicleMenu() {
         return "vehicle/vehicleMenu";

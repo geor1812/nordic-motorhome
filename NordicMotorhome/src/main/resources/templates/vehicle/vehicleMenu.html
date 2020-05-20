@@ -21,7 +21,7 @@
             <h2>Motorhome Fleet</h2>
 
             <a href="#" id="createVehicle">
-                <button class="create-btn">Add New Vehicle</button>
+                <button class="btn">Add New Vehicle</button>
             </a>
         </div>
 
@@ -40,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="vehicle: ${cars}">
+                <tr th:each="vehicle: ${vehicles}">
                     <td th:text="${car.car_id}" />
                     <td th:text="${car.brand}" />
                     <td th:text="${car.model_details}" />

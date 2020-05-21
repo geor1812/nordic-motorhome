@@ -9,18 +9,17 @@
     <header class="main-header">
         <div class="container">
             <h1>Nordic Motorhome Rental</h1>
-            <img th:src="@{/logo.png}" alt="Logo" id="logo" />
         </div>
     </header>
 
     <section class="showcase">
-        <div class="container">
-            <h2>Motorhome Fleet</h2>
-        </div>
-        <a href="#" id="home"></a>
     </section>
 
     <section class="main-section">
+        <div class="container">
+            <h2>Motorhome Fleet</h2>
+            <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+        </div>
         <div class="container">
             <a href="/vehicle/createVehicle" id="createVehicle">
                 <button class="btn">Add New Vehicle</button>
@@ -50,15 +49,15 @@
                     <td th:text="${vehicle.regNo}" />
                     <td th:text="${vehicle.regDate}" />
                     <td>
-                        <a th:href="@{'/viewDetails/'+${car.car_id}}">
+                        <a th:href="@{'/viewDetails/'+${vehicle.idVehicle}}">
                             <button class="btn">Details</button>
                         </a>
 
-                        <a th:href="@{'/delete/'+${car.car_id}}">
+                        <a th:href="@{'/delete/'+${vehicle.idVehicle}}">
                             <button class="btn">Delete</button>
                         </a>
 
-                        <a th:href="@{'/updateCar/'+${car.car_id}}">
+                        <a th:href="@{'/updateCar/'+${vehicle.idVehicle}}">
                             <button class="btn">Edit</button>
                         </a>
                     </td>

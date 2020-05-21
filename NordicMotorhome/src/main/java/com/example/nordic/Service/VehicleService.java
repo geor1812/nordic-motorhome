@@ -12,7 +12,7 @@ public class VehicleService {
     @Autowired
     VehicleRepo vehicleRepo;
 
-    /***
+    /**
      * Gets the result set to from vehicleRepo
      * @return
      */
@@ -20,7 +20,7 @@ public class VehicleService {
         return vehicleRepo.readAll();
     }
 
-    /***
+    /**
      * Passes the vehicle to be added to vehicleRepo
      * @param vehicle the vehicle to be added
      */

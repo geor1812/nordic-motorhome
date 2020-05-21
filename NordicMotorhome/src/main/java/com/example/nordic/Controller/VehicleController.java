@@ -4,10 +4,13 @@ import com.example.nordic.Model.Vehicle;
 import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/vehicle")
@@ -20,7 +23,9 @@ public class VehicleController {
      * @return vehicleMenu view
      */
     @GetMapping("/vehicleMenu")
-    public String vehicleMenu() {
+    public String vehicleMenu(Model model) {
+        List<Vehicle> vehicleList = vehicleService.readAll();
+        model.addAttribute("vehicles", vehicleList);
         return "vehicle/vehicleMenu";
     }
 

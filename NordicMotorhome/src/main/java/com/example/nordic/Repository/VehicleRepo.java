@@ -2,7 +2,9 @@ package com.example.nordic.Repository;
 
 import com.example.nordic.Model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -18,10 +20,14 @@ public class VehicleRepo {
 
     /**
      * Executes a query to the DB which returns all of the vehicles
-     * @return
+     * @return result set
      */
     public List<Vehicle> readAll() {
-        return null;
+        String sql = "SELECT * FROM vehicle\n" +
+                "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
+                "ORDER BY idVehicle;";
+        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        return jdbcTemplate.query(sql, rowMapper);
     }
 
     /**

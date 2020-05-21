@@ -25,6 +25,7 @@ body {
     background-color: #116466;
     width: 25%;
     height: 30px;
+
 }
 
 .button-area:hover {
@@ -59,6 +60,7 @@ body {
 
 .content-table thead tr {
     background-color: #116466;
+    color: black;
 }
 
 .content-table th,
@@ -79,11 +81,44 @@ body {
 }
 
 .btn {
+    margin: 15px 0px;
     background-color: #116466;
     padding: 10px;
     border: none;
     box-shadow: 0 3px 0 #0e4e4f;
 }
 
+.create-form {
+    text-align: center;
+    font-size: 0.8em;
+}
 
+.create-form .label-input {
+    padding-bottom: 15px;
+
+}
+
+.create-form .radiogroup {
+    padding-bottom: 15px;
+}
+
+.create-form input {
+    padding: 8px;
+}
+
+.create-form input[type="submit"] {
+    padding: 15px 30px;
+    border: none;
+    box-shadow: 0 5px 0 #0e4e4f;
+    background-color: #116466;
+    font-size: 1em;
+}
+
+#logo {
+    float: center;
+}
+
+.main-header .container h1 {
+    float: left;
+}
 

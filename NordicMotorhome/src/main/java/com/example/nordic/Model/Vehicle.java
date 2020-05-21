@@ -55,7 +55,7 @@ public class Vehicle {
         this.odometer = odometer;
     }
 
-    public boolean isRepairStatus() {
+    public boolean getRepairStatus() {
         return repairStatus;
     }
 

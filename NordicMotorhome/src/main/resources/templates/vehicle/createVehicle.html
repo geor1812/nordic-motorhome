@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Nordic Motorhome Rental</h1>
+            <img th:src="@{/logo.png}" alt="Logo" id="logo" />
+        </div>
+    </header>
+
+    <section class="showcase">
+        <div class="container">
+            <h2>Add a new vehicle</h2>
+        </div>
+        <a href="#" id="home"></a>
+    </section>
+
+    <section class="main-section">
+        <div class="container">
+            <form class="create-form" action="/vehicle/createVehicle" method="post">
+                <div class="label-input">
+                    <label for="brand">Brand</label><br>
+                    <input type="text" id="brand" name="brand" required>
+                </div>
+
+                <div class="label-input">
+                    <label for="modelType">Model</label><br>
+                    <input type="text" id="modelType" name="modelType" required>
+                </div>
+
+                <div class="label-input">
+                    <label for="noBeds">Number of beds</label><br>
+                    <input type="number" id="noBeds" name="noBeds" required>
+                </div>
+
+                <div class="radiogroup">
+                    <label>Fuel Type</label><br>
+                    <input type="radio" id="gasoline" name="fuelType" value="Gasoline"  required>
+                    <label for="gasoline">Gasoline</label><br>
+                    <input type="radio" id="diesel" name="fuelType" value="Diesel" required>
+                    <label for="diesel">Diesel</label><br>
+                </div>
+
+                <div class="label-input">
+                    <label for="pricePerDay">Price per day</label><br>
+                    <input type="number" id="pricePerDay" name="pricePerDay" required>
+                </div>
+
+                <div class="label-input">
+                    <label for="regNo">Registration number</label><br>
+                    <input type="text" id="regNo" name="regNo" required>
+                </div>
+
+                <div class="label-input">
+                    <label for="regDate">Registration date</label><br>
+                    <input type="date" id="regDate" name="regDate" required>
+                </div>
+
+                <div class="label-input">
+                    <label for="odometer">Odometer Information</label><br>
+                    <input type="number" id="odometer" name="odometer" required>
+                </div>
+
+                <input type="submit" value="Add Vehicle">
+            </form>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+        </div>
+    </footer>
+</body>

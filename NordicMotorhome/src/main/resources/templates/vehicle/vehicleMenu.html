@@ -9,18 +9,20 @@
     <header class="main-header">
         <div class="container">
             <h1>Nordic Motorhome Rental</h1>
+            <img th:src="@{/logo.png}" alt="Logo" id="logo" />
         </div>
     </header>
 
     <section class="showcase">
+        <div class="container">
+            <h2>Motorhome Fleet</h2>
+        </div>
         <a href="#" id="home"></a>
     </section>
 
     <section class="main-section">
         <div class="container">
-            <h2>Motorhome Fleet</h2>
-
-            <a href="#" id="createVehicle">
+            <a href="/vehicle/createVehicle" id="createVehicle">
                 <button class="btn">Add New Vehicle</button>
             </a>
         </div>
@@ -32,21 +34,21 @@
                     <th>ID</th>
                     <th>Brand</th>
                     <th>Model</th>
+                    <th>Beds</th>
                     <th>Registration Number</th>
                     <th>Registration Date</th>
-                    <th>Odometer</th>
                     <th></th>
 
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="vehicle: ${vehicles}">
-                    <td th:text="${car.car_id}" />
-                    <td th:text="${car.brand}" />
-                    <td th:text="${car.model_details}" />
-                    <td th:text="${car.reg_nr}" />
-                    <td th:text="${car.reg_date}" />
-                    <td th:text="${car.odometer}" />
+                    <td th:text="${vehicle.idVehicle}" />
+                    <td th:text="${vehicle.brand}" />
+                    <td th:text="${vehicle.modelType}" />
+                    <td th:text="${vehicle.noBeds}" />
+                    <td th:text="${vehicle.regNo}" />
+                    <td th:text="${vehicle.regDate}" />
                     <td>
                         <a th:href="@{'/viewDetails/'+${car.car_id}}">
                             <button class="btn">Details</button>

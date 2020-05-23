@@ -58,4 +58,9 @@ public class VehicleRepo {
         jdbcTemplate.update(sql2, vehicle.getRegNo(), vehicle.getRegDate(), vehicle.getOdometer(),
                 vehicle.getRepairStatus(), keyHolder.getKey());
     }
+
+    public boolean deleteVehicle(int idVehicle) {
+        String sql = "DELETE FROM vehicle WHERE idVehicle = ?";
+        return template.update(sql, idVehicle) < 0;
+    }
 }

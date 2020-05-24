@@ -66,8 +66,8 @@ public class VehicleRepo {
     }
 
     public Vehicle findVehicleById(int id){
-        String sqlQuery = "SELECT vehicle.idVehicle, vehicle.regNo, vehicle. vehicle.odometer, vehicle.repairStatus, vehicle.idModel\n" +
-                "model.brand, model.modelType, model.fuelType, model.noBeds, model.pricePerDay,\n" +
+        String sqlQuery = "SELECT vehicle.idVehicle, vehicle.regNo, vehicle.regDate, vehicle.odometer, vehicle.repairStatus, vehicle.idModel,\n" +
+                "model.brand, model.modelType, model.fuelType, model.noBeds, model.pricePerDay\n" +
                 "FROM vehicle\n" +
                 "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
                 "WHERE idVehicle = ?";

@@ -35,17 +35,29 @@ public class VehicleController {
         return "vehicle/createVehicle";
     }
 
+    /**
+     * Get request for the update vehicle page
+     * @param idVehicle the id of the vehicle to be updated
+     * @param model
+     * @return updateVehicle view
+     */
     @GetMapping("/updateVehicle/{idVehicle}")
     public String updateVehicle(@PathVariable("idVehicle") int idVehicle, Model model) {
         vehicleService.setWorkingID(idVehicle);
         model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
-        return "home/updateVehicle";
+        return "vehicle/updateVehicle";
     }
+
+    /**
+     * Post method which gets the updated information
+     * @param vehicle the vehicle to be updated
+     * @return redirects to the VehicleMenu view
+     */
     @PostMapping("/updateVehicle")
     public String updateVehicle(@ModelAttribute Vehicle vehicle){
         int id = vehicleService.getWorkingID();
         vehicleService.updateVehicle(id, vehicle);
-        return "redirect:/vehicleMenu";
+        return "redirect:/vehicle/vehicleMenu";
     }
 
     /**

@@ -9,31 +9,30 @@
     <header class="main-header">
         <div class="container">
             <h1>Nordic Motorhome Rental</h1>
-            <img th:src="@{/logo.png}" alt="Logo" id="logo" />
         </div>
     </header>
 
     <section class="showcase">
-        <div class="container">
-            <h2>Update a vehicle</h2>
-        </div>
-        <a href="#" id="home"></a>
     </section>
 
     <section class="main-section">
+        <div class="container">
+            <h2>Update a vehicle</h2>
+            <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+        </div>
         <div class="container">
             <form class="update-form" action="/vehicle/updateVehicle" method="post">
 
                 <div class="label-input">
                     <label for="odometer">Odometer Information</label><br>
-                    <input type="number" id="odometer" name="odometer" required>
+                    <input type="number" id="odometer" name="odometer" th:value="${vehicle.odometer}" required>
                 </div>
                 <div class="label-input">
-                    <label for="repairStatus">Repair Status</label><br>
-                    <input type="number" id="repairStatus" name="repairStatus" required>
+                    <label for="repairStatus">Is the car being repaired?</label><br>
+                    <input type="checkbox" id="repairStatus" name="repairStatus" value="1">
                 </div>
 
-                <input type="submit" value="Update Vehicle">
+                <input type="submit" onclick="return confirm('Do you confirm the update to the vehicle?')" value="Update Vehicle">
             </form>
         </div>
     </section>

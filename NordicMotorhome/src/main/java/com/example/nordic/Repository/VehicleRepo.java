@@ -2,7 +2,9 @@ package com.example.nordic.Repository;
 
 import com.example.nordic.Model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -57,6 +59,26 @@ public class VehicleRepo {
                 "VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql2, vehicle.getRegNo(), vehicle.getRegDate(), vehicle.getOdometer(),
                 vehicle.getRepairStatus(), keyHolder.getKey());
+    }
+
+    public Vehicle findVehicleById(int id){
+        String sqlQuery = "SELECT vehicle.idVehicle, vehicle.regNo, vehicle. vehicle.odometer, vehicle.repairStatus, vehicle.idModel\n" +
+                "model.brand, model.modelType, model.fuelType, model.noBeds, model.pricePerDay,\n" +
+                "FROM vehicle\n" +
+                "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
+                "WHERE idVehicle = ?";
+        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        Vehicle v = jdbcTemplate.queryForObject(sqlQuery, rowMapper, id);
+        return v;
+    }
+
+    public Vehicle updateVehicle(int id, Vehicle v){
+        Vehicle vehicle = findVehicleById(id);
+        String sqlQuery1 = "UPDATE vehicle SET odometer = ?, repairStatus = ? WHERE idVehicle = ?";
+        //String sqlQuery2 = "UPDATE model SET pricePerDay = ? WHERE idModel = ?";
+        jdbcTemplate.update(sqlQuery1, v.getOdometer(), v.getRepairStatus(), id);
+        //jdbcTemplate.update(sqlQuery2, v.getPricePerDay(), v.getIdModel());
+        return null;
     }
 
     public boolean deleteVehicle(int idVehicle) {

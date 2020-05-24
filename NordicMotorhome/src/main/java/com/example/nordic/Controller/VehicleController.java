@@ -4,10 +4,8 @@ import com.example.nordic.Model.Vehicle;
 import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/vehicle")
@@ -31,6 +29,27 @@ public class VehicleController {
     @GetMapping("/createVehicle")
     public String createVehicleGet() {
         return "vehicle/createVehicle";
+    }
+
+    /**
+     * Get request for the update vehicle page
+     * @return updateVehicle view
+     */
+    @GetMapping("/updateVehicle")
+    public String updateVehicleGet() {
+        return "vehicle/updateVehicle";
+    }
+    @GetMapping("/updateVehicle/{idVehicle}")
+    public String updateVehicle(@PathVariable("idVehicle") int idVehicle, Model model) {
+        vehicleService.setWorkingID(idVehicle);
+        model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
+        return "home/updateVehicle";
+    }
+    @PostMapping("/updateVehicle")
+    public String updateVehicle(@ModelAttribute Vehicle vehicle){
+        int id = vehicleService.getWorkingID();
+        vehicleService.updateVehicle(id, vehicle);
+        return "redirect:/vehicleMenu";
     }
 
     /**

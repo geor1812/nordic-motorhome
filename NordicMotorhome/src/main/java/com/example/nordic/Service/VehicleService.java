@@ -15,7 +15,7 @@ public class VehicleService {
 
     /**
      * Gets the result set to from vehicleRepo
-     * @return
+     * @return query result set
      */
     public List<Vehicle> readAll() {
         return vehicleRepo.readAll();
@@ -28,23 +28,41 @@ public class VehicleService {
     public void create(Vehicle vehicle) {
         vehicleRepo.create(vehicle);
     }
+
+    /**
+     * Sends the id and update vehicle information to vehicleRepo
+     * @param id the id of the vehicle to be updated
+     * @param vehicle a Vehicle object containing the updated information
+     */
     public void updateVehicle(int id, Vehicle vehicle) {
         vehicleRepo.updateVehicle(id, vehicle);
     }
 
+    /**
+     * Returns a Vehicle object from the vehicleRepo
+     * @param id the id of the vehicle
+     **/
     public Vehicle findVehicleById(int id) {
         return vehicleRepo.findVehicleById(id);
     }
 
+    /**
+     * Sends the id of the vehicle that will be deleted to vehicleRepo
+     * @param idVehicle the id of the vehicle to be deleted
+     * @return confirmation of successful deletion
+     */
+    public boolean deleteVehicle(int idVehicle) {
+        return vehicleRepo.deleteVehicle(idVehicle);
+    }
+
+    /*
+    Working ID Getters & Setters
+     */
     public int getWorkingID() {
         return workingID;
     }
 
     public void setWorkingID(int workingID) {
         this.workingID = workingID;
-    }
-
-    public boolean deleteVehicle(int idVehicle) {
-        return vehicleRepo.deleteVehicle(idVehicle);
     }
 }

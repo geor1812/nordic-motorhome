@@ -38,7 +38,7 @@ public class VehicleController {
     /**
      * Get request for the update vehicle page
      * @param idVehicle the id of the vehicle to be updated
-     * @param model
+     * @param model used to pass the information from the controller to the view
      * @return updateVehicle view
      */
     @GetMapping("/updateVehicle/{idVehicle}")
@@ -72,6 +72,11 @@ public class VehicleController {
         return "redirect:/vehicle/vehicleMenu";
     }
 
+    /**
+     * Get request which gets the id of the vehicle to be deleted
+     * @param idVehicle the id of the vehicle to be deleted
+     * @return redirects to the vehicleMenu view
+     */
     @GetMapping("/deleteVehicle/{idVehicle}")
     public String deleteVehicle(@PathVariable("idVehicle") int idVehicle) {
         boolean deleted = vehicleService.deleteVehicle(idVehicle);

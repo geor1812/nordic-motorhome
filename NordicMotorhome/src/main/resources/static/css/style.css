@@ -16,6 +16,12 @@ body {
     text-align: center;
 }
 
+.back-area {
+    width: 82%;
+    margin: auto;
+    overflow: hidden;
+}
+
 .showcase {
     margin: auto;
     width: 82%;
@@ -87,8 +93,18 @@ body {
 }
 
 .btn {
+    text-decoration: none;
     margin: 15px 0px;
     background-color: #116466;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 3px 0 #0e4e4f;
+}
+
+.btn:hover{
+    text-decoration: none;
+    margin: 15px 0px;
+    background-color: #0e4e4f;
     padding: 10px;
     border: none;
     box-shadow: 0 3px 0 #0e4e4f;
@@ -172,4 +188,8 @@ body {
     .search-bar input[type=text] {
         border: 1px solid #ccc;
     }
+}
+
+.container .back-button {
+     float: left;
 }

@@ -27,4 +27,8 @@ public class VehicleService {
     public void create(Vehicle vehicle) {
         vehicleRepo.create(vehicle);
     }
+
+    public boolean deleteVehicle(int idVehicle) {
+        return vehicleRepo.deleteVehicle(idVehicle);
+    }
 }

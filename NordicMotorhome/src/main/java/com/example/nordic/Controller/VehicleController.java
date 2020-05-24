@@ -49,4 +49,10 @@ public class VehicleController {
         vehicleService.create(vehicle);
         return "redirect:/vehicle/vehicleMenu";
     }
+
+    @GetMapping("/deleteVehicle/{idVehicle}")
+    public String deleteVehicle(@PathVariable("idVehicle") int idVehicle) {
+        boolean deleted = vehicleService.deleteVehicle(idVehicle);
+        return "redirect:/vehicleMenu";
+    }
 }

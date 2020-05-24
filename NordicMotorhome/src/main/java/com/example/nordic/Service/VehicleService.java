@@ -11,6 +11,7 @@ import java.util.List;
 public class VehicleService {
     @Autowired
     VehicleRepo vehicleRepo;
+    private int workingID;
 
     /**
      * Gets the result set to from vehicleRepo
@@ -26,6 +27,21 @@ public class VehicleService {
      */
     public void create(Vehicle vehicle) {
         vehicleRepo.create(vehicle);
+    }
+    public void updateVehicle(int id, Vehicle vehicle) {
+        vehicleRepo.updateVehicle(id, vehicle);
+    }
+
+    public Vehicle findVehicleById(int id) {
+        return vehicleRepo.findVehicleById(id);
+    }
+
+    public int getWorkingID() {
+        return workingID;
+    }
+
+    public void setWorkingID(int workingID) {
+        this.workingID = workingID;
     }
 
     public boolean deleteVehicle(int idVehicle) {

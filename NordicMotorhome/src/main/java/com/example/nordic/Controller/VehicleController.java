@@ -35,6 +35,19 @@ public class VehicleController {
         return "vehicle/createVehicle";
     }
 
+    @GetMapping("/updateVehicle/{idVehicle}")
+    public String updateVehicle(@PathVariable("idVehicle") int idVehicle, Model model) {
+        vehicleService.setWorkingID(idVehicle);
+        model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
+        return "home/updateVehicle";
+    }
+    @PostMapping("/updateVehicle")
+    public String updateVehicle(@ModelAttribute Vehicle vehicle){
+        int id = vehicleService.getWorkingID();
+        vehicleService.updateVehicle(id, vehicle);
+        return "redirect:/vehicleMenu";
+    }
+
     /**
      * Post method which takes the information for the new vehicle to be added
      * from a from in the view and sends it to vehicleService

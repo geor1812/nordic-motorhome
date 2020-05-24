@@ -67,6 +67,6 @@ public class VehicleRepo {
 
     public boolean deleteVehicle(int idVehicle) {
         String sql = "DELETE FROM vehicle WHERE idVehicle = ?";
-        return template.update(sql, idVehicle) < 0;
+        return jdbcTemplate.update(sql, idVehicle) < 0;
     }
 }

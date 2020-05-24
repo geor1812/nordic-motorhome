@@ -49,16 +49,16 @@
                     <td th:text="${vehicle.regNo}" />
                     <td th:text="${vehicle.regDate}" />
                     <td>
-                        <a th:href="@{'/viewDetails/'+${vehicle.idVehicle}}">
+                        <a th:href="@{'/vehicle/viewDetails/'+${vehicle.idVehicle}}">
                             <button class="btn">Details</button>
                         </a>
 
-                        <a th:href="@{'/delete/'+${vehicle.idVehicle}}">
-                            <button class="btn">Delete</button>
+                        <a th:href="@{'/vehicle/deleteVehicle/'+${vehicle.idVehicle}}">
+                            <button class="btn" onclick="return confirm('Do you confirm the deletion of the vehicle?')" >Delete</button>
                         </a>
 
-                        <a th:href="@{'/updateCar/'+${vehicle.idVehicle}}">
-                            <button class="btn">Edit</button>
+                        <a th:href="@{'/vehicle/updateVehicle/'+${vehicle.idVehicle}}">
+                            <button class="btn" >Edit</button>
                         </a>
                     </td>
 

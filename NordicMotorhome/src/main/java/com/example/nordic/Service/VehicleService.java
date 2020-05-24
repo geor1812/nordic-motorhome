@@ -22,6 +22,15 @@ public class VehicleService {
     }
 
     /**
+     * Passes the search term to the vehicleRepo and then returns the result set
+     * @param search the search term
+     * @return query result set
+     */
+    public List<Vehicle> readSearch(String search) {
+        return vehicleRepo.readSearch(search);
+    }
+
+    /**
      * Passes the vehicle to be added to vehicleRepo
      * @param vehicle the vehicle to be added
      */
@@ -49,10 +58,9 @@ public class VehicleService {
     /**
      * Sends the id of the vehicle that will be deleted to vehicleRepo
      * @param idVehicle the id of the vehicle to be deleted
-     * @return confirmation of successful deletion
      */
-    public boolean deleteVehicle(int idVehicle) {
-        return vehicleRepo.deleteVehicle(idVehicle);
+    public void deleteVehicle(int idVehicle) {
+        vehicleRepo.deleteVehicle(idVehicle);
     }
 
     /*

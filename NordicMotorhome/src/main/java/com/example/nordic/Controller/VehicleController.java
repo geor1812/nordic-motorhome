@@ -98,4 +98,10 @@ public class VehicleController {
         vehicleService.deleteVehicle(idVehicle);
         return "redirect:/vehicle/vehicleMenu";
     }
+
+    @GetMapping("/viewDetails/{idVehicle}")
+    public String viewDetails(@PathVariable("idVehicle") int idVehicle, Model model){
+        model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
+        return "vehicle/viewDetails";
+    }
 }

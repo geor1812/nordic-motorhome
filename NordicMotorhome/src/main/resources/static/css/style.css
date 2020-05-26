@@ -15,6 +15,13 @@ body {
     overflow: hidden;
     text-align: center;
 }
+
+.contractInfo {
+    overflow: hidden;
+    text-align: center;
+    margin: auto;
+}
+
 .customerInfo {
     margin-left: 150px;
     overflow: hidden;
@@ -27,6 +34,12 @@ body {
     overflow: hidden;
     float: right;
     text-align: left;
+}
+
+.licenceInfo {
+    display: inline-block;
+    margin-top: 15px;
+    overflow: hidden;
 }
 
 .back-area {

@@ -29,6 +29,14 @@
     </div>
 
     <div class="container">
+        <div class="contractInfo">
+            <h3>Contract Details</h3>
+            <p>Contract ID: <span th:text="${contract.idContract}"/></p>
+            <p>Start Date: <span th:text="${contract.startDate}"/></p>
+            <p>End Date: <span th:text="${contract.endDate}"/></p>
+            <p>Kilometers to pick-up point: <span th:text="${contract.pickUpKm}"/></p>
+        </div>
+
         <div class="customerInfo">
             <h3>Customer Details</h3>
             <p>Customer ID: <span th:text="${customer.idCustomer}"/></p>
@@ -36,12 +44,15 @@
             <p>Last Name: <span th:text="${customer.lastName}"/></p>
             <p>Phone Number: <span th:text="${customer.phoneNo}"/></p>
             <p>Email: <span th:text="${customer.email}"/></p>
-            <p>Address: <span th:text="${customer.addressDetails}"/>, <span th:text="${customer.city}"/>, <span th:text="${customer.state}"/> <span th:text="${customer.country}"/>, <span th:text="${customer.zip}"/> </p>
+            <p>Address: <span th:text="${customer.addressDetails}"/></p>
+            <p>City & State: <span th:text="${customer.city}"/> <span th:text="${customer.state}"/></p>
+            <p>Country: <span th:text="${customer.country}"/></p>
+            <p>ZIP: <span th:text="${customer.zip}"/></p>
         </div>
 
         <div class="vehicleInfo">
             <h3>Vehicle Details</h3>
-            <p>ID: <span th:text="${vehicle.idVehicle}"/></p>
+            <p>Vehicle ID: <span th:text="${vehicle.idVehicle}"/></p>
             <p>Registration Number: <span th:text="${vehicle.regNo}"/></p>
             <p>Registration Date: <span th:text="${vehicle.regDate}"/></p>
             <p>Odometer: <span th:text="${vehicle.odometer}"/></p>
@@ -49,8 +60,43 @@
             <p>Model Type: <span th:text="${vehicle.modelType}"/></p>
             <p>Fuel Type: <span th:text="${vehicle.fuelType}"/></p>
             <p>Number of Beds: <span th:text="${vehicle.noBeds}"/></p>
+            <p>Price per day: €<span th:text="${vehicle.pricePerDay}"/></p>
         </div>
-        
+
+        <div class="licenceInfo">
+            <h3>Eligible driver's licences</h3>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birth Date</th>
+                    <th>Country</th>
+                    <th>Issue Date</th>
+                    <th>Expiry Date</th>
+                    <th>Issuer</th>
+                    <th>CPR</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="licence: ${licenceList}">
+                    <td th:text="${licence.licenceNo}" />
+                    <td th:text="${licence.firstName}" />
+                    <td th:text="${licence.lastName}" />
+                    <td th:text="${licence.birthDate}" />
+                    <td th:text="${licence.country}" />
+                    <td th:text="${licence.issueDate}" />
+                    <td th:text="${licence.expiryDate}" />
+                    <td th:text="${licence.originator}" />
+                    <td th:text="${licence.cpr}" />
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
     </div>
 
 </section>

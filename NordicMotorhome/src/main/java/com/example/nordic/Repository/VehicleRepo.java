@@ -122,6 +122,6 @@ public class VehicleRepo {
      */
     public void deleteVehicle(int idVehicle) {
         String sql = "DELETE FROM vehicle WHERE idVehicle = ?";
-        return jdbcTemplate.update(sql, idVehicle) < 0;
+        jdbcTemplate.update(sql, idVehicle);
     }
 }

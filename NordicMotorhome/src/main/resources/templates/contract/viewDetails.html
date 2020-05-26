@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View Contract Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+    </div>
+</header>
+
+
+<section class="showcase">
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <h2>Contract details</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
+    <div class="back-area">
+        <a href="/contract/contractMenu" id="back-button">
+            <button class="btn">Back</button>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <h3>Contract Details</h3>
+            <p>Contract ID: <span th:text="${contract.idContract}"/></p>
+            <p>Start Date: <span th:text="${contract.startDate}"/></p>
+            <p>End Date: <span th:text="${contract.endDate}"/></p>
+            <p>Kilometers to pick-up point: <span th:text="${contract.pickUpKm}"/></p>
+        </div>
+
+        <div class="customerInfo">
+            <h3>Customer Details</h3>
+            <p>Customer ID: <span th:text="${customer.idCustomer}"/></p>
+            <p>First Name: <span th:text="${customer.firstName}"/></p>
+            <p>Last Name: <span th:text="${customer.lastName}"/></p>
+            <p>Phone Number: <span th:text="${customer.phoneNo}"/></p>
+            <p>Email: <span th:text="${customer.email}"/></p>
+            <p>Address: <span th:text="${customer.addressDetails}"/></p>
+            <p>City & State: <span th:text="${customer.city}"/> <span th:text="${customer.state}"/></p>
+            <p>Country: <span th:text="${customer.country}"/></p>
+            <p>ZIP: <span th:text="${customer.zip}"/></p>
+        </div>
+
+        <div class="vehicleInfo">
+            <h3>Vehicle Details</h3>
+            <p>Vehicle ID: <span th:text="${vehicle.idVehicle}"/></p>
+            <p>Registration Number: <span th:text="${vehicle.regNo}"/></p>
+            <p>Registration Date: <span th:text="${vehicle.regDate}"/></p>
+            <p>Odometer: <span th:text="${vehicle.odometer}"/></p>
+            <p>Brand: <span th:text="${vehicle.brand}"/></p>
+            <p>Model Type: <span th:text="${vehicle.modelType}"/></p>
+            <p>Fuel Type: <span th:text="${vehicle.fuelType}"/></p>
+            <p>Number of Beds: <span th:text="${vehicle.noBeds}"/></p>
+            <p>Price per day: €<span th:text="${vehicle.pricePerDay}"/></p>
+        </div>
+
+        <div class="licenceInfo">
+            <h3>Eligible driver's licences</h3>
+            <table class="content-table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birth Date</th>
+                    <th>Country</th>
+                    <th>Issue Date</th>
+                    <th>Expiry Date</th>
+                    <th>Issuer</th>
+                    <th>CPR</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="licence: ${licenceList}">
+                    <td th:text="${licence.licenceNo}" />
+                    <td th:text="${licence.firstName}" />
+                    <td th:text="${licence.lastName}" />
+                    <td th:text="${licence.birthDate}" />
+                    <td th:text="${licence.country}" />
+                    <td th:text="${licence.issueDate}" />
+                    <td th:text="${licence.expiryDate}" />
+                    <td th:text="${licence.originator}" />
+                    <td th:text="${licence.cpr}" />
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info">
+            <h3>Extra Accessories</h3>
+            <p>Bed Linen: <span th:text="${contract.bedLinen}"/></p>
+            <p>Bike Rack: <span th:text="${contract.bikeRack}"/></p>
+            <p>Child Seat: <span th:text="${contract.childSeat}"/></p>
+            <p>Grill: <span th:text="${contract.grill}"/></p>
+            <p>Chair: <span th:text="${contract.chair}"/></p>
+            <p>Table: <span th:text="${contract.tble}"/></p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -17,6 +17,12 @@ public class Contract {
     private int pickUpKm;
     private int idVehicle;
     private int idCustomer;
+    private int bedLinen;
+    private int bikeRack;
+    private int childSeat;
+    private int grill;
+    private int chair;
+    private int tble;
 
     /*
     Getters and setters
@@ -83,5 +89,53 @@ public class Contract {
 
     public void setIdCustomer(int idCustomer) {
         this.idCustomer = idCustomer;
+    }
+
+    public int getBedLinen() {
+        return bedLinen;
+    }
+
+    public void setBedLinen(int bedLinen) {
+        this.bedLinen = bedLinen;
+    }
+
+    public int getBikeRack() {
+        return bikeRack;
+    }
+
+    public void setBikeRack(int bikeRack) {
+        this.bikeRack = bikeRack;
+    }
+
+    public int getChildSeat() {
+        return childSeat;
+    }
+
+    public void setChildSeat(int childSeat) {
+        this.childSeat = childSeat;
+    }
+
+    public int getGrill() {
+        return grill;
+    }
+
+    public void setGrill(int grill) {
+        this.grill = grill;
+    }
+
+    public int getChair() {
+        return chair;
+    }
+
+    public void setChair(int chair) {
+        this.chair = chair;
+    }
+
+    public int getTble() {
+        return tble;
+    }
+
+    public void setTble(int tble) {
+        this.tble = tble;
     }
 }

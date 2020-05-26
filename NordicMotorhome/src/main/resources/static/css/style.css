@@ -30,8 +30,9 @@ body {
 }
 
 .button-area {
-    margin-top: 10px;
     margin: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
     background-color: #116466;
     width: 25%;
     height: 30px;

@@ -23,7 +23,8 @@ public class ContractRepo {
 
     public Contract findContractById(int id) {
         String sql = "SELECT * FROM contract\n" +
-                "WHERE idContract = ?";
+                "INNER JOIN accessories ON accessories.idContract = contract.idContract\n" +
+                "WHERE contract.idContract = ?";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }

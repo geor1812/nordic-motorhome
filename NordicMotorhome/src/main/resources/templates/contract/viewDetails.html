@@ -29,7 +29,7 @@
     </div>
 
     <div class="container">
-        <div class="contractInfo">
+        <div class="info">
             <h3>Contract Details</h3>
             <p>Contract ID: <span th:text="${contract.idContract}"/></p>
             <p>Start Date: <span th:text="${contract.startDate}"/></p>
@@ -95,7 +95,15 @@
             </table>
         </div>
 
-
+        <div class="info">
+            <h3>Extra Accessories</h3>
+            <p>Bed Linen: <span th:text="${contract.bedLinen}"/></p>
+            <p>Bike Rack: <span th:text="${contract.bikeRack}"/></p>
+            <p>Child Seat: <span th:text="${contract.childSeat}"/></p>
+            <p>Grill: <span th:text="${contract.grill}"/></p>
+            <p>Chair: <span th:text="${contract.chair}"/></p>
+            <p>Table: <span th:text="${contract.tble}"/></p>
+        </div>
 
     </div>
 

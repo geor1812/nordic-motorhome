@@ -20,4 +20,11 @@ public class ContractRepo {
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return jdbcTemplate.query(sql, rowMapper);
     }
+
+    public Contract findContractById(int id) {
+        String sql = "SELECT * FROM contract\n" +
+                "WHERE idContract = ?";
+        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        return jdbcTemplate.queryForObject(sql, rowMapper, id);
+    }
 }

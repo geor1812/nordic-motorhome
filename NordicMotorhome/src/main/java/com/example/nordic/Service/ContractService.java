@@ -15,4 +15,8 @@ public class ContractService {
     public List<Contract> readAll() {
         return contractRepo.readAll();
     }
+
+    public Contract findContractById(int id){
+        return contractRepo.findContractById(id);
+    }
 }

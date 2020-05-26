@@ -70,12 +70,13 @@
                             <button class="btn">Details</button>
                         </a>
 
-                        <a th:href="@{'/vehicle/deleteVehicle/'+${vehicle.idVehicle}}">
-                            <button class="btn" onclick="return confirm('Do you confirm the deletion of the vehicle?')" >Delete</button>
-                        </a>
 
                         <a th:href="@{'/vehicle/updateVehicle/'+${vehicle.idVehicle}}">
                             <button class="btn" >Edit</button>
+                        </a>
+
+                        <a th:href="@{'/vehicle/deleteVehicle/'+${vehicle.idVehicle}}">
+                            <button class="btn" onclick="return confirm('Do you confirm the deletion of the vehicle?')" >Delete</button>
                         </a>
                     </td>
 

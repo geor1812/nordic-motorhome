@@ -72,12 +72,21 @@
                         <button class="btn">Details</button>
                     </a>
 
-                    <a th:href="@{'/contract/deleteVehicle/'+${contract.idContract}}">
-                        <button class="btn" onclick="return confirm('Do you confirm the deletion of the vehicle?')" >Delete</button>
-                    </a>
 
                     <a th:href="@{'/contract/updateContract/'+${contract.idContract}}">
                         <button class="btn" >Edit</button>
+                    </a>
+
+                    <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
+                        <button class="btn">Cancel</button>
+                    </a>
+
+                    <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
+                        <button class="btn">Checkout</button>
+                    </a>
+
+                    <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
+                        <button class="btn" onclick="return confirm('Do you confirm the deletion of the contract?')" >Delete</button>
                     </a>
                 </td>
 

@@ -13,7 +13,7 @@ public class Customer {
     private String phoneNo;
     private String email;
     private int idAddress;
-    private String address_details;
+    private String addressDetails;
     private String city;
     private String country;
     private String state;
@@ -69,12 +69,12 @@ public class Customer {
         this.idAddress = idAddress;
     }
 
-    public String getAddress_details() {
-        return address_details;
+    public String getAddressDetails() {
+        return addressDetails;
     }
 
-    public void setAddress_details(String address_details) {
-        this.address_details = address_details;
+    public void setAddressDetails(String address) {
+        this.addressDetails = address;
     }
 
     public String getCity() {

@@ -9,25 +9,19 @@
     <header class="main-header">
         <div class="container">
             <h1>Nordic Motorhome Rental</h1>
+            <img th:src="@{/logo.png}" alt="Logo" id="logo" />
         </div>
     </header>
 
     <section class="showcase">
+        <div class="container">
+            <h2>Add a new vehicle</h2>
+        </div>
+        <a href="#" id="home"></a>
     </section>
 
     <section class="main-section">
         <div class="container">
-            <h2>Add a new vehicle</h2>
-            <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
-        </div>
-
-        <div class="back-area">
-            <a href="/vehicle/vehicleMenu" id="back-button">
-                <button class="btn">Back</button>
-            </a>
-        </div>
-
-        <div>
             <form class="create-form" action="/vehicle/createVehicle" method="post">
                 <div class="label-input">
                     <label for="brand">Brand</label><br>
@@ -72,7 +66,7 @@
                     <input type="number" id="odometer" name="odometer" required>
                 </div>
 
-                <input type="submit" onclick="return confirm('Do you confirm the addition of a new vehicle?')" value="Add Vehicle">
+                <input type="submit" value="Add Vehicle">
             </form>
         </div>
     </section>

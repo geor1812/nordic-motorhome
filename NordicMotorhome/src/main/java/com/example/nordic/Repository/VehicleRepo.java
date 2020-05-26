@@ -20,36 +20,10 @@ public class VehicleRepo {
 
     /**
      * Executes a query to the DB which returns all of the vehicles
-     * @return result set
+     * @return
      */
     public List<Vehicle> readAll() {
-        String sql = "SELECT * FROM vehicle\n" +
-                "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
-                "ORDER BY idVehicle;";
-        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
-        return jdbcTemplate.query(sql, rowMapper);
-    }
-
-    /**
-     * Executes a query to the DB which returns all of the vehicles that
-     * contain the search term in any of their attributes
-     * @param search the search term
-     * @return List<Vehicle> result set
-     */
-    public List<Vehicle> readSearch(String search) {
-        String queryItem = "%" + search + "%";
-        String sql = "SELECT * FROM vehicle\n" +
-                "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
-                "WHERE vehicle.idVehicle LIKE ? OR\n" +
-                "vehicle.regNo LIKE ? OR\n" +
-                "vehicle.regDate LIKE ? OR\n" +
-                "model.brand LIKE ? OR\n" +
-                "model.modelType LIKE ? OR\n" +
-                "model.noBeds LIKE ?\n" +
-                "ORDER BY vehicle.idVehicle\n";
-        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
-        return jdbcTemplate.query(sql, rowMapper, queryItem, queryItem,
-                queryItem, queryItem, queryItem, queryItem);
+        return null;
     }
 
     /**
@@ -87,14 +61,9 @@ public class VehicleRepo {
                 vehicle.getRepairStatus(), keyHolder.getKey());
     }
 
-    /**
-     * Queries the DB for a vehicle with the same id as the parameter
-     * @param id the id of the vehicle to be returned
-     * @return the vehicle retrieved from the DB
-     */
     public Vehicle findVehicleById(int id){
-        String sqlQuery = "SELECT vehicle.idVehicle, vehicle.regNo, vehicle.regDate, vehicle.odometer, vehicle.repairStatus, vehicle.idModel,\n" +
-                "model.brand, model.modelType, model.fuelType, model.noBeds, model.pricePerDay\n" +
+        String sqlQuery = "SELECT vehicle.idVehicle, vehicle.regNo, vehicle. vehicle.odometer, vehicle.repairStatus, vehicle.idModel\n" +
+                "model.brand, model.modelType, model.fuelType, model.noBeds, model.pricePerDay,\n" +
                 "FROM vehicle\n" +
                 "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
                 "WHERE idVehicle = ?";
@@ -103,25 +72,17 @@ public class VehicleRepo {
         return v;
     }
 
-    /**
-     * Updates a vehicle from the DB
-     * @param id the id of the vehicle
-     * @param v a Vehicle object containing the updated information
-     */
-    public void updateVehicle(int id, Vehicle v) {
+    public Vehicle updateVehicle(int id, Vehicle v){
         Vehicle vehicle = findVehicleById(id);
         String sqlQuery1 = "UPDATE vehicle SET odometer = ?, repairStatus = ? WHERE idVehicle = ?";
         //String sqlQuery2 = "UPDATE model SET pricePerDay = ? WHERE idModel = ?";
         jdbcTemplate.update(sqlQuery1, v.getOdometer(), v.getRepairStatus(), id);
         //jdbcTemplate.update(sqlQuery2, v.getPricePerDay(), v.getIdModel());
+        return null;
     }
 
-    /**
-     * Deletes a vehicle from the DB based on id
-     * @param idVehicle the id of the vehicle to be deleted
-     */
-    public void deleteVehicle(int idVehicle) {
+    public boolean deleteVehicle(int idVehicle) {
         String sql = "DELETE FROM vehicle WHERE idVehicle = ?";
-        jdbcTemplate.update(sql, idVehicle);
+        return template.update(sql, idVehicle) < 0;
     }
 }

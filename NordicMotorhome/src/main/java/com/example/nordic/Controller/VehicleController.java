@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/vehicle")
@@ -21,25 +18,8 @@ public class VehicleController {
      * @return vehicleMenu view
      */
     @GetMapping("/vehicleMenu")
-    public String vehicleMenuGet(Model model) {
-        List<Vehicle> vehicleList = vehicleService.readAll();
-        model.addAttribute("vehicles", vehicleList);
+    public String vehicleMenu() {
         return "vehicle/vehicleMenu";
-    }
-
-    /**
-     * Post method which gets the search term inserted by the user and retrieves
-     * a list of vehicles filtered down to contain the search term
-     * @param webRequest used to retrieve the input from the view
-     * @param model used to pass the information from the controller to the view
-     * @return vehicleMenuSearch page
-     */
-    @PostMapping("/vehicleMenu")
-    public String vehicleMenuPost (WebRequest webRequest, Model model){
-       String search = webRequest.getParameter("search");
-       List<Vehicle> vehicleList = vehicleService.readSearch(search);
-       model.addAttribute("vehicles", vehicleList);
-       return "vehicle/vehicleMenuSearch";
     }
 
     /**
@@ -53,27 +33,23 @@ public class VehicleController {
 
     /**
      * Get request for the update vehicle page
-     * @param idVehicle the id of the vehicle to be updated
-     * @param model used to pass the information from the controller to the view
      * @return updateVehicle view
      */
-    @GetMapping("/updateVehicle/{idVehicle}")
-    public String updateVehicleGet(@PathVariable("idVehicle") int idVehicle, Model model) {
-        vehicleService.setWorkingID(idVehicle);
-        model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
+    @GetMapping("/updateVehicle")
+    public String updateVehicleGet() {
         return "vehicle/updateVehicle";
     }
-
-    /**
-     * Post method which gets the updated information
-     * @param vehicle the vehicle to be updated
-     * @return redirects to the VehicleMenu view
-     */
+    @GetMapping("/updateVehicle/{idVehicle}")
+    public String updateVehicle(@PathVariable("idVehicle") int idVehicle, Model model) {
+        vehicleService.setWorkingID(idVehicle);
+        model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
+        return "home/updateVehicle";
+    }
     @PostMapping("/updateVehicle")
-    public String updateVehiclePost(@ModelAttribute Vehicle vehicle){
+    public String updateVehicle(@ModelAttribute Vehicle vehicle){
         int id = vehicleService.getWorkingID();
         vehicleService.updateVehicle(id, vehicle);
-        return "redirect:/vehicle/vehicleMenu";
+        return "redirect:/vehicleMenu";
     }
 
     /**
@@ -88,20 +64,9 @@ public class VehicleController {
         return "redirect:/vehicle/vehicleMenu";
     }
 
-    /**
-     * Get request which gets the id of the vehicle to be deleted
-     * @param idVehicle the id of the vehicle to be deleted
-     * @return redirects to the vehicleMenu view
-     */
     @GetMapping("/deleteVehicle/{idVehicle}")
-    public String deleteVehicleGet(@PathVariable("idVehicle") int idVehicle) {
-        vehicleService.deleteVehicle(idVehicle);
-        return "redirect:/vehicle/vehicleMenu";
-    }
-
-    @GetMapping("/viewDetails/{idVehicle}")
-    public String viewDetails(@PathVariable("idVehicle") int idVehicle, Model model){
-        model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));
-        return "vehicle/viewDetails";
+    public String deleteVehicle(@PathVariable("idVehicle") int idVehicle) {
+        boolean deleted = vehicleService.deleteVehicle(idVehicle);
+        return "redirect:/vehicleMenu";
     }
 }

@@ -1,3 +1,5 @@
+* {box-sizing: border-box;}
+
 body {
     background-color: #d1e8e2;
     color: #2c3531;
@@ -8,20 +10,29 @@ body {
 }
 
 .container {
-    width: 60%;
+    width: 82%;
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+}
+
+.back-area {
+    width: 82%;
     margin: auto;
     overflow: hidden;
 }
 
 .showcase {
-    width: 100%;
-    height: 200px;
     margin: auto;
-    background-color: #116466;
+    width: 82%;
+    height: 300px;
+    background-image: url("../images/showcase2.jpg");
 }
 
 .button-area {
+    margin: auto;
     margin-top: 10px;
+    margin-bottom: 15px;
     background-color: #116466;
     width: 25%;
     height: 30px;
@@ -45,16 +56,18 @@ body {
     margin-top: 100px;
     background-color: #d9b08c;
     width: 100;
-    height: ;
+    height: 70px;
 }
 
 .main-footer .container {
     margin-top: 15px;
-    font-size: 16px;
+    font-size: 15px;
+    color: #2c3531;
 }
 
 .content-table {
     border-collapse: collapse;
+    margin: 20px auto;
     min-width: 400px;
 }
 
@@ -81,8 +94,18 @@ body {
 }
 
 .btn {
+    text-decoration: none;
     margin: 15px 0px;
     background-color: #116466;
+    padding: 10px;
+    border: none;
+    box-shadow: 0 3px 0 #0e4e4f;
+}
+
+.btn:hover{
+    text-decoration: none;
+    margin: 15px 0px;
+    background-color: #0e4e4f;
     padding: 10px;
     border: none;
     box-shadow: 0 3px 0 #0e4e4f;
@@ -118,7 +141,56 @@ body {
     float: center;
 }
 
-.main-header .container h1 {
-    float: left;
+.search-bar {
+    overflow: hidden;
+    background-color: #d9b08c;
 }
 
+.search-bar .search-container {
+    float: center;
+}
+
+.search-bar input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width: 400px;
+    font-size: 17px;
+    border: none;
+}
+
+.search-bar .search-container button {
+    float: center;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-bar .search-container button:hover {
+    background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+    .search-bar .search-container {
+        float: none;
+    }
+    .search-bar a, .search-bar input[type=text], .search-bar .search-container button {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+    .search-bar input[type=text] {
+        border: 1px solid #ccc;
+    }
+}
+
+.container .back-button {
+     float: left;
+}

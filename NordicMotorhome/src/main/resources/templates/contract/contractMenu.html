@@ -59,23 +59,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="vehicle: ${vehicles}">
-                <td th:text="${vehicle.idVehicle}" />
-                <td th:text="${vehicle.brand}" />
-                <td th:text="${vehicle.modelType}" />
-                <td th:text="${vehicle.noBeds}" />
-                <td th:text="${vehicle.regNo}" />
-                <td th:text="${vehicle.regDate}" />
+            <tr th:each="contract, iter: ${contractList}">
+                <td th:text="${contract.idContract}" />
+                <td th:text="${customerList[iter.index].firstName}" />
+                <td th:text="${customerList[iter.index].lastName}" />
+                <td th:text="${vehicleList[iter.index].brand}" />
+                <td th:text="${vehicleList[iter.index].modelType}" />
+                <td th:text="${contract.startDate}" />
+                <td th:text="${contract.endDate}" />
                 <td>
-                    <a th:href="@{'/vehicle/viewDetails/'+${vehicle.idVehicle}}">
+                    <a th:href="@{'/contract/viewDetails/'+${contract.idContract}}">
                         <button class="btn">Details</button>
                     </a>
 
-                    <a th:href="@{'/vehicle/deleteVehicle/'+${vehicle.idVehicle}}">
+                    <a th:href="@{'/contract/deleteVehicle/'+${contract.idContract}}">
                         <button class="btn" onclick="return confirm('Do you confirm the deletion of the vehicle?')" >Delete</button>
                     </a>
 
-                    <a th:href="@{'/vehicle/updateVehicle/'+${vehicle.idVehicle}}">
+                    <a th:href="@{'/contract/updateContract/'+${contract.idContract}}">
                         <button class="btn" >Edit</button>
                     </a>
                 </td>

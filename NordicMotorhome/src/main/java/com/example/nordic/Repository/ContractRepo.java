@@ -14,6 +14,8 @@ public class ContractRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    public void createContract(Contract contract){}
+
     public List<Contract> readAll() {
         String sql = "SELECT * FROM contract\n" +
                 "ORDER BY idContract DESC;";

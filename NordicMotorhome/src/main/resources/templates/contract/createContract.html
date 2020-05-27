@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+        <img th:src="@{/logo.png}" alt="Logo" id="logo" />
+    </div>
+</header>
+
+<section class="showcase">
+    <div class="container">
+        <h2>Create a new contract</h2>
+    </div>
+    <a href="#" id="home"></a>
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <form class="create-form" action="/contract/createContract" method="post">
+            <div class="label-input">
+                <label for="startDate">Start Date</label><br>
+                <input type="date" id="startDate" name="startDate" required>
+            </div>
+
+            <div class="label-input">
+                <label for="endDate">Last Name</label><br>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+
+            <div class="label-input">
+                <label for="numberOfBeds">Number of Beds</label><br>
+                <input type="number" id="numberOfBeds" name="numberOfBeds" required>
+            </div>
+
+            <input type="submit" value="Add Contract">
+        </form>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+</body>

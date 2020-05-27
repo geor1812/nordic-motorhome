@@ -20,6 +20,26 @@ public class CustomerRepo {
     JdbcTemplate jdbcTemplate;
 
     public void createCustomer(Customer customer){
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String modelQuery = "INSERT INTO address\n" +
+                "(addressDetails, city, country, state, zip)\n" +
+                "VALUES(?, ?, ?,?,?)";
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(modelQuery, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, String.valueOf(customer.getAddressDetails()));
+            ps.setString(2, customer.getCity());
+            ps.setString(2, customer.getCountry());
+            ps.setString(2, customer.getState());
+            ps.setString(3, customer.getZip());
+            return ps;
+        }, keyHolder);
+
+
+        String insert = "INSERT INTO customer\n" +
+                "(firstName, lastName, phoneNo, email, idAddress)\n" +
+                "VALUES(?, ?, ?, ?, ?)";
+        jdbcTemplate.update(insert, customer.getFirstName(), customer.getLastName(), customer.getPhoneNo(), customer.getEmail(),
+                keyHolder.getKey());
     }
 
     public Customer findCustomerById(int id){

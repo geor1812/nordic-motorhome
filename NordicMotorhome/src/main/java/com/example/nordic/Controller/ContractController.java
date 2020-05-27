@@ -73,4 +73,19 @@ public class ContractController {
         contractService.deleteContract(idContract);
         return "redirect:/contract/contractMenu";
     }
+
+    /* Get request for create contract page
+     */
+    @GetMapping("/createContract/{idCustomer}")
+    public String createContractGet(@PathVariable("idCustomer") int idCustomer){
+        contractService.setIdCustomer(idCustomer);
+        return "contract/createContract";
+    }
+
+    @PostMapping("/createContract")
+    public String createContractPost(@ModelAttribute Contract contract){
+        contract.setIdCustomer(contractService.getIdCustomer());
+        contractService.createContract(contract);
+        return "redirect:/contract/contractMenu";
+    }
 }

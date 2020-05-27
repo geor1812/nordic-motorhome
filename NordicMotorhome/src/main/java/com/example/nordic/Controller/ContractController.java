@@ -11,10 +11,8 @@ import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 
@@ -31,30 +29,42 @@ public class ContractController {
     LicenceService licenceService;
 
     @GetMapping("/contractMenu")
-    public String contractMenuGet(Model contractModel, Model vehicleModel,
-                                  Model customerModel) {
+    public String contractMenuGet(Model model) {
         List<Contract> contractList = contractService.readAll();
         List<Vehicle> vehicleList = vehicleService.fromContracts(contractList);
         List<Customer> customerList = customerService.fromContracts(contractList);
 
-        contractModel.addAttribute("contractList", contractList);
-        vehicleModel.addAttribute("vehicleList", vehicleList);
-        customerModel.addAttribute("customerList", customerList);
+        model.addAttribute("contractList", contractList);
+        model.addAttribute("vehicleList", vehicleList);
+        model.addAttribute("customerList", customerList);
         return "contract/contractMenu";
     }
 
+    @PostMapping("/contractMenu")
+    public String contractMenuPost(WebRequest webRequest, Model model) {
+        String searchTerm = webRequest.getParameter("search");
+        List<Contract> contractList = contractService.readSearch(searchTerm);
+        List<Vehicle> vehicleList = vehicleService.fromContracts(contractList);
+        List<Customer> customerList = customerService.fromContracts(contractList);
+
+        model.addAttribute("contractList", contractList);
+        model.addAttribute("vehicleList", vehicleList);
+        model.addAttribute("customerList", customerList);
+        return "contract/contractMenuSearch";
+
+    }
+
     @GetMapping("/viewDetails/{idContract}")
-    public String viewDetailsGet(@PathVariable("idContract") int id, Model contractModel,
-                                 Model vehicleModel, Model customerModel, Model licenceModel) {
+    public String viewDetailsGet(@PathVariable("idContract") int id, Model model) {
         Contract contract = contractService.findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
         Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
         List<Licence> licenceList = licenceService.readFromContractId(id);
 
-        contractModel.addAttribute("contract", contract);
-        vehicleModel.addAttribute("vehicle", vehicle);
-        customerModel.addAttribute("customer", customer);
-        licenceModel.addAttribute("licenceList", licenceList);
+        model.addAttribute("contract", contract);
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+        model.addAttribute("licenceList", licenceList);
         return "contract/viewDetails";
     }
 

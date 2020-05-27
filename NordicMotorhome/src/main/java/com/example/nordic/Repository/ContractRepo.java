@@ -21,6 +21,25 @@ public class ContractRepo {
         return jdbcTemplate.query(sql, rowMapper);
     }
 
+    public List<Contract> readSearch(String search) {
+        String queryItem = "%" + search + "%";
+        String sql = "SELECT * FROM contract\n" +
+                "INNER JOIN vehicle ON contract.idVehicle = vehicle.idVehicle\n" +
+                "INNER JOIN customer ON contract.idCustomer = customer.idCustomer\n" +
+                "INNER JOIN model ON vehicle.idModel = model.idModel\n" +
+                "WHERE contract.idContract LIKE ? OR \n" +
+                "contract.startDate LIKE ? OR\n" +
+                "contract.endDate LIKE ? OR \n" +
+                "model.brand LIKE ? OR \n" +
+                "model.modelType LIKE ? OR \n" +
+                "customer.firstName LIKE ? OR \n" +
+                "customer.lastName LIKE ?\n" +
+                "ORDER BY contract.idContract DESC";
+        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        return jdbcTemplate.query(sql, rowMapper, queryItem, queryItem, queryItem,
+                queryItem, queryItem, queryItem, queryItem);
+    }
+
     public Contract findContractById(int id) {
         String sql = "SELECT * FROM contract\n" +
                 "INNER JOIN accessories ON accessories.idContract = contract.idContract\n" +

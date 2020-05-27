@@ -16,7 +16,11 @@ public class ContractService {
         return contractRepo.readAll();
     }
 
-    public Contract findContractById(int id){
+    public Contract findContractById(int id) {
         return contractRepo.findContractById(id);
+    }
+
+    public void deleteContract(int idContract) {
+        contractRepo.deleteContract(idContract);
     }
 }

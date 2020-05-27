@@ -57,4 +57,10 @@ public class ContractController {
         licenceModel.addAttribute("licenceList", licenceList);
         return "contract/viewDetails";
     }
+
+    @GetMapping("/deleteContract/{idContract}")
+    public String deleteContractGet(@PathVariable("idContract") int idContract) {
+        contractService.deleteContract(idContract);
+        return "redirect:/contract/contractMenu";
+    }
 }

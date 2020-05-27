@@ -28,4 +28,9 @@ public class ContractRepo {
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return jdbcTemplate.queryForObject(sql, rowMapper, id);
     }
+
+    public void deleteContract(int idContract) {
+        String sql = "DELETE FROM contract WHERE idContract = ?";
+        jdbcTemplate.update(sql, idContract);
+    }
 }

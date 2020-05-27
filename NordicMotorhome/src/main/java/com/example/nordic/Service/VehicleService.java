@@ -1,10 +1,12 @@
 package com.example.nordic.Service;
 
+import com.example.nordic.Model.Contract;
 import com.example.nordic.Model.Vehicle;
 import com.example.nordic.Repository.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,9 +39,6 @@ public class VehicleService {
     public void create(Vehicle vehicle) {
         vehicleRepo.create(vehicle);
     }
-    public void updateVehicle(int id, Vehicle vehicle) {
-        vehicleRepo.updateVehicle(id, vehicle);
-    }
 
     /**
      * Sends the id and update vehicle information to vehicleRepo
@@ -64,6 +63,14 @@ public class VehicleService {
      */
     public void deleteVehicle(int idVehicle) {
         vehicleRepo.deleteVehicle(idVehicle);
+    }
+    
+    public List<Vehicle> fromContracts(List<Contract> contractList) {
+        List<Vehicle> vehicleList = new ArrayList<Vehicle>();
+        for (Contract contract: contractList) {
+            vehicleList.add(vehicleRepo.findVehicleById(contract.getIdVehicle()));
+        }
+        return vehicleList;
     }
 
     /*

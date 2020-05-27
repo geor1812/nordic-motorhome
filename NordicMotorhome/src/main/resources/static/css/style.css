@@ -16,6 +16,32 @@ body {
     text-align: center;
 }
 
+.info {
+    overflow: hidden;
+    text-align: center;
+    margin: auto;
+}
+
+.customerInfo {
+    margin-left: 150px;
+    overflow: hidden;
+    float: left;
+    text-align: left;
+}
+
+.vehicleInfo {
+    margin-right: 150px;
+    overflow: hidden;
+    float: right;
+    text-align: left;
+}
+
+.licenceInfo {
+    display: inline-block;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
 .back-area {
     width: 82%;
     margin: auto;

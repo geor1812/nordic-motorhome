@@ -16,22 +16,24 @@
     <section class="showcase">
     </section>
 
-    <div class="back-area">
-        <a href="/vehicle/vehicleMenu" id="back-button">
-            <button class="btn">Back</button>
-        </a>
-    </div>
-
     <section class="main-section">
         <div class="container">
             <h2>Vehicle details</h2>
             <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+        </div>
+
+        <div class="back-area">
+            <a href="/vehicle/vehicleMenu" id="back-button">
+                <button class="btn">Back</button>
+            </a>
+        </div>
+
+        <div class="container">
             <p>ID: <span th:text="${vehicle.idVehicle}"/></p>
             <p>Registration Number: <span th:text="${vehicle.regNo}"/></p>
             <p>Registration Date: <span th:text="${vehicle.regDate}"/></p>
             <p>Odometer: <span th:text="${vehicle.odometer}"/></p>
-            <p>Repair Status: <span th:text="${vehicle.repairStatus}"/></p>
-            <p>Model ID: <span th:text="${vehicle.idModel}"/></p>
+            <p>Is the vehicle being repaired?: <span th:text="${vehicle.repairStatus}"/></p>
             <p>Brand: <span th:text="${vehicle.brand}"/></p>
             <p>Model Type: <span th:text="${vehicle.modelType}"/></p>
             <p>Fuel Type: <span th:text="${vehicle.fuelType}"/></p>

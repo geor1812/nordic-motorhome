@@ -16,7 +16,15 @@ public class ContractService {
         return contractRepo.readAll();
     }
 
-    public Contract findContractById(int id){
+    public List<Contract> readSearch(String search) {
+        return contractRepo.readSearch(search);
+    }
+
+    public Contract findContractById(int id) {
         return contractRepo.findContractById(id);
+    }
+
+    public void deleteContract(int idContract) {
+        contractRepo.deleteContract(idContract);
     }
 }

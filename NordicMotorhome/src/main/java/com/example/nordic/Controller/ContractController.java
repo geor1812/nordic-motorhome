@@ -11,10 +11,7 @@ import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,6 +53,20 @@ public class ContractController {
         customerModel.addAttribute("customer", customer);
         licenceModel.addAttribute("licenceList", licenceList);
         return "contract/viewDetails";
+    }
+
+    @GetMapping("/updateContract/{idContract}")
+    public String updateContractGet(@PathVariable("idContract") int idContract, Model model) {
+        contractService.setWorkingID(idContract);
+        model.addAttribute("contract", contractService.findContractById(idContract));
+        return "contract/updateContract";
+    }
+
+    @PostMapping("/updateContract")
+    public String updateContractPost(@ModelAttribute Contract contract){
+        int id = contractService.getWorkingID();
+        contractService.updateContract(id, contract);
+        return "redirect:/contract/contractMenu";
     }
 
     @GetMapping("/deleteContract/{idContract}")

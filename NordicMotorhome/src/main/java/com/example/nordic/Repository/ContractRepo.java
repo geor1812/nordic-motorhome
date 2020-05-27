@@ -1,6 +1,7 @@
 package com.example.nordic.Repository;
 
 import com.example.nordic.Model.Contract;
+import com.example.nordic.Model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -26,7 +27,14 @@ public class ContractRepo {
                 "INNER JOIN accessories ON accessories.idContract = contract.idContract\n" +
                 "WHERE contract.idContract = ?";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
-        return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        Contract c = jdbcTemplate.queryForObject(sql, rowMapper, id);
+        return c;
+    }
+
+    public void updateContract(int id, Contract c) {
+        Contract contract = findContractById(id);
+        String sqlQuery1 = "UPDATE contract SET startDate = ?, endDate = ? WHERE idContract = ?";
+        jdbcTemplate.update(sqlQuery1, c.getStartDate(), c.getEndDate(), id);
     }
 
     public void deleteContract(int idContract) {

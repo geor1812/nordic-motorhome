@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Contract</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+          <h1>Nordic Motorhome Rental</h1>
+        </div>
+    </header>
+
+    <section class="showcase">
+    </section>
+
+    <section class="main-section">
+        <div class="container">
+            <h2>Update a contract</h2>
+            <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+        </div>
+
+        <div class="back-area">
+            <a href="/" id="back-button">
+                <button class="btn">Back</button>
+            </a>
+        </div>
+
+        <div class="container">
+            <form class="update-form" action="/vehicle/updateVehicle" method="post">
+
+                <div class="label-input">
+                    <label for="startDate">Start date of Contract</label><br>
+                    <input type="date" id="startDate" name="startDate" th:value="${contract.startDate}" required>
+                </div>
+                <div class="label-input">
+                    <label for="endDate">End date of Contract</label><br>
+                    <input type="date" id="endDate" name="endDate" th:value="${contract.endDate}" required>
+                </div>
+
+                <input type="submit" onclick="return confirm('Do you confirm the update to the vehicle?')" value="Update Contract">
+            </form>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+        </div>
+    </footer>
+</body>

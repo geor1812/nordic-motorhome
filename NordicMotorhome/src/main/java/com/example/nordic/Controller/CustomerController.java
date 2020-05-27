@@ -13,7 +13,9 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    /* Get request for create customer page
+    /**
+     * Get request for create customer page
+     * @return the create customer page
      */
     @GetMapping("/createCustomer")
     public String createCustomerGet() {return "customer/createCustomer";}

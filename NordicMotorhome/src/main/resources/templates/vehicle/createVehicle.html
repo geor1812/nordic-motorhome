@@ -32,11 +32,13 @@
                 <div class="label-input">
                     <label for="brand">Brand</label><br>
                     <input type="text" id="brand" name="brand" required>
+                    <span style="color: red" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">Brand name too long</span>
                 </div>
 
                 <div class="label-input">
                     <label for="modelType">Model</label><br>
                     <input type="text" id="modelType" name="modelType" required>
+                    <span style="color: red" th:if="${#fields.hasErrors('modelType')}" th:errors="*{modelType}">Model name too long</span>
                 </div>
 
                 <div class="label-input">

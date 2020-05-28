@@ -18,7 +18,9 @@ public class Vehicle {
     private int odometer;
     private boolean repairStatus;
     private int idModel;
+    @Size(max = 45)
     private String brand;
+    @Size(max = 45)
     private String modelType;
     private String fuelType;
     private int noBeds;

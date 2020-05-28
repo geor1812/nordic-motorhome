@@ -33,9 +33,14 @@ public class ContractRepo {
 
     public void updateContract(int id, Contract c) {
         Contract contract = findContractById(id);
-        String sqlQuery1 = "UPDATE contract SET startDate = ?, endDate = ? WHERE idContract = ?";
-        jdbcTemplate.update(sqlQuery1, c.getStartDate(), c.getEndDate(), id);
+        String sql = "UPDATE contract INNER JOIN accessories ON accessories.idContract = contract.idContract\n" +
+                "SET contract.startDate = ?, contract.endDate = ?, accessories.bedLinen = ?,\n " +
+                " accessories.bikeRack = ?,accessories.childSeat = ?, accessories.grill = ?, accessories.chair = ?,\n" +
+                " accessories.tble = ? WHERE contract.idContract = ?";
+        jdbcTemplate.update(sql, c.getStartDate(), c.getEndDate(), c.getBedLinen(), c.getBikeRack(), c.getChildSeat(),
+                c.getGrill(), c.getChair(), c.getTble(), id);
     }
+
 
     public void deleteContract(int idContract) {
         String sql = "DELETE FROM contract WHERE idContract = ?";

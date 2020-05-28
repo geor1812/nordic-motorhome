@@ -6,47 +6,85 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-          <h1>Nordic Motorhome Rental</h1>
-        </div>
-    </header>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+    </div>
+</header>
 
-    <section class="showcase">
-    </section>
+<section class="showcase">
+</section>
 
-    <section class="main-section">
-        <div class="container">
-            <h2>Update a contract</h2>
-            <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
-        </div>
+<section class="main-section">
+    <div class="container">
+        <h2>Update a contract</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
 
-        <div class="back-area">
-            <a href="/" id="back-button">
-                <button class="btn">Back</button>
-            </a>
-        </div>
+    <div class="back-area">
+        <a href="/" id="back-button">
+            <button class="btn">Back</button>
+        </a>
+    </div>
 
-        <div class="container">
-            <form class="update-form" action="/vehicle/updateVehicle" method="post">
+    <div class="container">
+        <form class="update-form" action="/contract/updateContract" method="post">
+            <div class="info">
+                <h3>Contract Details</h3>
+            </div>
+            <div class="label-input">
+                <label for="startDate">Start date of Contract</label><br>
+                <input type="date" id="startDate" name="startDate" th:value="${contract.startDate}" required>
+            </div>
 
-                <div class="label-input">
-                    <label for="startDate">Start date of Contract</label><br>
-                    <input type="date" id="startDate" name="startDate" th:value="${contract.startDate}" required>
-                </div>
-                <div class="label-input">
-                    <label for="endDate">End date of Contract</label><br>
-                    <input type="date" id="endDate" name="endDate" th:value="${contract.endDate}" required>
-                </div>
+            <div class="label-input">
+                <label for="endDate">End date of Contract</label><br>
+                <input type="date" id="endDate" name="endDate" th:value="${contract.endDate}" required>
+            </div>
 
-                <input type="submit" onclick="return confirm('Do you confirm the update to the vehicle?')" value="Update Contract">
-            </form>
-        </div>
-    </section>
+            <div class="info">
+                <h3>Extra Accessories</h3>
+            </div>
 
-    <footer class="main-footer">
-        <div class="container">
-            <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
-        </div>
-    </footer>
+            <div class="label-input">
+                <label for="bedLinen">Bed Linen</label><br>
+                <input type="int" id="bedLinen" name="bedLinen" th:value="${contract.bedLinen}">
+            </div>
+
+            <div class="label-input">
+                <label for="bikeRack">Bike Rack(s)</label><br>
+                <input type="int" id="bikeRack" name="bikeRack" th:value="${contract.bikeRack}">
+            </div>
+
+            <div class="label-input">
+                <label for="childSeat">Child Seat(s)</label><br>
+                <input type="int" id="childSeat" name="childSeat" th:value="${contract.childSeat}">
+            </div>
+
+            <div class="label-input">
+                <label for="grill">Grill(s)</label><br>
+                <input type="int" id="grill" name="grill" th:value="${contract.grill}">
+            </div>
+
+            <div class="label-input">
+                <label for="chair">Chair(s)</label><br>
+                <input type="int" id="chair" name="chair" th:value="${contract.chair}">
+            </div>
+
+            <div class="label-input">
+                <label for="tble">Table(s)</label><br>
+                <input type="int" id="tble" name="tble" th:value="${contract.tble}">
+            </div>
+
+            <input type="submit" onclick="return confirm('Do you confirm the update to the contract?')" value="Update Contract">
+        </form>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
 </body>
+</html>

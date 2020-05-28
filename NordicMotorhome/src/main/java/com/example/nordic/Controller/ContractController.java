@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+
 import java.util.List;
 
 @Controller
@@ -66,6 +67,20 @@ public class ContractController {
         model.addAttribute("customer", customer);
         model.addAttribute("licenceList", licenceList);
         return "contract/viewDetails";
+    }
+
+    @GetMapping("/updateContract/{idContract}")
+    public String updateContractGet(@PathVariable("idContract") int idContract, Model model) {
+        contractService.setWorkingID(idContract);
+        model.addAttribute("contract", contractService.findContractById(idContract));
+        return "contract/updateContract";
+    }
+
+    @PostMapping("/updateContract")
+    public String updateContractPost(@ModelAttribute Contract contract){
+        int id = contractService.getWorkingID();
+        contractService.updateContract(id, contract);
+        return "redirect:/contract/contractMenu";
     }
 
     @GetMapping("/deleteContract/{idContract}")

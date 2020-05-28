@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Controller
@@ -121,6 +120,7 @@ public class ContractController {
 
     @PostMapping("/finaliseContract")
     public String finaliseContractPost(){
+        /*
         int idCustomer = customerService.getWorkingId();
         int idVehicle = vehicleService.getWorkingID();
         String startDate = contractService.getStartDate();
@@ -131,6 +131,25 @@ public class ContractController {
         contract.setStartDate(startDate);
         contract.setEndDate(endDate);
         contractService.createContract(contract);
-        return "/contract/contractMenu";
+
+         */
+        return "/contract/addAccessories";
+    }
+
+    @PostMapping("/addAccessories")
+    public String addAccessoriesPost(@ModelAttribute Contract contract){
+
+        int idCustomer = customerService.getWorkingId();
+        int idVehicle = vehicleService.getWorkingID();
+        String startDate = contractService.getStartDate();
+        String endDate = contractService.getEndDate();
+        contract.setIdCustomer(idCustomer);
+        contract.setIdVehicle(idVehicle);
+        contract.setStartDate(startDate);
+        contract.setEndDate(endDate);
+        contractService.createContract(contract);
+
+        return "redirect:/";
+
     }
 }

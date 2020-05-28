@@ -5,9 +5,11 @@ import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -47,7 +49,7 @@ public class VehicleController {
      * @return createVehicle view
      */
     @GetMapping("/createVehicle")
-    public String createVehicleGet() {
+    public String createVehicleGet(Vehicle vehicle) {
         return "vehicle/createVehicle";
     }
 
@@ -83,9 +85,13 @@ public class VehicleController {
      * @return redirects to the vehicleMenu view
      */
     @PostMapping("/createVehicle")
-    public String createVehiclePost(@ModelAttribute Vehicle vehicle) {
-        vehicleService.create(vehicle);
-        return "redirect:/vehicle/vehicleMenu";
+    public String createVehiclePost(@ModelAttribute @Valid Vehicle vehicle, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "vehicle/createVehicle";
+        } else {
+            vehicleService.create(vehicle);
+            return "redirect:/vehicle/vehicleMenu";
+        }
     }
 
     /**

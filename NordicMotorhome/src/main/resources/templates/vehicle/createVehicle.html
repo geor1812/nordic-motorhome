@@ -28,7 +28,7 @@
         </div>
 
         <div>
-            <form class="create-form" action="/vehicle/createVehicle" method="post">
+            <form class="create-form" action="/vehicle/createVehicle" th:object="${vehicle}" method="post">
                 <div class="label-input">
                     <label for="brand">Brand</label><br>
                     <input type="text" id="brand" name="brand" required>
@@ -59,7 +59,8 @@
 
                 <div class="label-input">
                     <label for="regNo">Registration number</label><br>
-                    <input type="text" id="regNo" name="regNo" required>
+                    <input type="text" id="regNo" name="regNo" required><br>
+                    <span style="color: red" th:if="${#fields.hasErrors('regNo')}" th:errors="*{regNo}">Incorrect format</span>
                 </div>
 
                 <div class="label-input">

@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-
+import java.sql.SQLOutput;
 import java.util.List;
 
 @Controller
@@ -89,18 +89,48 @@ public class ContractController {
         return "redirect:/contract/contractMenu";
     }
 
-    /* Get request for create contract page
+    /* Get request for "select dates" page
      */
-    @GetMapping("/createContract/{idCustomer}")
+    @GetMapping("/selectDates/{idCustomer}")
     public String createContractGet(@PathVariable("idCustomer") int idCustomer){
-        contractService.setIdCustomer(idCustomer);
-        return "contract/createContract";
+        customerService.setWorkingId(idCustomer);
+        return "contract/selectDates";
+    }
+    /* post request for "select dates"
+     */
+    @PostMapping("/selectDates")
+    public String availableVehicles(@ModelAttribute Contract contract,Model model){
+        //had to add numberOfBeds to contract so @ModelAttribute could be used
+        List<Vehicle> list = vehicleService.availableVehiclesList(contract.getNumberOfBeds());
+        contractService.setStartDate(contract.getStartDate());
+        contractService.setEndDate(contract.getEndDate());
+        model.addAttribute("vehicles", list);
+        return "vehicle/availableVehicles";
     }
 
-    @PostMapping("/createContract")
-    public String createContractPost(@ModelAttribute Contract contract){
-        contract.setIdCustomer(contractService.getIdCustomer());
+    @GetMapping("/finaliseContract/{idVehicle}")
+    public String finaliseContractGet(@PathVariable("idVehicle") int idVehicle,Model model){
+        Vehicle vehicle = vehicleService.findVehicleById(idVehicle);
+        vehicleService.setWorkingID(idVehicle);
+        Customer customer = customerService.findCustomerByID(customerService.getWorkingId());
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+
+        return "/contract/finaliseContract";
+    }
+
+    @PostMapping("/finaliseContract")
+    public String finaliseContractPost(){
+        int idCustomer = customerService.getWorkingId();
+        int idVehicle = vehicleService.getWorkingID();
+        String startDate = contractService.getStartDate();
+        String endDate = contractService.getEndDate();
+        Contract contract = new Contract();
+        contract.setIdCustomer(idCustomer);
+        contract.setIdVehicle(idVehicle);
+        contract.setStartDate(startDate);
+        contract.setEndDate(endDate);
         contractService.createContract(contract);
-        return "redirect:/contract/contractMenu";
+        return "/contract/contractMenu";
     }
 }

@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -15,7 +17,25 @@ public class ContractRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public void createContract(Contract contract){}
+    public void createContract(Contract contract){
+        System.out.println(contract.getIdCustomer());
+        System.out.println(contract.getIdVehicle());
+        System.out.println(contract.getStartDate());
+        System.out.println(contract.getEndDate());
+        String sql = "INSERT INTO contract \n" +
+                "(idCustomer, idVehicle, startDate, endDate) \n" +
+                "VALUES( ?, ?, ?, ? );";
+        jdbcTemplate.update( connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, contract.getIdCustomer());
+            ps.setInt(2, contract.getIdVehicle());
+            ps.setString(3, contract.getStartDate());
+            ps.setString(4, contract.getEndDate());
+
+
+            return ps;
+        });
+    }
 
     public List<Contract> readAll() {
         String sql = "SELECT * FROM contract\n" +

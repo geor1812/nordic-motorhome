@@ -24,6 +24,8 @@ public class Contract {
     private int chair;
     private int tble;
 
+    private int numberOfBeds; //had to add so @ModelAttribute Contract contract can be used for form post request
+
     /*
     Getters and setters
      */
@@ -137,5 +139,13 @@ public class Contract {
 
     public void setTble(int tble) {
         this.tble = tble;
+    }
+
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
     }
 }

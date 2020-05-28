@@ -15,6 +15,9 @@ public class ContractService {
     private int workingID;
 
     int idCustomer;
+    int numberOfBeds;
+    private String startDate;
+    private String endDate;
 
     public void createContract(Contract contract){contractRepo.createContract(contract);}
 
@@ -53,4 +56,30 @@ public class ContractService {
     public void setIdCustomer(int idCustomer) {
         this.idCustomer = idCustomer;
     }
+
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+
 }

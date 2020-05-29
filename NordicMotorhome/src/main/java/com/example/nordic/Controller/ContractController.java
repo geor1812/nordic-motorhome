@@ -71,10 +71,89 @@ public class ContractController {
         return "contract/viewDetails";
     }
 
+    @GetMapping("/updateContract/{idContract}")
+    public String updateContractGet(@PathVariable("idContract") int idContract, Model model) {
+        contractService.setWorkingID(idContract);
+        model.addAttribute("contract", contractService.findContractById(idContract));
+        return "contract/updateContract";
+    }
+
+    @PostMapping("/updateContract")
+    public String updateContractPost(@ModelAttribute Contract contract){
+        int id = contractService.getWorkingID();
+        contractService.updateContract(id, contract);
+        return "redirect:/contract/contractMenu";
+    }
+
     @GetMapping("/deleteContract/{idContract}")
     public String deleteContractGet(@PathVariable("idContract") int idContract) {
         contractService.deleteContract(idContract);
         return "redirect:/contract/contractMenu";
+    }
+
+    /* Get request for "select dates" page
+     */
+    @GetMapping("/selectDates/{idCustomer}")
+    public String createContractGet(@PathVariable("idCustomer") int idCustomer){
+        customerService.setWorkingId(idCustomer);
+        return "contract/selectDates";
+    }
+    /* post request for "select dates"
+     */
+    @PostMapping("/selectDates")
+    public String availableVehicles(@ModelAttribute Contract contract,Model model){
+        //had to add numberOfBeds to contract so @ModelAttribute could be used
+        List<Vehicle> list = vehicleService.availableVehiclesList(contract.getNumberOfBeds());
+        contractService.setStartDate(contract.getStartDate());
+        contractService.setEndDate(contract.getEndDate());
+        model.addAttribute("vehicles", list);
+        return "vehicle/availableVehicles";
+    }
+
+    @GetMapping("/finaliseContract/{idVehicle}")
+    public String finaliseContractGet(@PathVariable("idVehicle") int idVehicle,Model model){
+        Vehicle vehicle = vehicleService.findVehicleById(idVehicle);
+        vehicleService.setWorkingID(idVehicle);
+        Customer customer = customerService.findCustomerByID(customerService.getWorkingId());
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+
+        return "/contract/finaliseContract";
+    }
+
+    @PostMapping("/finaliseContract")
+    public String finaliseContractPost(){
+        /*
+        int idCustomer = customerService.getWorkingId();
+        int idVehicle = vehicleService.getWorkingID();
+        String startDate = contractService.getStartDate();
+        String endDate = contractService.getEndDate();
+        Contract contract = new Contract();
+        contract.setIdCustomer(idCustomer);
+        contract.setIdVehicle(idVehicle);
+        contract.setStartDate(startDate);
+        contract.setEndDate(endDate);
+        contractService.createContract(contract);
+
+         */
+        return "/contract/addAccessories";
+    }
+
+    @PostMapping("/addAccessories")
+    public String addAccessoriesPost(@ModelAttribute Contract contract){
+
+        int idCustomer = customerService.getWorkingId();
+        int idVehicle = vehicleService.getWorkingID();
+        String startDate = contractService.getStartDate();
+        String endDate = contractService.getEndDate();
+        contract.setIdCustomer(idCustomer);
+        contract.setIdVehicle(idVehicle);
+        contract.setStartDate(startDate);
+        contract.setEndDate(endDate);
+        contractService.createContract(contract);
+
+        return "redirect:/";
+
     }
 
     @GetMapping("/endContract/{idContract}")

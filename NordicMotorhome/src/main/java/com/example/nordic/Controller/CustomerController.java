@@ -26,8 +26,8 @@ public class CustomerController {
     @PostMapping("/createCustomer")
     public String createCustomerPost(@ModelAttribute Customer customer){
         customerService.createCustomer(customer);
-        int id = customerService.getWorkingId();
-        return "redirect:/contract/createContract/" + id;
+        int idCustomer = customerService.getLatestCustomerId();
+        return "redirect:/contract/selectDates/" + idCustomer;
     }
 
 

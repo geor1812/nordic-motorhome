@@ -11,9 +11,11 @@ import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
-
 
 import java.util.List;
 
@@ -88,4 +90,146 @@ public class ContractController {
         contractService.deleteContract(idContract);
         return "redirect:/contract/contractMenu";
     }
+
+    /* Get request for "select dates" page
+     */
+    @GetMapping("/selectDates/{idCustomer}")
+    public String createContractGet(@PathVariable("idCustomer") int idCustomer){
+        customerService.setWorkingId(idCustomer);
+        return "contract/selectDates";
+    }
+    /* post request for "select dates"
+     */
+    @PostMapping("/selectDates")
+    public String availableVehicles(@ModelAttribute Contract contract,Model model){
+        //had to add numberOfBeds to contract so @ModelAttribute could be used
+        List<Vehicle> list = vehicleService.availableVehiclesList(contract.getNumberOfBeds());
+        contractService.setStartDate(contract.getStartDate());
+        contractService.setEndDate(contract.getEndDate());
+        model.addAttribute("vehicles", list);
+        return "vehicle/availableVehicles";
+    }
+
+    @GetMapping("/finaliseContract/{idVehicle}")
+    public String finaliseContractGet(@PathVariable("idVehicle") int idVehicle,Model model){
+        Vehicle vehicle = vehicleService.findVehicleById(idVehicle);
+        vehicleService.setWorkingID(idVehicle);
+        Customer customer = customerService.findCustomerByID(customerService.getWorkingId());
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+
+        return "/contract/finaliseContract";
+    }
+
+    @PostMapping("/finaliseContract")
+    public String finaliseContractPost(){
+        /*
+        int idCustomer = customerService.getWorkingId();
+        int idVehicle = vehicleService.getWorkingID();
+        String startDate = contractService.getStartDate();
+        String endDate = contractService.getEndDate();
+        Contract contract = new Contract();
+        contract.setIdCustomer(idCustomer);
+        contract.setIdVehicle(idVehicle);
+        contract.setStartDate(startDate);
+        contract.setEndDate(endDate);
+        contractService.createContract(contract);
+
+         */
+        return "/contract/addAccessories";
+    }
+
+    @PostMapping("/addAccessories")
+    public String addAccessoriesPost(@ModelAttribute Contract contract){
+
+        int idCustomer = customerService.getWorkingId();
+        int idVehicle = vehicleService.getWorkingID();
+        String startDate = contractService.getStartDate();
+        String endDate = contractService.getEndDate();
+        contract.setIdCustomer(idCustomer);
+        contract.setIdVehicle(idVehicle);
+        contract.setStartDate(startDate);
+        contract.setEndDate(endDate);
+        contractService.createContract(contract);
+
+        return "redirect:/";
+
+    }
+
+    @GetMapping("/endContract/{idContract}")
+    public String endContractGet(@PathVariable("idContract") int id, Model model) {
+        Contract contract = contractService.findContractById(id);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+        Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
+        List<Licence> licenceList = licenceService.readFromContractId(id);
+
+        model.addAttribute("contract", contract);
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+        model.addAttribute("licenceList", licenceList);
+        return "contract/endContract";
+    }
+
+
+    @GetMapping("/contractCancellation/{idContract}")
+    public String contractCancellation(@PathVariable("idContract") int id, WebRequest webRequest, Model model){
+
+        String currentDate = webRequest.getParameter("currentDate");
+        String startDate ="${idContract.startDate}";
+        Contract contract = contractService.findContractById(id);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+
+        contractService.setWorkingID(id);
+
+        model.addAttribute("contract", contract);
+        model.addAttribute("vehicle", vehicle);
+
+        return "contract/contractCancellation";
+    }
+    /*
+    @GetMapping("/contractCancellation2")
+    public String contractCancellation(Model model){
+        System.out.println("1");
+        int id = contractService.getWorkingID();
+        Contract contract = contractService.findContractById(id);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+
+        model.addAttribute("contract", contract);
+        model.addAttribute("vehicle", vehicle);
+        System.out.println("2");
+        return "contract/contractCancellation2";
+    }
+
+     */
+
+    @PostMapping("/contractCancellation")
+    public String contractCancellation(WebRequest webRequest, Model model){
+
+        String currentDate = webRequest.getParameter("currentDate");
+        int id = contractService.getWorkingID();
+        Contract contract = contractService.findContractById(id);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("contract", contract);
+        double fee = contractService.cancellation(id, currentDate);
+        model.addAttribute("fee", fee);
+        model.addAttribute("currentDate", currentDate);
+        contractService.setWorkingFee(fee);
+
+
+        return "contract/contractCancellation2";
+    }
+
+    @GetMapping("/confirmCancellation")
+    public String confirmCancellation() {
+        int idContract = contractService.getWorkingID();
+        double fee = contractService.getWorkingFee();
+
+        System.out.println("id contract check: " + idContract);
+        System.out.println("fee check : " + fee);
+
+        contractService.archiveContract(idContract, fee);
+        return "redirect:/contract/contractMenu";
+    }
+
 }

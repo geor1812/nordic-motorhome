@@ -19,6 +19,8 @@ public class CustomerService {
 
     public void createCustomer(Customer customer){customerRepo.createCustomer(customer);}
 
+    public int getLatestCustomerId(){return customerRepo.getLatestCustomerId();}
+
     public Customer findCustomerByID(int id) {
         return customerRepo.findCustomerById(id);
     }

@@ -1,5 +1,6 @@
 package com.example.nordic.Controller;
 
+import com.example.nordic.Model.Contract;
 import com.example.nordic.Model.Vehicle;
 import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;

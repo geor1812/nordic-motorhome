@@ -124,4 +124,13 @@ public class VehicleRepo {
         String sql = "DELETE FROM vehicle WHERE idVehicle = ?";
         jdbcTemplate.update(sql, idVehicle);
     }
+
+    public List<Vehicle> availableVehiclesList(int numberOfBeds) {
+        String sql = "SELECT * FROM vehicle\n" +
+                "INNER JOIN model ON model.idModel = vehicle.idModel\n" +
+                "WHERE model.noBeds = ? \n" +
+                "ORDER BY vehicle.idVehicle\n";
+        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        return jdbcTemplate.query(sql, rowMapper, numberOfBeds);
+    }
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract Cancellation</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+    </div>
+</header>
+
+
+<section class="showcase">
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <h2>Contract cancellation</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
+    <div class="back-area">
+        <a href="/contract/contractMenu" id="back-button">
+            <button class="btn">Back</button>
+        </a>
+    </div>
+
+    <form action="/contract/contractCancellation" class="info" method="post">
+        <label for="currentDate">Current Date:</label><br>
+        <input type="date" name="currentDate" id="currentDate" required><br>
+        <input type="submit" value="Cancel Contract">
+    </form>
+
+
+
+
+    <div class="container">
+        <div class="info">
+            <h3>Contract Details</h3>
+            <p>Contract ID: <span th:text="${contract.idContract}"/></p>
+            <p>Start Date: <span th:text="${contract.startDate}"/></p>
+            <p>End Date: <span th:text="${contract.endDate}"/></p>
+        </div>
+
+
+
+        <div class="info">
+            <h3>Vehicle Price</h3>
+            <p>Price per day: €<span th:text="${vehicle.pricePerDay}"/></p>
+        </div>
+
+
+        <div class="info">
+            <h3>Extra Accessories</h3>
+            <p>Bed Linen: <span th:text="${contract.bedLinen}"/></p>
+            <p>Bike Rack: <span th:text="${contract.bikeRack}"/></p>
+            <p>Child Seat: <span th:text="${contract.childSeat}"/></p>
+            <p>Grill: <span th:text="${contract.grill}"/></p>
+            <p>Chair: <span th:text="${contract.chair}"/></p>
+            <p>Table: <span th:text="${contract.tble}"/></p>
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+
+</body>
+</html>

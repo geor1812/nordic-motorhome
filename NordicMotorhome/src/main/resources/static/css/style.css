@@ -22,14 +22,14 @@ body {
     margin: auto;
 }
 
-.customerInfo {
+.leftSide {
     margin-left: 150px;
     overflow: hidden;
     float: left;
     text-align: left;
 }
 
-.vehicleInfo {
+.rightSide {
     margin-right: 150px;
     overflow: hidden;
     float: right;

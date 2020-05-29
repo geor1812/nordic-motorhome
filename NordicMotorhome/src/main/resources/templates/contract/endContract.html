@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>View Contract Details</title>
+    <title>End Contract</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -36,7 +36,7 @@
             <p>End Date: <span th:text="${contract.endDate}"/></p>
         </div>
 
-        <div class="leftSide">
+        <div class="leftInfo">
             <h3>Customer Details</h3>
             <p>Customer ID: <span th:text="${customer.idCustomer}"/></p>
             <p>First Name: <span th:text="${customer.firstName}"/></p>
@@ -49,7 +49,7 @@
             <p>ZIP: <span th:text="${customer.zip}"/></p>
         </div>
 
-        <div class="rightSide">
+        <div class="rightInfo">
             <h3>Vehicle Details</h3>
             <p>Vehicle ID: <span th:text="${vehicle.idVehicle}"/></p>
             <p>Registration Number: <span th:text="${vehicle.regNo}"/></p>
@@ -104,6 +104,19 @@
             <p>Table: <span th:text="${contract.tble}"/></p>
         </div>
 
+    </div>
+
+    <div class="container">
+
+        <button class="btn">Checkout Contract</button>
+
+        <a th:href="@{'/contract/contractCancellation/'+${contract.idContract}}">
+            <button class="btn"> Cancel Contract</button>
+        </a>
+
+        <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
+            <button class="btn" onclick="return confirm('Do you confirm the deletion of the contract?')" >Delete Contract</button>
+        </a>
     </div>
 
 </section>

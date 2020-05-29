@@ -52,4 +52,15 @@ public class ContractRepo {
         String sql = "DELETE FROM contract WHERE idContract = ?";
         jdbcTemplate.update(sql, idContract);
     }
+
+    public void archiveContract(Contract contract, double fee){
+        System.out.println(fee);
+        String sql = "INSERT INTO archive\n" +
+                "(startDate, endDate, idVehicle, idCustomer, totalCost, fuelCharge)\n" +
+                "VALUES\n" +
+                "(?, ?, ?, ?, ?, 0)";
+
+        jdbcTemplate.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getIdVehicle(), contract.getIdCustomer(),
+            fee);
+    }
 }

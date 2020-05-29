@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+        <img th:src="@{/logo.png}" alt="Logo" id="logo" />
+    </div>
+</header>
+
+<section class="showcase">
+    <div class="container">
+        <h2>Add a new licence</h2>
+    </div>
+    <a href="#" id="home"></a>
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <form class="create-form" action="/contract/createLicence" method="post">
+            <div class="label-input">
+                <label for="firstName">First Name</label><br>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+
+            <div class="label-input">
+                <label for="lastName">Last Name</label><br>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="label-input">
+                <label for="LicenceNo">Licence Number</label><br>
+                <input type="text" id="LicenceNo" name="LicenceNo" required>
+            </div>
+
+
+            <div class="label-input">
+                <label for="birthDate">Birth Date</label><br>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+
+            <div class="label-input">
+                <label for="country">Country</label><br>
+                <input type="text" id="country" name="country" required>
+            </div>
+
+            <div class="label-input">
+                <label for="issueDate">Issue Date</label><br>
+                <input type="date" id="issueDate" name="issueDate" required>
+            </div>
+
+            <div class="label-input">
+                <label for="expiryDate">Expiry Date</label><br>
+                <input type="date" id="expiryDate" name="expiryDate" >
+            </div>
+
+            <div class="label-input">
+                <label for="originator">Issuer</label><br>
+                <input type="text" id="originator" name="originator" required>
+            </div>
+
+            <div class="label-input">
+                <label for="cpr">Cpr</label><br>
+                <input type="text" id="cpr" name="cpr" required>
+            </div>
+
+            <input type="submit" value="Add Licence">
+        </form>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+</body>

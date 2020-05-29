@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Customer</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+    </div>
+</header>
+
+<section class="showcase">
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <h2>Create Contract</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
+    <div class="back-area">
+        <a href="/" id="back-button">
+            <button class="btn">Back</button>
+        </a>
+    </div>
+
+    <div class="container">
+        <p>Please choose the customer for which the contract will be created</p>
+        <a href="customer/createCustomer" id="createCustomer">
+            <button class="btn">Add New Customer</button>
+        </a>
+    </div>
+
+    <div class="container">
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer: ${customerList}">
+                <td th:text="${customer.idCustomer}" />
+                <td th:text="${customer.firstName}" />
+                <td th:text="${customer.lastName}" />
+                <td th:text="${customer.phoneNo}" />
+                <td th:text="${customer.email}" />
+                <td>
+                    <a th:href="@{'/contract/selectDates/'+${customer.idCustomer}}">
+                        <button class="btn" onclick="return confirm('Do you confirm the selection of this customer?')" >Select</button>
+                    </a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+</body>
+</html>

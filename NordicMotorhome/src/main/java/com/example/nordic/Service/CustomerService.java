@@ -40,4 +40,7 @@ public class CustomerService {
     public void setWorkingId(int workingId) {
         this.workingId = workingId;
     }
+
+    public List<Customer> readAll() { return customerRepo.readAll();
+    }
 }

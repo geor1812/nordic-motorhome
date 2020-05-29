@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Accessories</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+        <img th:src="@{/logo.png}" alt="Logo" id="logo" />
+    </div>
+</header>
+
+<section class="showcase">
+    <div class="container">
+        <h2>Add Accessories</h2>
+    </div>
+    <a href="#" id="home"></a>
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <form class="create-form" action="/contract/addAccessories" method="post">
+            <div class="label-input">
+                <label for="bedLinen">Bed Linen</label><br>
+                <input type="number" id="bedLinen" name="bedLinen" value="0" >
+            </div>
+
+            <div class="label-input">
+                <label for="bikeRack">Bike Rack</label><br>
+                <input type="number" id="bikeRack" name="bikeRack" value="0" >
+            </div>
+
+            <div class="label-input">
+                <label for="childSeat">Bike Rack</label><br>
+                <input type="number" id="childSeat" name="childSeat" value="0" >
+            </div>
+
+            <div class="label-input">
+                <label for="grill">Grill</label><br>
+                <input type="number" id="grill" name="grill" value="0" >
+            </div>
+
+            <div class="label-input">
+                <label for="chair">Chair</label><br>
+                <input type="number" id="chair" name="chair" value="0" >
+            </div>
+            <div class="label-input">
+                <label for="tble">Table</label><br>
+                <input type="number" id="tble" name="tble" value="0" >
+            </div>
+
+            <input type="submit" value="Add Accessories">
+        </form>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+</body>

@@ -108,4 +108,15 @@ public class ContractRepo {
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return jdbcTemplate.query(sql, rowMapper);
     }
+
+    public void archiveContract(Contract contract, double fee){
+        System.out.println(fee);
+        String sql = "INSERT INTO archive\n" +
+                "(startDate, endDate, idVehicle, idCustomer, totalCost, fuelCharge)\n" +
+                "VALUES\n" +
+                "(?, ?, ?, ?, ?, 0)";
+
+        jdbcTemplate.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getIdVehicle(), contract.getIdCustomer(),
+            fee);
+    }
 }

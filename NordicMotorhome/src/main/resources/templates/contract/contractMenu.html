@@ -77,17 +77,11 @@
                         <button class="btn" >Edit</button>
                     </a>
 
-                    <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
-                        <button class="btn">Cancel</button>
+                    <a th:href="@{'/contract/endContract/'+${contract.idContract}}">
+                        <button class="btn">End Contract</button>
                     </a>
 
-                    <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
-                        <button class="btn">Checkout</button>
-                    </a>
 
-                    <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
-                        <button class="btn" onclick="return confirm('Do you confirm the deletion of the contract?')" >Delete</button>
-                    </a>
                 </td>
 
             </tr>

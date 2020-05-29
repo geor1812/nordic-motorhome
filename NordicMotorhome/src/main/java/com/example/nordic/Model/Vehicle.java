@@ -2,18 +2,25 @@ package com.example.nordic.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Vehicle {
     //Fields
     @Id
     private int idVehicle;
+    @Pattern(message = "Incorrect format, try [AA12345] format", regexp="[a-zA-Z]{2}\\d{5}")
     private String regNo;
     private String regDate;
     private int odometer;
     private boolean repairStatus;
     private int idModel;
+    @Size(max = 45)
     private String brand;
+    @Size(max = 45)
     private String modelType;
     private String fuelType;
     private int noBeds;

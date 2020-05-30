@@ -11,10 +11,7 @@ import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.ListUtils;
 
@@ -94,7 +91,7 @@ public class ContractController {
     }
 
     @GetMapping("/createChooseCustomer")
-    public String createCustomerGet(Model model) {
+    public String createChooseCustomerGet(Model model) {
         List<Customer> customerList = customerService.readAll();
         model.addAttribute("customerList", customerList);
         return "contract/createChooseCustomer";
@@ -115,7 +112,6 @@ public class ContractController {
         //had to add numberOfBeds to contract so @ModelAttribute could be used
         List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getStartDate(), contract.getEndDate(),
         contract.getNumberOfBeds());
-        System.out.println(listDates.get(1));
         contractService.setStartDate(contract.getStartDate());
         contractService.setEndDate(contract.getEndDate());
         model.addAttribute("vehicles", listDates);
@@ -148,7 +144,7 @@ public class ContractController {
 
     @PostMapping("/createLicence")
     public String createLicencePost(@ModelAttribute Licence licence){
-        //licence.setIdContract(contractService.getWorkingID());
+        licence.setIdContract(contractService.getWorkingID());
         String idLicence = licenceService.createLicence(licence);
         return "redirect:/contract/finaliseContract/" +  idLicence;
     }
@@ -180,22 +176,6 @@ public class ContractController {
         return "redirect:/contract/contractMenu";
     }
 
-    @PostMapping("/addAccessories")
-    public String addAccessoriesPost(@ModelAttribute Contract contract){
-
-        int idCustomer = customerService.getWorkingId();
-        int idVehicle = vehicleService.getWorkingID();
-        String startDate = contractService.getStartDate();
-        String endDate = contractService.getEndDate();
-        contract.setIdCustomer(idCustomer);
-        contract.setIdVehicle(idVehicle);
-        contract.setStartDate(startDate);
-        contract.setEndDate(endDate);
-        contractService.createContract(contract);
-
-        return "redirect:/";
-
-    }
 
     @GetMapping("/endContract/{idContract}")
     public String endContractGet(@PathVariable("idContract") int id, Model model) {

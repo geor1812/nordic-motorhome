@@ -27,7 +27,6 @@ public class ContractService {
     private int workingID;
 
     private double workingFee;
-    private int workingID;
 
     public double getWorkingFee() {
         return workingFee;
@@ -61,13 +60,6 @@ public class ContractService {
         contractRepo.updateContract(id, contract);
     }
 
-    public int getWorkingID() {
-        return workingID;
-    }
-
-    public void setWorkingID(int workingID) {
-        this.workingID = workingID;
-    }
 
     public void deleteContract(int idContract) {
         contractRepo.deleteContract(idContract);

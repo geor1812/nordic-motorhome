@@ -18,7 +18,8 @@ public class CustomerController {
      * @return the create customer page
      */
     @GetMapping("/createCustomer")
-    public String createCustomerGet() {return "customer/createCustomer";}
+    public String createCustomerGet() {
+        return "customer/createCustomer";}
 
     /* Post method which creates a customer object and sends it to customerService
 

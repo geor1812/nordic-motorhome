@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Contract Cancellation</title>
+    <title>Contract Checkout</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -18,7 +18,7 @@
 
 <section class="main-section">
     <div class="container">
-        <h2>Contract cancellation</h2>
+        <h2>Contract checkout</h2>
         <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
     </div>
 
@@ -28,13 +28,17 @@
         </a>
     </div>
 
-    <form action="/contract/contractCancellation" class="info" method="post">
-        <label for="currentDate">Current Date:</label><br>
-        <input type="date" name="currentDate" id="currentDate" required><br>
-        <input type="submit" value="Cancel Contract">
-    </form>
+    <div class="container">
+        <div class="info">
+            <h3>Pricing</h3>
+            <p>Vehicle price: </p>
+            <p>Accessories price: </p>
+            <p>Extra km charge: </p>
+            <p>Pick-up charge: </p>
+            <p>Fuel charge: </p>
+        </div>
 
-
+    </div>
 
 
     <div class="container">
@@ -68,6 +72,9 @@
             <p>Table: <span th:text="${contract.tble}"/></p>
         </div>
 
+        <a th:href="@{'/contract/confirmCheckout'}">
+            <button class="btn" onclick="return confirm('Do you confirm the checkout of the contract?')" >Checkout Contract</button>
+        </a>
     </div>
 
 </section>

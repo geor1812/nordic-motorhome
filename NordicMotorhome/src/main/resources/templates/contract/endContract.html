@@ -107,8 +107,10 @@
     </div>
 
     <div class="container">
+        <a th:href="@{'/contract/contractCheckout/'+${contract.idContract}}">
+            <button class="btn">Checkout Contract</button>
+        </a>
 
-        <button class="btn">Checkout Contract</button>
 
         <a th:href="@{'/contract/contractCancellation/'+${contract.idContract}}">
             <button class="btn"> Cancel Contract</button>

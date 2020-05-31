@@ -188,6 +188,19 @@ public class ContractController {
         model.addAttribute("contract", contract);
         model.addAttribute("vehicle", vehicle);
         model.addAttribute("customer", customer);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("standardPrice", contractService.totalPrice(id));
+        model.addAttribute("odometerCharge", contractService.getWorkingOdometerCharge());
+        model.addAttribute("pickUpCharge", contractService.getWorkingPickUpCharge());
+        if(fuelCharge) {
+            model.addAttribute("fuelCharge", 50);
+        } else {
+            model.addAttribute("fuelCharge", 0);
+        }
+
+
+        contractService.setWorkingFuelCharge(fuelCharge);
+        contractService.setWorkingFee(totalPrice);
 
         return "contract/contractCheckout2";
     }
@@ -234,13 +247,20 @@ public class ContractController {
         int idContract = contractService.getWorkingID();
         double fee = contractService.getWorkingFee();
 
-        contractService.archiveContract(idContract, fee);
+        contractService.archiveContract(idContract, fee, 0, 0, false);
         return "redirect:/contract/contractMenu";
     }
 
     @GetMapping("/confirmCheckout")
-    public  String confirmCheckout() {
+    public String confirmCheckout() {
+        int id = contractService.getWorkingID();
+        double price = contractService.getWorkingFee();
+        double odometerCharge = contractService.getWorkingOdometerCharge();
+        double pickUpCharge = contractService.getWorkingPickUpCharge();
+        boolean fuelCharge = contractService.isWorkingFuelCharge();
+
+        contractService.archiveContract(id, price, odometerCharge, pickUpCharge, fuelCharge);
+
         return "redirect:/contract/contractMenu";
     }
-
 }

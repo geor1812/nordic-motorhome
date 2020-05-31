@@ -5,7 +5,6 @@ import com.example.nordic.Model.Vehicle;
 import com.example.nordic.Repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.util.resources.cldr.aa.CalendarData_aa_ER;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,8 +13,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Service
 public class ContractService {
@@ -28,8 +25,8 @@ public class ContractService {
     private int workingID;
     private String startDate;
     private String endDate;
-    private int workingEndOdometer;
-    private int workingPickUpKm;
+    private double workingOdometerCharge;
+    private double workingPickUpCharge;
     private boolean workingFuelCharge;
 
     public void createContract(Contract contract){contractRepo.createContract(contract);}
@@ -142,19 +139,25 @@ public class ContractService {
             price += 50;
         }
 
+        double odometerCharge = 0;
         double kmDriven = endOdometer - vehicle.getOdometer();
         if((kmDriven / amountOfDays) > 400) {
-            price += ((kmDriven / amountOfDays) - 400) * amountOfDays;
+            odometerCharge = ((kmDriven / amountOfDays) - 400) * amountOfDays;
+        } else {
+            odometerCharge = 0;
         }
+        setWorkingOdometerCharge(odometerCharge);
 
-        price += pickUpKm * 0.7;
+        double pickUpCharge = pickUpKm * 0.7;
+        price += pickUpCharge;
+        setWorkingPickUpCharge(pickUpCharge);
 
         return price;
     }
 
-    public void archiveContract(int id, double fee){
+    public void archiveContract(int id, double fee, double odometerCharge, double pickUpCharge, boolean fuelCharge){
         Contract contract = findContractById(id);
-        contractRepo.archiveContract(contract, fee);
+        contractRepo.archiveContract(contract, fee, odometerCharge, pickUpCharge, fuelCharge);
         contractRepo.deleteContract(id);
     }
 
@@ -190,20 +193,20 @@ public class ContractService {
         this.workingID = workingID;
     }
 
-    public int getWorkingEndOdometer() {
-        return workingEndOdometer;
+    public double getWorkingOdometerCharge() {
+        return workingOdometerCharge;
     }
 
-    public void setWorkingEndOdometer(int workingEndOdometer) {
-        this.workingEndOdometer = workingEndOdometer;
+    public void setWorkingOdometerCharge(double workingOdometerCharge) {
+        this.workingOdometerCharge = workingOdometerCharge;
     }
 
-    public int getWorkingPickUpKm() {
-        return workingPickUpKm;
+    public double getWorkingPickUpCharge() {
+        return workingPickUpCharge;
     }
 
-    public void setWorkingPickUpKm(int workingPickUpKm) {
-        this.workingPickUpKm = workingPickUpKm;
+    public void setWorkingPickUpCharge(double workingPickUpCharge) {
+        this.workingPickUpCharge = workingPickUpCharge;
     }
 
     public boolean isWorkingFuelCharge() {

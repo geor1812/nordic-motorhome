@@ -88,14 +88,14 @@ public class ContractRepo {
         jdbcTemplate.update(sql, idContract);
     }
 
-    public void archiveContract(Contract contract, double fee){
+    public void archiveContract(Contract contract, double fee, double odometerCharge, double pickUpCharge, boolean fuelCharge){
         System.out.println(fee);
         String sql = "INSERT INTO archive\n" +
-                "(startDate, endDate, idVehicle, idCustomer, totalCost, fuelCharge)\n" +
+                "(startDate, endDate, idVehicle, idCustomer, totalCost, fuelCharge, odometerCharge, pickUpCharge)\n" +
                 "VALUES\n" +
-                "(?, ?, ?, ?, ?, 0)";
+                "(?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getIdVehicle(), contract.getIdCustomer(),
-            fee);
+            fee, fuelCharge, odometerCharge, pickUpCharge);
     }
 }

@@ -184,8 +184,7 @@ public class ContractController {
         Contract contract = contractService.findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
         Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
-
-
+        
         model.addAttribute("contract", contract);
         model.addAttribute("vehicle", vehicle);
         model.addAttribute("customer", customer);
@@ -217,9 +216,11 @@ public class ContractController {
         double fee = contractService.cancellation(id, currentDate);
         Contract contract = contractService.findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+        Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
 
         model.addAttribute("vehicle", vehicle);
         model.addAttribute("contract", contract);
+        model.addAttribute("customer", customer);
         model.addAttribute("fee", fee);
         model.addAttribute("currentDate", currentDate);
 

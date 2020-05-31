@@ -5,10 +5,13 @@ import com.example.nordic.Model.Vehicle;
 import com.example.nordic.Repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.util.resources.cldr.aa.CalendarData_aa_ER;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -51,45 +54,62 @@ public class ContractService {
         contractRepo.deleteContract(idContract);
     }
 
+    public int accesoriesPricePerDay(int id) {
+        Contract contract = findContractById(id);
+        return (contract.getBedLinen() * 5) + (contract.getBikeRack() * 8) +
+                (contract.getChildSeat() * 4) + (contract.getGrill() * 10) +
+                (contract.getChair() * 4) + (contract.getTble() * 10);
+    }
+
     public int totalPrice(int id){
         Contract contract = findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
 
-        Date startDate = null;
-        Date endDate = null;
+        long amountOfDays = daysBetweenDays(contract.getEndDate(), contract.getStartDate());
+        int accessoriesTotalPerDay = accesoriesPricePerDay(id);
+        int vehiclePricePerDay = vehicle.getPricePerDay();
+
+        Date d = null;
         try {
-            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getStartDate());
-            endDate = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getEndDate());
+            d = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getStartDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long amountOfDays = endDate.getTime() - startDate.getTime();
-        amountOfDays = TimeUnit.DAYS.convert(amountOfDays, TimeUnit.MILLISECONDS);
+        Calendar myCal = new GregorianCalendar();
+        myCal.setTime(d);
 
-        int accessoriesTotalPerDay = (contract.getBedLinen() * 5) + (contract.getBikeRack() * 8) + (contract.getChildSeat() * 4) + (contract.getGrill() * 10) + (contract.getChair() * 4) + (contract.getTble() * 10);
-        int vehiclePricePerDay = vehicle.getPricePerDay();
+        int month = myCal.get((Calendar.MONTH) + 1);
+
+        if(month == 3 || month == 4 || month == 10 || month == 11) {
+            vehiclePricePerDay = vehiclePricePerDay + ((vehiclePricePerDay * 30) / 100);
+        } else if(month == 5 || month == 6 || month == 7 || month == 8 || month == 9) {
+            vehiclePricePerDay = vehiclePricePerDay + ((vehiclePricePerDay * 60) / 100);
+        }
+
         int pricePerDay = accessoriesTotalPerDay + vehiclePricePerDay;
         int totalPrice = (int) (pricePerDay * amountOfDays);
 
         return totalPrice;
     }
 
-    public double cancellation(int id, String currentDate){
-
-        Contract contract = findContractById(id);
-        Date cancellationDate = null;
-        Date startDate = null;
+    public long daysBetweenDays(String date1, String date2) {
+        Date d1 = null;
+        Date d2 = null;
         try {
-            cancellationDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
-            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getStartDate());
+            d1 = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+            d2 = new SimpleDateFormat("yyyy-MM-dd").parse(date2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long amountOfDays = startDate.getTime() - cancellationDate.getTime();
-        amountOfDays = TimeUnit.DAYS.convert(amountOfDays, TimeUnit.MILLISECONDS);
+        long amountOfDays = d1.getTime() - d2.getTime();
+        return TimeUnit.DAYS.convert(amountOfDays, TimeUnit.MILLISECONDS);
+    }
 
+    public double cancellation(int id, String currentDate){
+        Contract contract = findContractById(id);
+        long amountOfDays = daysBetweenDays(contract.getStartDate(), currentDate);
         int totalPrice = totalPrice(id);
         double cancellationFee = 0;
 
@@ -112,7 +132,24 @@ public class ContractService {
     }
 
     public double checkout(int id, int endOdometer, int pickUpKm, boolean fuelCharge) {
-        return 0;
+        Contract contract = findContractById(id);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+
+        long amountOfDays = daysBetweenDays(contract.getEndDate(), contract.getStartDate());
+        double price = totalPrice(id);
+
+        if(fuelCharge)  {
+            price += 50;
+        }
+
+        double kmDriven = endOdometer - vehicle.getOdometer();
+        if((kmDriven / amountOfDays) > 400) {
+            price += ((kmDriven / amountOfDays) - 400) * amountOfDays;
+        }
+
+        price += pickUpKm * 0.7;
+
+        return price;
     }
 
     public void archiveContract(int id, double fee){

@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Service
 public class ContractService {
@@ -24,23 +24,14 @@ public class ContractService {
     ContractRepo contractRepo;
     @Autowired
     VehicleService vehicleService;
-    private int workingID;
 
     private double workingFee;
-
-    public double getWorkingFee() {
-        return workingFee;
-    }
-
-    public void setWorkingFee(double workingFee) {
-        this.workingFee = workingFee;
-    }
-
-
-    int idCustomer;
-    int numberOfBeds;
+    private int workingID;
     private String startDate;
     private String endDate;
+    private double workingOdometerCharge;
+    private double workingPickUpCharge;
+    private boolean workingFuelCharge;
 
     public String createContract(Contract contract){return contractRepo.createContract(contract);}
 
@@ -60,92 +51,66 @@ public class ContractService {
         contractRepo.updateContract(id, contract);
     }
 
-
     public void deleteContract(int idContract) {
         contractRepo.deleteContract(idContract);
     }
 
-    public int getIdCustomer() {
-        return idCustomer;
-    }
-
-    public void setIdCustomer(int idCustomer) {
-        this.idCustomer = idCustomer;
-    }
-
-    public int getNumberOfBeds() {
-        return numberOfBeds;
-    }
-
-    public void setNumberOfBeds(int numberOfBeds) {
-        this.numberOfBeds = numberOfBeds;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-
-
-    public int getWorkingID() {
-        return workingID;
-    }
-
-    public void setWorkingID(int workingID) {
-        this.workingID = workingID;
+    public int accesoriesPricePerDay(int id) {
+        Contract contract = findContractById(id);
+        return (contract.getBedLinen() * 5) + (contract.getBikeRack() * 8) +
+                (contract.getChildSeat() * 4) + (contract.getGrill() * 10) +
+                (contract.getChair() * 4) + (contract.getTble() * 10);
     }
 
     public int totalPrice(int id){
         Contract contract = findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
 
-        Date startDate = null;
-        Date endDate = null;
+        long amountOfDays = daysBetweenDays(contract.getEndDate(), contract.getStartDate());
+        int accessoriesTotalPerDay = accesoriesPricePerDay(id);
+        int vehiclePricePerDay = vehicle.getPricePerDay();
+
+        Date d = null;
         try {
-            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getStartDate());
-            endDate = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getEndDate());
+            d = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getStartDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long amountOfDays = endDate.getTime() - startDate.getTime();
-        amountOfDays = TimeUnit.DAYS.convert(amountOfDays, TimeUnit.MILLISECONDS);
+        Calendar myCal = new GregorianCalendar();
+        myCal.setTime(d);
 
-        int accessoriesTotalPerDay = (contract.getBedLinen() * 5) + (contract.getBikeRack() * 8) + (contract.getChildSeat() * 4) + (contract.getGrill() * 10) + (contract.getChair() * 4) + (contract.getTble() * 10);
-        int vehiclePricePerDay = vehicle.getPricePerDay();
+        int month = myCal.get((Calendar.MONTH) + 1);
+
+        if(month == 3 || month == 4 || month == 10 || month == 11) {
+            vehiclePricePerDay = vehiclePricePerDay + ((vehiclePricePerDay * 30) / 100);
+        } else if(month == 5 || month == 6 || month == 7 || month == 8 || month == 9) {
+            vehiclePricePerDay = vehiclePricePerDay + ((vehiclePricePerDay * 60) / 100);
+        }
+
         int pricePerDay = accessoriesTotalPerDay + vehiclePricePerDay;
         int totalPrice = (int) (pricePerDay * amountOfDays);
 
         return totalPrice;
     }
 
-    public double cancellation(int id, String currentDate){
-
-        Contract contract = findContractById(id);
-        Date cancellationDate = null;
-        Date startDate = null;
+    public long daysBetweenDays(String date1, String date2) {
+        Date d1 = null;
+        Date d2 = null;
         try {
-            cancellationDate = new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
-            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(contract.getStartDate());
+            d1 = new SimpleDateFormat("yyyy-MM-dd").parse(date1);
+            d2 = new SimpleDateFormat("yyyy-MM-dd").parse(date2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long amountOfDays = startDate.getTime() - cancellationDate.getTime();
-        amountOfDays = TimeUnit.DAYS.convert(amountOfDays, TimeUnit.MILLISECONDS);
+        long amountOfDays = d1.getTime() - d2.getTime();
+        return TimeUnit.DAYS.convert(amountOfDays, TimeUnit.MILLISECONDS);
+    }
 
+    public double cancellation(int id, String currentDate){
+        Contract contract = findContractById(id);
+        long amountOfDays = daysBetweenDays(contract.getStartDate(), currentDate);
         int totalPrice = totalPrice(id);
         double cancellationFee = 0;
 
@@ -167,11 +132,95 @@ public class ContractService {
         return cancellationFee;
     }
 
-    public void archiveContract(int id, double fee){
+    public double checkout(int id, int endOdometer, int pickUpKm, boolean fuelCharge) {
         Contract contract = findContractById(id);
-        contractRepo.archiveContract(contract, fee);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+
+        long amountOfDays = daysBetweenDays(contract.getEndDate(), contract.getStartDate());
+        double price = totalPrice(id);
+
+        if(fuelCharge)  {
+            price += 50;
+        }
+
+        double odometerCharge = 0;
+        double kmDriven = endOdometer - vehicle.getOdometer();
+        if((kmDriven / amountOfDays) > 400) {
+            odometerCharge = ((kmDriven / amountOfDays) - 400) * amountOfDays;
+        } else {
+            odometerCharge = 0;
+        }
+        setWorkingOdometerCharge(odometerCharge);
+
+        double pickUpCharge = pickUpKm * 0.7;
+        price += pickUpCharge;
+        setWorkingPickUpCharge(pickUpCharge);
+
+        return price;
+    }
+
+    public void archiveContract(int id, double fee, double odometerCharge, double pickUpCharge, boolean fuelCharge){
+        Contract contract = findContractById(id);
+        contractRepo.archiveContract(contract, fee, odometerCharge, pickUpCharge, fuelCharge);
         contractRepo.deleteContract(id);
     }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getWorkingID() {
+        return workingID;
+    }
+
+    public void setWorkingID(int workingID) {
+        this.workingID = workingID;
+    }
+
+    public double getWorkingOdometerCharge() {
+        return workingOdometerCharge;
+    }
+
+    public void setWorkingOdometerCharge(double workingOdometerCharge) {
+        this.workingOdometerCharge = workingOdometerCharge;
+    }
+
+    public double getWorkingPickUpCharge() {
+        return workingPickUpCharge;
+    }
+
+    public void setWorkingPickUpCharge(double workingPickUpCharge) {
+        this.workingPickUpCharge = workingPickUpCharge;
+    }
+
+    public boolean isWorkingFuelCharge() {
+        return workingFuelCharge;
+    }
+
+    public void setWorkingFuelCharge(boolean workingFuelCharge) {
+        this.workingFuelCharge = workingFuelCharge;
+    }
+
+    public double getWorkingFee() {
+        return workingFee;
+    }
+
+    public void setWorkingFee(double workingFee) {
+        this.workingFee = workingFee;
+    }
+
     public void createLc(int idContract, int idLicence) { contractRepo.createLc(idContract, idLicence); }
 
     //returns a list of contracts where the dates dont clash
@@ -221,3 +270,4 @@ public class ContractService {
         return vehicles;
     }
 }
+

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract Checkout</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+    </div>
+</header>
+
+
+<section class="showcase">
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <h2>Contract checkout</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
+    <div class="back-area">
+        <a href="/contract/contractMenu" id="back-button">
+            <button class="btn">Back</button>
+        </a>
+    </div>
+
+    <div class="container">
+        <form class="create-form" action="/contract/contractCheckout" method="post">
+            <div class="label-input">
+                <label for="endOdometer">The km on the odometer at the end of the rental period</label><br>
+                <input type="number" id="endOdometer" name="endOdometer" required>
+            </div>
+
+            <div class="label-input">
+                <label for="pickUpKm">Number of km to the pick-up point</label><br>
+                <input type="number" id="pickUpKm" name="pickUpKm" required>
+            </div>
+
+            <div class="label-input">
+                <label for="fuelCharge">Is the tank less than half full?</label><br>
+                <input type="checkbox" id="fuelCharge" name="fuelCharge" value="true">
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+
+</body>
+</html>l>

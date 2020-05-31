@@ -108,7 +108,7 @@ public class ContractController {
     /* post request for "select dates"
      */
     @PostMapping("/selectDates")
-    public String availableVehicles(@ModelAttribute Contract contract,Model model){
+    public String availableVehicles(@ModelAttribute Contract contract, Model model){
         //had to add numberOfBeds to contract so @ModelAttribute could be used
         List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getStartDate(), contract.getEndDate(),
         contract.getNumberOfBeds());
@@ -191,6 +191,43 @@ public class ContractController {
         return "contract/endContract";
     }
 
+    @GetMapping("/contractCheckout/{idContract}")
+    public String contractCheckoutGet(@PathVariable("idContract") int id) {
+        contractService.setWorkingID(id);
+        return "contract/contractCheckout";
+    }
+
+    @PostMapping("/contractCheckout")
+    public String contractCheckoutPost(WebRequest webRequest, Model model) {
+        int endOdometer = Integer.valueOf(webRequest.getParameter("endOdometer"));
+        int pickUpKm = Integer.valueOf(webRequest.getParameter("pickUpKm"));
+        boolean fuelCharge = Boolean.valueOf(webRequest.getParameter("fuelCharge"));
+        int id = contractService.getWorkingID();
+        double totalPrice = contractService.checkout(id, endOdometer, pickUpKm, fuelCharge);
+
+        Contract contract = contractService.findContractById(id);
+        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+        Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
+        
+        model.addAttribute("contract", contract);
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("standardPrice", contractService.totalPrice(id));
+        model.addAttribute("odometerCharge", contractService.getWorkingOdometerCharge());
+        model.addAttribute("pickUpCharge", contractService.getWorkingPickUpCharge());
+        if(fuelCharge) {
+            model.addAttribute("fuelCharge", 50);
+        } else {
+            model.addAttribute("fuelCharge", 0);
+        }
+
+
+        contractService.setWorkingFuelCharge(fuelCharge);
+        contractService.setWorkingFee(totalPrice);
+
+        return "contract/contractCheckout2";
+    }
 
     @GetMapping("/contractCancellation/{idContract}")
     public String contractCancellation(@PathVariable("idContract") int id, WebRequest webRequest, Model model){
@@ -199,44 +236,32 @@ public class ContractController {
         String startDate ="${idContract.startDate}";
         Contract contract = contractService.findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
-
+        Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
         contractService.setWorkingID(id);
 
         model.addAttribute("contract", contract);
         model.addAttribute("vehicle", vehicle);
-
+        model.addAttribute("customer", customer);
         return "contract/contractCancellation";
     }
-    /*
-    @GetMapping("/contractCancellation2")
-    public String contractCancellation(Model model){
-        System.out.println("1");
-        int id = contractService.getWorkingID();
-        Contract contract = contractService.findContractById(id);
-        Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
-
-        model.addAttribute("contract", contract);
-        model.addAttribute("vehicle", vehicle);
-        System.out.println("2");
-        return "contract/contractCancellation2";
-    }
-
-     */
 
     @PostMapping("/contractCancellation")
-    public String contractCancellation(WebRequest webRequest, Model model){
+    public String contractCancellationPost(WebRequest webRequest, Model model){
 
         String currentDate = webRequest.getParameter("currentDate");
         int id = contractService.getWorkingID();
+        double fee = contractService.cancellation(id, currentDate);
         Contract contract = contractService.findContractById(id);
         Vehicle vehicle = vehicleService.findVehicleById(contract.getIdVehicle());
+        Customer customer = customerService.findCustomerByID(contract.getIdCustomer());
+
         model.addAttribute("vehicle", vehicle);
         model.addAttribute("contract", contract);
-        double fee = contractService.cancellation(id, currentDate);
+        model.addAttribute("customer", customer);
         model.addAttribute("fee", fee);
         model.addAttribute("currentDate", currentDate);
-        contractService.setWorkingFee(fee);
 
+        contractService.setWorkingFee(fee);
 
         return "contract/contractCancellation2";
     }
@@ -246,11 +271,20 @@ public class ContractController {
         int idContract = contractService.getWorkingID();
         double fee = contractService.getWorkingFee();
 
-        System.out.println("id contract check: " + idContract);
-        System.out.println("fee check : " + fee);
-
-        contractService.archiveContract(idContract, fee);
+        contractService.archiveContract(idContract, fee, 0, 0, false);
         return "redirect:/contract/contractMenu";
     }
 
+    @GetMapping("/confirmCheckout")
+    public String confirmCheckout() {
+        int id = contractService.getWorkingID();
+        double price = contractService.getWorkingFee();
+        double odometerCharge = contractService.getWorkingOdometerCharge();
+        double pickUpCharge = contractService.getWorkingPickUpCharge();
+        boolean fuelCharge = contractService.isWorkingFuelCharge();
+
+        contractService.archiveContract(id, price, odometerCharge, pickUpCharge, fuelCharge);
+
+        return "redirect:/contract/contractMenu";
+    }
 }

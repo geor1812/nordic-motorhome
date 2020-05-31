@@ -92,6 +92,14 @@ public class ContractRepo {
         jdbcTemplate.update(sql, idContract);
     }
 
+    public void archiveContract(Contract contract, double fee, double odometerCharge, double pickUpCharge, boolean fuelCharge) {
+        String sql = "INSERT INTO archive\n" +
+                "(startDate, endDate, idVehicle, idCustomer, totalCost, fuelCharge, pickUpCharge, odometerCharge)\n" +
+                "VALUES\n" +
+                "(?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getIdVehicle(),
+                contract.getIdCustomer(), fee, fuelCharge, odometerCharge, pickUpCharge);
+    }
     public void createLc(int idContract, int idLicence) {
         String sql = "INSERT INTO lc \n " +
                 "(idContract, idLicence) \n" +
@@ -107,16 +115,5 @@ public class ContractRepo {
 
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return jdbcTemplate.query(sql, rowMapper);
-    }
-
-    public void archiveContract(Contract contract, double fee){
-        System.out.println(fee);
-        String sql = "INSERT INTO archive\n" +
-                "(startDate, endDate, idVehicle, idCustomer, totalCost, fuelCharge)\n" +
-                "VALUES\n" +
-                "(?, ?, ?, ?, ?, 0)";
-
-        jdbcTemplate.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getIdVehicle(), contract.getIdCustomer(),
-            fee);
     }
 }

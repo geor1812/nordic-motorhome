@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.thymeleaf.util.ListUtils;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -88,6 +90,14 @@ public class ContractController {
         return "redirect:/contract/contractMenu";
     }
 
+    @GetMapping("/createChooseCustomer")
+    public String createChooseCustomerGet(Model model) {
+        List<Customer> customerList = customerService.readAll();
+        model.addAttribute("customerList", customerList);
+        return "contract/createChooseCustomer";
+    }
+
+
     /* Get request for "select dates" page
      */
     @GetMapping("/selectDates/{idCustomer}")
@@ -100,58 +110,72 @@ public class ContractController {
     @PostMapping("/selectDates")
     public String availableVehicles(@ModelAttribute Contract contract, Model model){
         //had to add numberOfBeds to contract so @ModelAttribute could be used
-        List<Vehicle> list = vehicleService.availableVehiclesList(contract.getNumberOfBeds());
+        List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getStartDate(), contract.getEndDate(),
+        contract.getNumberOfBeds());
         contractService.setStartDate(contract.getStartDate());
         contractService.setEndDate(contract.getEndDate());
-        model.addAttribute("vehicles", list);
+        model.addAttribute("vehicles", listDates);
         return "vehicle/availableVehicles";
     }
 
-    @GetMapping("/finaliseContract/{idVehicle}")
-    public String finaliseContractGet(@PathVariable("idVehicle") int idVehicle,Model model){
-        Vehicle vehicle = vehicleService.findVehicleById(idVehicle);
+
+    @GetMapping("/addAccessories/{idVehicle}")
+    public String addAccessoriesGet(@PathVariable("idVehicle") int idVehicle,Model model){
         vehicleService.setWorkingID(idVehicle);
-        Customer customer = customerService.findCustomerByID(customerService.getWorkingId());
-        model.addAttribute("vehicle", vehicle);
-        model.addAttribute("customer", customer);
-
-        return "/contract/finaliseContract";
-    }
-
-    @PostMapping("/finaliseContract")
-    public String finaliseContractPost(){
-        /*
-        int idCustomer = customerService.getWorkingId();
-        int idVehicle = vehicleService.getWorkingID();
-        String startDate = contractService.getStartDate();
-        String endDate = contractService.getEndDate();
-        Contract contract = new Contract();
-        contract.setIdCustomer(idCustomer);
-        contract.setIdVehicle(idVehicle);
-        contract.setStartDate(startDate);
-        contract.setEndDate(endDate);
-        contractService.createContract(contract);
-
-         */
         return "/contract/addAccessories";
     }
 
     @PostMapping("/addAccessories")
     public String addAccessoriesPost(@ModelAttribute Contract contract){
-
-        int idCustomer = customerService.getWorkingId();
-        int idVehicle = vehicleService.getWorkingID();
-        String startDate = contractService.getStartDate();
-        String endDate = contractService.getEndDate();
-        contract.setIdCustomer(idCustomer);
-        contract.setIdVehicle(idVehicle);
-        contract.setStartDate(startDate);
-        contract.setEndDate(endDate);
-        contractService.createContract(contract);
-
-        return "redirect:/";
-
+        contract.setIdCustomer(customerService.getWorkingId());
+        contract.setIdVehicle(vehicleService.getWorkingID());
+        contract.setStartDate(contractService.getStartDate());
+        contract.setEndDate(contractService.getEndDate());
+        String idContract = contractService.createContract(contract);
+        return "redirect:/contract/createLicence/" + idContract;
     }
+
+    @GetMapping("/createLicence/{contractId}")
+    public String createLicenceGet(@PathVariable("contractId") int idContract, Model model){
+        contractService.setWorkingID(idContract);
+
+        return "/contract/createLicence";
+    }
+
+    @PostMapping("/createLicence")
+    public String createLicencePost(@ModelAttribute Licence licence){
+        licence.setIdContract(contractService.getWorkingID());
+        String idLicence = licenceService.createLicence(licence);
+        return "redirect:/contract/finaliseContract/" +  idLicence;
+    }
+
+    @GetMapping("/finaliseContract/{idLicence}")
+    public String finaliseContractGet(@PathVariable("idLicence") int idLicence, Model model){
+        licenceService.setWorkingId(idLicence);
+        Vehicle vehicle = vehicleService.findVehicleById(vehicleService.getWorkingID());
+        Customer customer = customerService.findCustomerByID(customerService.getWorkingId());
+        Contract contract = contractService.findContractById(contractService.getWorkingID());
+        Licence licence = licenceService.findLicenceById(idLicence);
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("customer", customer);
+        model.addAttribute("contract", contract);
+        model.addAttribute("licence", licence);
+        return "/contract/finaliseContract";
+    }
+
+
+    @GetMapping("/contractApproved")
+    public String contractApprovedGet(){
+        contractService.createLc(contractService.getWorkingID(), licenceService.getWorkingId());
+        return "redirect:/contract/contractMenu";
+    }
+
+    @GetMapping("/contractNotApproved")
+    public String contractNotApprovedGet(){
+        contractService.deleteContract(contractService.getWorkingID());
+        return "redirect:/contract/contractMenu";
+    }
+
 
     @GetMapping("/endContract/{idContract}")
     public String endContractGet(@PathVariable("idContract") int id, Model model) {

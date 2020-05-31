@@ -75,6 +75,7 @@ public class VehicleService {
 
     public List<Vehicle> availableVehiclesList(int numberOfBeds){return vehicleRepo.availableVehiclesList(numberOfBeds);}
 
+
     /*
     Working ID Getters & Setters
      */

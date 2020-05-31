@@ -63,4 +63,11 @@ public class CustomerRepo {
         return c;
     }
 
+    public List<Customer> readAll() {
+        String sql = "SELECT * FROM customer\n" +
+                "INNER JOIN address ON customer.idAddress = address.idAddress \n" +
+                "ORDER by idCustomer";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        return jdbcTemplate.query(sql, rowMapper);
+    }
 }

@@ -9,6 +9,10 @@ body {
     margin 0;
 }
 
+.error {
+    color: red;
+}
+
 .container {
     width: 82%;
     margin: auto;

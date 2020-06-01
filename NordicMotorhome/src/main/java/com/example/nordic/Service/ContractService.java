@@ -217,8 +217,6 @@ public class ContractService {
         this.workingFee = workingFee;
     }
 
-    public void createLc(int idContract, int idLicence) { contractRepo.createLc(idContract, idLicence); }
-
     //returns a list of contracts where the dates dont clash
     public List<Contract> availableDatesList(String startDate, String endDate) {
         Date start = null;

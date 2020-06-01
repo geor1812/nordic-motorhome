@@ -11,10 +11,12 @@ import com.example.nordic.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.thymeleaf.util.ListUtils;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
@@ -73,7 +75,10 @@ public class ContractController {
     @GetMapping("/updateContract/{idContract}")
     public String updateContractGet(@PathVariable("idContract") int idContract, Model model) {
         contractService.setWorkingID(idContract);
+        List<Licence> licenceList = licenceService.readFromContractId(idContract);
+
         model.addAttribute("contract", contractService.findContractById(idContract));
+        model.addAttribute("licenceList", licenceList);
         return "contract/updateContract";
     }
 
@@ -135,18 +140,38 @@ public class ContractController {
         return "redirect:/contract/createLicence/" + idContract;
     }
 
-    @GetMapping("/createLicence/{contractId}")
-    public String createLicenceGet(@PathVariable("contractId") int idContract, Model model){
+    @GetMapping("/createLicence/{idContract}")
+    public String createLicenceGet(@PathVariable("idContract") int idContract, Model model, Licence licence){
         contractService.setWorkingID(idContract);
-
         return "/contract/createLicence";
     }
 
+    @GetMapping("/createLicence2/{idContract}")
+    public String createLicence2Get(@PathVariable("idContract") int idContract, Model model, Licence licence){
+        contractService.setWorkingID(idContract);
+        return "/contract/createLicence2";
+    }
+
     @PostMapping("/createLicence")
-    public String createLicencePost(@ModelAttribute Licence licence){
-        licence.setIdContract(contractService.getWorkingID());
-        String idLicence = licenceService.createLicence(licence);
-        return "redirect:/contract/finaliseContract/" +  idLicence;
+    public String createLicencePost(@ModelAttribute @Valid Licence licence, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return "contract/createLicence";
+        } else {
+            licence.setIdContract(contractService.getWorkingID());
+            String idLicence = licenceService.createLicence(licence);
+            return "redirect:/contract/finaliseContract/" +  idLicence;
+        }
+    }
+
+    @PostMapping("/createLicence2")
+    public String createLicence2Post(@ModelAttribute @Valid Licence licence, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return "contract/createLicence2";
+        } else {
+            licence.setIdContract(contractService.getWorkingID());
+            String idLicence = licenceService.createLicence(licence);
+            return "redirect:/contract/contractMenu";
+        }
     }
 
     @GetMapping("/finaliseContract/{idLicence}")
@@ -166,7 +191,6 @@ public class ContractController {
 
     @GetMapping("/contractApproved")
     public String contractApprovedGet(){
-        contractService.createLc(contractService.getWorkingID(), licenceService.getWorkingId());
         return "redirect:/contract/contractMenu";
     }
 

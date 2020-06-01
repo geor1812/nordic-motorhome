@@ -23,12 +23,8 @@ public class Contract {
     private int grill;
     private int chair;
     private int tble;
+    private int numberOfBeds; //Needed to be added so @ModelAttribute Contract contract can be used for form post request
 
-    private int numberOfBeds; //had to add so @ModelAttribute Contract contract can be used for form post request
-
-    /*
-    Getters and setters
-     */
     public int getIdContract() {
         return idContract;
     }

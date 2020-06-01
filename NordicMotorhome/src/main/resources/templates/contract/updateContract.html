@@ -28,9 +28,43 @@
     </div>
 
     <div class="container">
+        <h3>Eligible driver's licences</h3>
+        <a th:href="@{'/contract/createLicence2/'+${contract.idContract}}">
+            <button class="btn">Add New Licence</button>
+        </a>
+
+        <table class="content-table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Birth Date</th>
+                <th>Country</th>
+                <th>Issue Date</th>
+                <th>Expiry Date</th>
+                <th>Issuer</th>
+                <th>CPR</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="licence: ${licenceList}">
+                <td th:text="${licence.licenceNo}" />
+                <td th:text="${licence.firstName}" />
+                <td th:text="${licence.lastName}" />
+                <td th:text="${licence.birthDate}" />
+                <td th:text="${licence.country}" />
+                <td th:text="${licence.issueDate}" />
+                <td th:text="${licence.expiryDate}" />
+                <td th:text="${licence.originator}" />
+                <td th:text="${licence.cpr}" />
+            </tr>
+            </tbody>
+        </table>
+
         <form class="update-form" action="/contract/updateContract" method="post">
             <div class="info">
-                <h3>Contract Details</h3>
+                <h3>Update Details</h3>
             </div>
             <div class="label-input">
                 <label for="startDate">Start date of Contract</label><br>

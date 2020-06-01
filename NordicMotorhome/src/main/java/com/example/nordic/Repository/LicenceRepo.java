@@ -23,8 +23,8 @@ public class LicenceRepo {
         String sql = "INSERT INTO licence \n" +
                 "(licenceNo, firstName, lastName, birthDate, " +
                 "country, issueDate, expiryDate, originator, " +
-                "cpr)" +
-                "VALUES( ?, ?, ?, ? , ?, ?, ?, ?, ?);";
+                "cpr, idContract)" +
+                "VALUES( ?, ?, ?, ? , ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -38,6 +38,7 @@ public class LicenceRepo {
             ps.setString(7, licence.getExpiryDate());
             ps.setString(8, licence.getOriginator());
             ps.setString(9, licence.getCpr());
+            ps.setString(10,String.valueOf(licence.getIdContract()));
             return ps;
         }, keyHolder);
 
@@ -46,8 +47,7 @@ public class LicenceRepo {
     }
 
     public List<Licence> readFromContractId(int id) {
-        String sql = "SELECT * FROM lc\n" +
-                "INNER JOIN licence ON licence.idLicence = lc.idLicence\n" +
+        String sql = "SELECT * FROM licence\n" +
                 "WHERE idContract = ?";
         RowMapper<Licence> rowMapper = new BeanPropertyRowMapper<>(Licence.class);
         return jdbcTemplate.query(sql, rowMapper, id);

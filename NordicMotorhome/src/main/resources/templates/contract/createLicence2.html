@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<header class="main-header">
+    <div class="container">
+        <h1>Nordic Motorhome Rental</h1>
+    </div>
+</header>
+
+<section class="showcase">
+</section>
+
+<section class="main-section">
+    <div class="container">
+        <h2>Add a new licence</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
+    <div class="container">
+        <form class="create-form" action="/contract/createLicence2" th:object="${licence}" method="post">
+            <div class="label-input">
+                <label for="firstName">First Name</label><br>
+                <input type="text" id="firstName" name="firstName" required>
+                <span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+            </div>
+
+            <div class="label-input">
+                <label for="lastName">Last Name</label><br>
+                <input type="text" id="lastName" name="lastName" required>
+                <span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"/>
+            </div>
+
+            <div class="label-input">
+                <label for="licenceNo">Licence Number</label><br>
+                <input type="text" id="licenceNo" name="licenceNo" required>
+                <span class="error" th:if="${#fields.hasErrors('licenceNo')}" th:errors="*{licenceNo}"/>
+            </div>
+
+
+            <div class="label-input">
+                <label for="birthDate">Birth Date</label><br>
+                <input type="date" id="birthDate" name="birthDate" required>
+            </div>
+
+            <div class="label-input">
+                <label for="country">Country</label><br>
+                <input type="text" id="country" name="country" required>
+                <span class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"/>
+            </div>
+
+            <div class="label-input">
+                <label for="issueDate">Issue Date</label><br>
+                <input type="date" id="issueDate" name="issueDate" required>
+            </div>
+
+            <div class="label-input">
+                <label for="expiryDate">Expiry Date</label><br>
+                <input type="date" id="expiryDate" name="expiryDate" >
+            </div>
+
+            <div class="label-input">
+                <label for="originator">Issuer</label><br>
+                <input type="text" id="originator" name="originator" required>
+                <span class="error" th:if="${#fields.hasErrors('originator')}" th:errors="*{originator}"/>
+            </div>
+
+            <div class="label-input">
+                <label for="cpr">Cpr</label><br>
+                <input type="text" id="cpr" name="cpr" required>
+                <span class="error" th:if="${#fields.hasErrors('cpr')}" th:errors="*{cpr}"/>
+            </div>
+
+            <input type="submit" value="Add Licence">
+        </form>
+    </div>
+</section>
+
+<footer class="main-footer">
+    <div class="container">
+        <p>Group 5<br>Remi Asher Foss, Max Hektor Balling Merrild, Johan Christoffer Bille, George Ursachi</p>
+    </div>
+</footer>
+</body>
+>

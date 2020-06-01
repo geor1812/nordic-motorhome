@@ -75,7 +75,10 @@ public class ContractController {
     @GetMapping("/updateContract/{idContract}")
     public String updateContractGet(@PathVariable("idContract") int idContract, Model model) {
         contractService.setWorkingID(idContract);
+        List<Licence> licenceList = licenceService.readFromContractId(idContract);
+
         model.addAttribute("contract", contractService.findContractById(idContract));
+        model.addAttribute("licenceList", licenceList);
         return "contract/updateContract";
     }
 
@@ -137,11 +140,16 @@ public class ContractController {
         return "redirect:/contract/createLicence/" + idContract;
     }
 
-    @GetMapping("/createLicence/{contractId}")
-    public String createLicenceGet(@PathVariable("contractId") int idContract, Model model, Licence licence){
+    @GetMapping("/createLicence/{idContract}")
+    public String createLicenceGet(@PathVariable("idContract") int idContract, Model model, Licence licence){
         contractService.setWorkingID(idContract);
-
         return "/contract/createLicence";
+    }
+
+    @GetMapping("/createLicence2/{idContract}")
+    public String createLicence2Get(@PathVariable("idContract") int idContract, Model model, Licence licence){
+        contractService.setWorkingID(idContract);
+        return "/contract/createLicence2";
     }
 
     @PostMapping("/createLicence")
@@ -152,6 +160,17 @@ public class ContractController {
             licence.setIdContract(contractService.getWorkingID());
             String idLicence = licenceService.createLicence(licence);
             return "redirect:/contract/finaliseContract/" +  idLicence;
+        }
+    }
+
+    @PostMapping("/createLicence2")
+    public String createLicence2Post(@ModelAttribute @Valid Licence licence, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return "contract/createLicence2";
+        } else {
+            licence.setIdContract(contractService.getWorkingID());
+            String idLicence = licenceService.createLicence(licence);
+            return "redirect:/contract/contractMenu";
         }
     }
 
@@ -172,7 +191,6 @@ public class ContractController {
 
     @GetMapping("/contractApproved")
     public String contractApprovedGet(){
-        contractService.createLc(contractService.getWorkingID(), licenceService.getWorkingId());
         return "redirect:/contract/contractMenu";
     }
 

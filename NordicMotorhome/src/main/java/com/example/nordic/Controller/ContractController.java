@@ -101,7 +101,7 @@ public class ContractController {
     /* Get request for "select dates" page
      */
     @GetMapping("/selectDates/{idCustomer}")
-    public String createContractGet(@PathVariable("idCustomer") int idCustomer){
+    public String selectDates(@PathVariable("idCustomer") int idCustomer){
         customerService.setWorkingId(idCustomer);
         return "contract/selectDates";
     }

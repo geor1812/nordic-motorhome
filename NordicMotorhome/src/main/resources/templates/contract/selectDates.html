@@ -2,25 +2,26 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add Vehicle</title>
+    <title>Select Dates</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <header class="main-header">
     <div class="container">
         <h1>Nordic Motorhome Rental</h1>
-        <img th:src="@{/logo.png}" alt="Logo" id="logo" />
     </div>
 </header>
 
 <section class="showcase">
-    <div class="container">
-        <h2>Create a new contract</h2>
-    </div>
     <a href="#" id="home"></a>
 </section>
 
 <section class="main-section">
+    <div class="container">
+        <h2>Contract information</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
     <div class="container">
         <form class="create-form" action="/contract/selectDates" method="post">
             <div class="label-input">
@@ -35,13 +36,13 @@
 
             <div class="label-input">
                 <label for="2beds">2 Beds</label>
-                <input type="radio" id="2beds" name="numberOfBeds" value="2">
+                <input type="radio" id="2beds" name="numberOfBeds" value="2"><br>
                 <label for="4beds">4 Beds</label>
-                <input type="radio" id="4beds" name="numberOfBeds" value="4">
+                <input type="radio" id="4beds" name="numberOfBeds" value="4"><br>
                 <label for="5beds">5 Beds</label>
-                <input type="radio" id="5beds" name="numberOfBeds" value="5">
+                <input type="radio" id="5beds" name="numberOfBeds" value="5"><br>
                 <label for="6beds">6 Beds</label>
-                <input type="radio" id="6beds" name="numberOfBeds" value="6">
+                <input type="radio" id="6beds" name="numberOfBeds" value="6"><br>
             </div>
 
             <input type="submit" value="Submit">

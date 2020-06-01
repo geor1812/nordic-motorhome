@@ -2,19 +2,26 @@ package com.example.nordic.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Licence {
     @Id
     private int idLicence;
+    @Size(max = 10, message = "Licence number is between 0 and 10 digits")
     private String licenceNo;
+    @Size(max = 45, message = "First name too long")
     private String firstName;
+    @Size(max = 45, message = "Last name too long")
     private String lastName;
     private String birthDate;
+    @Size(max = 45, message = "Country name too long")
     private String country;
     private String issueDate;
     private String expiryDate;
+    @Size(max = 45, message = "Issuer name too long")
     private String originator;
+    @Size(max = 11, message = "Invalid CPR")
     private String cpr;
     private int idContract;
 

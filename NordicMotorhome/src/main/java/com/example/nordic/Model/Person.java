@@ -1,15 +1,26 @@
 package com.example.nordic.Model;
 
+import javax.validation.constraints.Size;
+
 public class Person {
+    @Size(max = 45, message = "First name too long")
     private String firstName;
+    @Size(max = 45, message = "Last name too long")
     private String lastName;
+    @Size(max = 16, message = "Invalid phone number")
     private String phoneNo;
+    @Size(max = 45, message = "Invalid email address")
     private String email;
     private int idAddress;
+    @Size(max = 45, message = "Address too long")
     private String addressDetails;
+    @Size(max = 45, message = "City name too long")
     private String city;
+    @Size(max = 45, message = "Country name too long")
     private String country;
+    @Size(max = 45, message = "State name too long")
     private String state;
+    @Size(max = 10, message = "Invalid zip")
     private String zip;
 
     public String getFirstName() {

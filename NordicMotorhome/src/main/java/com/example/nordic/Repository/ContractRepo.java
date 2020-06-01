@@ -100,20 +100,4 @@ public class ContractRepo {
         jdbcTemplate.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getIdVehicle(),
                 contract.getIdCustomer(), fee, fuelCharge, odometerCharge, pickUpCharge);
     }
-    public void createLc(int idContract, int idLicence) {
-        String sql = "INSERT INTO lc \n " +
-                "(idContract, idLicence) \n" +
-                "VALUES (?, ?);";
-        jdbcTemplate.update(sql, idContract, idLicence);
-    }
-
-    public List<Vehicle> readAllVehiclesWithDates(){
-        String sql =
-                "SELECT * FROM vehicle \n" +
-                "JOIN contract ON vehicle.idVehicle = contract.idVehicle \n" +
-                "JOIN model ON vehicle.idModel = model.idModel \n ";
-
-        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
-        return jdbcTemplate.query(sql, rowMapper);
-    }
 }

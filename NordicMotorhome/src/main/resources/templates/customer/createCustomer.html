@@ -2,75 +2,83 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Add Vehicle</title>
+    <title>Add Customer</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <header class="main-header">
     <div class="container">
         <h1>Nordic Motorhome Rental</h1>
-        <img th:src="@{/logo.png}" alt="Logo" id="logo" />
     </div>
 </header>
 
 <section class="showcase">
-    <div class="container">
-        <h2>Add a new customer</h2>
-    </div>
-    <a href="#" id="home"></a>
 </section>
 
 <section class="main-section">
     <div class="container">
-        <form class="create-form" action="/customer/createCustomer" method="post">
-            <div class="label-input">
+        <h2>Add a new customer</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
+    <div class="container">
+        <form class="create-form" action="/customer/createCustomer" th:object="${customer}" method="post">
+            <div class="label-input" th:object="${customer}">
                 <label for="firstName">First Name</label><br>
-                <input type="text" id="firstName" name="firstName" required>
+                <input type="text" id="firstName" name="firstName"  required><br>
+                <span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
             </div>
 
             <div class="label-input">
                 <label for="lastName">Last Name</label><br>
-                <input type="text" id="lastName" name="lastName" required>
+                <input type="text" id="lastName" name="lastName" required><br>
+                <span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"/>
             </div>
 
             <div class="label-input">
                 <label for="phoneNo">Phone number</label><br>
-                <input type="text" id="phoneNo" name="phoneNo" required>
+                <input type="text" id="phoneNo" name="phoneNo" required><br>
+                <span class="error" th:if="${#fields.hasErrors('phoneNo')}" th:errors="*{phoneNo}"/>
             </div>
 
 
             <div class="label-input">
                 <label for="email">Email</label><br>
-                <input type="text" id="email" name="email" required>
+                <input type="text" id="email" name="email" required><br>
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
             </div>
 
             <div class="label-input">
                 <label for="addressDetails">Address Details</label><br>
-                <input type="text" id="addressDetails" name="addressDetails" required>
+                <input type="text" id="addressDetails" name="addressDetails" required><br>
+                <span class="error" th:if="${#fields.hasErrors('addressDetails')}" th:errors="*{addressDetails}"/>
             </div>
 
             <div class="label-input">
                 <label for="city">City</label><br>
-                <input type="text" id="city" name="city" required>
+                <input type="text" id="city" name="city" required><br>
+                <span class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/>
             </div>
 
             <div class="label-input">
                 <label for="country">Country</label><br>
-                <input type="text" id="country" name="country" required>
+                <input type="text" id="country" name="country" required><br>
+                <span class="error" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"/>
             </div>
 
             <div class="label-input">
                 <label for="state">State</label><br>
-                <input type="text" id="state" name="state" >
+                <input type="text" id="state" name="state"><br>
+                <span class="error" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"/>
             </div>
 
             <div class="label-input">
                 <label for="zip">Zip</label><br>
-                <input type="text" id="zip" name="zip" required>
+                <input type="text" id="zip" name="zip" required><br>
+                <span class="error" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"/>
             </div>
 
-
-            <input type="submit" value="Add Customer">
+            <input type="submit" value="Add Customer" onclick="return confirm('Do you confirm the addition of a new customer?')">
         </form>
     </div>
 </section>

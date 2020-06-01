@@ -9,18 +9,19 @@
 <header class="main-header">
     <div class="container">
         <h1>Nordic Motorhome Rental</h1>
-        <img th:src="@{/logo.png}" alt="Logo" id="logo" />
     </div>
 </header>
 
 <section class="showcase">
-    <div class="container">
-        <h2>Add Accessories</h2>
-    </div>
     <a href="#" id="home"></a>
 </section>
 
 <section class="main-section">
+    <div class="container">
+        <h2>Add Accessories</h2>
+        <img th:src="@{/images/logo.png}" alt="Logo" id="logo" />
+    </div>
+
     <div class="container">
         <form class="create-form" action="/contract/addAccessories" method="post">
             <div class="label-input">
@@ -34,7 +35,7 @@
             </div>
 
             <div class="label-input">
-                <label for="childSeat">Bike Rack</label><br>
+                <label for="childSeat">Child Seat</label><br>
                 <input type="number" id="childSeat" name="childSeat" value="0" >
             </div>
 

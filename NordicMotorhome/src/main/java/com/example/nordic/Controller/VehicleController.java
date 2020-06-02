@@ -81,7 +81,7 @@ public class VehicleController {
 
     /**
      * Post method which takes the information for the new vehicle to be added
-     * from a from in the view and sends it to vehicleService
+     * from a form in the view and sends it to vehicleService
      * @param vehicle the vehicle to be created
      * @return redirects to the vehicleMenu view
      */
@@ -106,6 +106,12 @@ public class VehicleController {
         return "redirect:/vehicle/vehicleMenu";
     }
 
+    /**
+     * Get request for viewing details on a vehicle
+     * @param idVehicle id of the vehicle for which the details are displayed
+     * @param model used to pass the information from the controller to the view
+     * @return viewDetails page
+     */
     @GetMapping("/viewDetails/{idVehicle}")
     public String viewDetails(@PathVariable("idVehicle") int idVehicle, Model model){
         model.addAttribute("vehicle", vehicleService.findVehicleById(idVehicle));

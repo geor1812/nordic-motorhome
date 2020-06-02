@@ -125,6 +125,11 @@ public class VehicleRepo {
         jdbcTemplate.update(sql, idVehicle);
     }
 
+    /**
+     * Executes a query to the DB which returns all of the vehicles with a given number of beds
+     * @param numberOfBeds the number of beds that you want the vehicles returned to have
+     * @return list of vehicles with given amount of beds, mapped by the rowmapper
+     */
     public List<Vehicle> availableVehiclesList(int numberOfBeds) {
         String sql = "SELECT * FROM vehicle\n" +
                 "INNER JOIN model ON model.idModel = vehicle.idModel\n" +

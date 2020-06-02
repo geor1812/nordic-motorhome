@@ -64,7 +64,12 @@ public class VehicleService {
     public void deleteVehicle(int idVehicle) {
         vehicleRepo.deleteVehicle(idVehicle);
     }
-    
+
+    /**
+     * Method to make a list of vehicles that is directly related to the list of contracts
+     * @param contractList list of contracts
+     * @return list of vehicles that is directly related to the list of contracts
+     */
     public List<Vehicle> fromContracts(List<Contract> contractList) {
         List<Vehicle> vehicleList = new ArrayList<Vehicle>();
         for (Contract contract: contractList) {
@@ -73,6 +78,11 @@ public class VehicleService {
         return vehicleList;
     }
 
+    /**
+     * Link between the controller and the repo for available vehicles
+     * @param numberOfBeds number of beds required in the list of available vehicles
+     * @return list of available vehicles with given amount of beds
+     */
     public List<Vehicle> availableVehiclesList(int numberOfBeds){return vehicleRepo.availableVehiclesList(numberOfBeds);}
 
 

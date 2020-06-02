@@ -32,6 +32,11 @@ public class ContractController {
     @Autowired
     LicenceService licenceService;
 
+    /**
+     * Get request for the contract menu page
+     * @param model used to pass the information from the controller to the view
+     * @return contractMenu view
+     */
     @GetMapping("/contractMenu")
     public String contractMenuGet(Model model) {
         List<Contract> contractList = contractService.readAll();
@@ -44,6 +49,13 @@ public class ContractController {
         return "contract/contractMenu";
     }
 
+    /**
+     * Post method which gets the search term inserted by the user and retrieves
+     * a list of contracts filtered down to contain the search term
+     * @param webRequest used to retrieve the input from the view
+     * @param model used to pass the information from the controller to the view
+     * @return contractMenuSearch page
+     */
     @PostMapping("/contractMenu")
     public String contractMenuPost(WebRequest webRequest, Model model) {
         String searchTerm = webRequest.getParameter("search");
@@ -58,6 +70,12 @@ public class ContractController {
 
     }
 
+    /**
+     * Get request for the view details on contract page
+     * @param id the id of the contract to be viewed
+     * @param model used to pass the information from the controller to the view
+     * @return viewDetails page
+     */
     @GetMapping("/viewDetails/{idContract}")
     public String viewDetailsGet(@PathVariable("idContract") int id, Model model) {
         Contract contract = contractService.findContractById(id);
@@ -72,6 +90,12 @@ public class ContractController {
         return "contract/viewDetails";
     }
 
+    /**
+     * Get request for the update contract page
+     * @param idContract the id of the contract to be updated
+     * @param model used to pass the information from the controller to the view
+     * @return updateContract page
+     */
     @GetMapping("/updateContract/{idContract}")
     public String updateContractGet(@PathVariable("idContract") int idContract, Model model) {
         contractService.setWorkingID(idContract);
@@ -82,6 +106,11 @@ public class ContractController {
         return "contract/updateContract";
     }
 
+    /**
+     * Post method which gets the updated information
+     * @param contract the contract to be updated
+     * @return contractMenu page
+     */
     @PostMapping("/updateContract")
     public String updateContractPost(@ModelAttribute Contract contract){
         int id = contractService.getWorkingID();
@@ -89,12 +118,22 @@ public class ContractController {
         return "redirect:/contract/contractMenu";
     }
 
+    /**
+     * Get request for the delete contract page
+     * @param idContract the id of the contract to be deleted.
+     * @return contractMenu page
+     */
     @GetMapping("/deleteContract/{idContract}")
     public String deleteContractGet(@PathVariable("idContract") int idContract) {
         contractService.deleteContract(idContract);
         return "redirect:/contract/contractMenu";
     }
 
+    /**
+     * Get request for the choose customer in create contract
+     * @param model used to pass the information from the controller to the view
+     * @return createChooseCustomer page
+     */
     @GetMapping("/createChooseCustomer")
     public String createChooseCustomerGet(Model model) {
         List<Customer> customerList = customerService.readAll();
@@ -103,14 +142,22 @@ public class ContractController {
     }
 
 
-    /* Get request for "select dates" page
+    /**
+     * Get request for "select dates" page
+     * @param idCustomer the customer for which the date applies
+     * @return selectDates page
      */
     @GetMapping("/selectDates/{idCustomer}")
     public String selectDates(@PathVariable("idCustomer") int idCustomer){
         customerService.setWorkingId(idCustomer);
         return "contract/selectDates";
     }
-    /* post request for "select dates"
+
+    /**
+     * Post method for "select dates"
+     * @param contract the contract for which the dates applies
+     * @param model used to pass the information from the controller to the view
+     * @return availableVehicles page
      */
     @PostMapping("/selectDates")
     public String availableVehicles(@ModelAttribute Contract contract, Model model){
@@ -123,13 +170,23 @@ public class ContractController {
         return "vehicle/availableVehicles";
     }
 
-
+    /**
+     * Get request for adding accessories to vehicle
+     * @param idVehicle vehicle to which the accessories are addded
+     * @param model used to pass the information from the controller to the view
+     * @return addAccessories page
+     */
     @GetMapping("/addAccessories/{idVehicle}")
     public String addAccessoriesGet(@PathVariable("idVehicle") int idVehicle,Model model){
         vehicleService.setWorkingID(idVehicle);
         return "/contract/addAccessories";
     }
 
+    /**
+     * Post method for adding accessories
+     * @param contract contract to which the accessories are to be added
+     * @return createLicence page
+     */
     @PostMapping("/addAccessories")
     public String addAccessoriesPost(@ModelAttribute Contract contract){
         contract.setIdCustomer(customerService.getWorkingId());
@@ -140,18 +197,37 @@ public class ContractController {
         return "redirect:/contract/createLicence/" + idContract;
     }
 
+    /**
+     * Get request for creating licence page
+     * @param idContract contract to which the licence is connected
+     * @param model used to pass the information from the controller to the view
+     * @param licence licence to which the contract is connected
+     * @return createLicence page
+     */
     @GetMapping("/createLicence/{idContract}")
     public String createLicenceGet(@PathVariable("idContract") int idContract, Model model, Licence licence){
         contractService.setWorkingID(idContract);
         return "/contract/createLicence";
     }
 
+    /**
+     * Get request for creating licence second page
+     * @param idContract contract to which the licence is connected
+     * @param model used to pass the information from the controller to the view
+     * @param licence licence to which the contract is connected
+     * @return createLicence2 page
+     */
     @GetMapping("/createLicence2/{idContract}")
     public String createLicence2Get(@PathVariable("idContract") int idContract, Model model, Licence licence){
         contractService.setWorkingID(idContract);
         return "/contract/createLicence2";
     }
 
+    /**
+     * Post method for creating licences
+     * @param licence to be created
+     * @return finaliseContract page
+     */
     @PostMapping("/createLicence")
     public String createLicencePost(@ModelAttribute @Valid Licence licence, BindingResult bindingResult){
         if(bindingResult.hasErrors()) {
@@ -163,6 +239,12 @@ public class ContractController {
         }
     }
 
+    /**
+     * Post method for creating licences
+     * @param licence to be created
+     * @param bindingResult validation that the licence is correct
+     * @return contractMenu page
+     */
     @PostMapping("/createLicence2")
     public String createLicence2Post(@ModelAttribute @Valid Licence licence, BindingResult bindingResult){
         if(bindingResult.hasErrors()) {
@@ -174,6 +256,12 @@ public class ContractController {
         }
     }
 
+    /**
+     * Get request for finalising contracts
+     * @param idLicence licence of the contract to be finalized
+     * @param model used to pass the information from the controller to the view
+     * @return finaliseContract page
+     */
     @GetMapping("/finaliseContract/{idLicence}")
     public String finaliseContractGet(@PathVariable("idLicence") int idLicence, Model model){
         licenceService.setWorkingId(idLicence);
@@ -188,19 +276,31 @@ public class ContractController {
         return "/contract/finaliseContract";
     }
 
-
+    /**
+     * Get request for approving contracts
+     * @return contractMenu page
+     */
     @GetMapping("/contractApproved")
     public String contractApprovedGet(){
         return "redirect:/contract/contractMenu";
     }
 
+    /**
+     * Get request for non approved contracts
+     * @return contractMenu page
+     */
     @GetMapping("/contractNotApproved")
     public String contractNotApprovedGet(){
         contractService.deleteContract(contractService.getWorkingID());
         return "redirect:/contract/contractMenu";
     }
 
-
+    /**
+     * Get request for ending contracts
+     * @param id id of the contract that is to be ended
+     * @param model used to pass the information from the controller to the view
+     * @return endContract page
+     */
     @GetMapping("/endContract/{idContract}")
     public String endContractGet(@PathVariable("idContract") int id, Model model) {
         Contract contract = contractService.findContractById(id);
@@ -215,12 +315,23 @@ public class ContractController {
         return "contract/endContract";
     }
 
+    /**
+     * Get request for checking out contracts
+     * @param id id of the contract that is to be checked out
+     * @return contractCheckout page
+     */
     @GetMapping("/contractCheckout/{idContract}")
     public String contractCheckoutGet(@PathVariable("idContract") int id) {
         contractService.setWorkingID(id);
         return "contract/contractCheckout";
     }
 
+    /**
+     * Post method for checking out contracts
+     * @param webRequest used to retrieve the input from the view
+     * @param model used to pass the information from the controller to the view
+     * @return contractCheckout2 page
+     */
     @PostMapping("/contractCheckout")
     public String contractCheckoutPost(WebRequest webRequest, Model model) {
         int endOdometer = Integer.valueOf(webRequest.getParameter("endOdometer"));
@@ -241,7 +352,7 @@ public class ContractController {
         model.addAttribute("odometerCharge", contractService.getWorkingOdometerCharge());
         model.addAttribute("pickUpCharge", contractService.getWorkingPickUpCharge());
         if(fuelCharge) {
-            model.addAttribute("fuelCharge", 50);
+            model.addAttribute("fuelCharge", 70);
         } else {
             model.addAttribute("fuelCharge", 0);
         }
@@ -253,6 +364,13 @@ public class ContractController {
         return "contract/contractCheckout2";
     }
 
+    /**
+     * Get request for cancelling contracts
+     * @param id id of the contract that is to be cancelled
+     * @param webRequest used to retrieve the input from the view
+     * @param model used to pass the information from the controller to the view
+     * @return contractCancellation page
+     */
     @GetMapping("/contractCancellation/{idContract}")
     public String contractCancellationGet(@PathVariable("idContract") int id, WebRequest webRequest, Model model){
 
@@ -269,6 +387,12 @@ public class ContractController {
         return "contract/contractCancellation";
     }
 
+    /**
+     * Post method for cancelling contracts
+     * @param webRequest used to retrieve the input from the view
+     * @param model used to pass the information from the controller to the view
+     * @return contractCancellation2 page
+     */
     @PostMapping("/contractCancellation")
     public String contractCancellationPost(WebRequest webRequest, Model model){
 
@@ -290,6 +414,10 @@ public class ContractController {
         return "contract/contractCancellation2";
     }
 
+    /**
+     * Get request for confirming the cancellation
+     * @return to the contract menu
+     */
     @GetMapping("/confirmCancellation")
     public String confirmCancellation() {
         int idContract = contractService.getWorkingID();
@@ -299,6 +427,10 @@ public class ContractController {
         return "redirect:/contract/contractMenu";
     }
 
+    /**
+     * Get request for the confirmation of the checkout
+     * @return to the contract menu
+     */
     @GetMapping("/confirmCheckout")
     public String confirmCheckout() {
         int id = contractService.getWorkingID();

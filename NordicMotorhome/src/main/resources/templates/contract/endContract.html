@@ -79,6 +79,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 <tr th:each="licence: ${licenceList}">
                     <td th:text="${licence.licenceNo}" />
                     <td th:text="${licence.firstName}" />
@@ -111,11 +112,9 @@
             <button class="btn">Checkout Contract</button>
         </a>
 
-
         <a th:href="@{'/contract/contractCancellation/'+${contract.idContract}}">
             <button class="btn"> Cancel Contract</button>
         </a>
-
         <a th:href="@{'/contract/deleteContract/'+${contract.idContract}}">
             <button class="btn" onclick="return confirm('Do you confirm the deletion of the contract?')" >Delete Contract</button>
         </a>

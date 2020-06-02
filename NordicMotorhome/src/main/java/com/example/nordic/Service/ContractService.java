@@ -53,9 +53,9 @@ public class ContractService {
 
     public int accesoriesPricePerDay(int id) {
         Contract contract = findContractById(id);
-        return (contract.getBedLinen() * 5) + (contract.getBikeRack() * 8) +
-                (contract.getChildSeat() * 4) + (contract.getGrill() * 10) +
-                (contract.getChair() * 4) + (contract.getTble() * 10);
+        return (contract.getBedLinen() * 1) + (contract.getBikeRack() * 2) +
+                (contract.getChildSeat() * 1) + (contract.getGrill() * 3) +
+                (contract.getChair() * 1) + (contract.getTble() * 3);
     }
 
     public int totalPrice(int id){
@@ -250,7 +250,7 @@ public class ContractService {
         return contracts;
     }
 
-    public List<Vehicle> vehiclesFromContractList(String startDate, String endDate, int numberOfBeds){
+    public List<Vehicle> vehiclesFromContractList(int numberOfBeds){
         List<Contract> contracts = availableDatesList(startDate, endDate);
         List<Vehicle> vehicles = vehicleService.availableVehiclesList(numberOfBeds);
         for (int i = 0; i < vehicles.size(); i++) {

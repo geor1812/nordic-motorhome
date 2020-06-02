@@ -115,7 +115,8 @@ public class ContractController {
     @PostMapping("/selectDates")
     public String availableVehicles(@ModelAttribute Contract contract, Model model){
         //had to add numberOfBeds to contract so @ModelAttribute could be used
-        List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getNumberOfBeds());
+        List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getNumberOfBeds(), contract.getStartDate(),
+        contract.getEndDate());
         contractService.setStartDate(contract.getStartDate());
         contractService.setEndDate(contract.getEndDate());
         model.addAttribute("vehicles", listDates);

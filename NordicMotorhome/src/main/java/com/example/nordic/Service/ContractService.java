@@ -149,6 +149,7 @@ public class ContractService {
             odometerCharge = 0;
         }
         setWorkingOdometerCharge(odometerCharge);
+        price += odometerCharge;
 
         double pickUpCharge = pickUpKm * 0.7;
         price += pickUpCharge;
@@ -252,7 +253,7 @@ public class ContractService {
         return contracts;
     }
 
-    public List<Vehicle> vehiclesFromContractList(int numberOfBeds){
+    public List<Vehicle> vehiclesFromContractList(int numberOfBeds, String startDate, String endDate){
         List<Contract> contracts = availableDatesList(startDate, endDate);
         List<Vehicle> vehicles = vehicleService.availableVehiclesList(numberOfBeds);
         for (int i = 0; i < vehicles.size(); i++) {

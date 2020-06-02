@@ -106,7 +106,7 @@ public class ContractController {
     /* Get request for "select dates" page
      */
     @GetMapping("/selectDates/{idCustomer}")
-    public String createContractGet(@PathVariable("idCustomer") int idCustomer){
+    public String selectDates(@PathVariable("idCustomer") int idCustomer){
         customerService.setWorkingId(idCustomer);
         return "contract/selectDates";
     }
@@ -115,8 +115,7 @@ public class ContractController {
     @PostMapping("/selectDates")
     public String availableVehicles(@ModelAttribute Contract contract, Model model){
         //had to add numberOfBeds to contract so @ModelAttribute could be used
-        List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getStartDate(), contract.getEndDate(),
-        contract.getNumberOfBeds());
+        List<Vehicle> listDates = contractService.vehiclesFromContractList(contract.getNumberOfBeds());
         contractService.setStartDate(contract.getStartDate());
         contractService.setEndDate(contract.getEndDate());
         model.addAttribute("vehicles", listDates);
@@ -254,7 +253,7 @@ public class ContractController {
     }
 
     @GetMapping("/contractCancellation/{idContract}")
-    public String contractCancellation(@PathVariable("idContract") int id, WebRequest webRequest, Model model){
+    public String contractCancellationGet(@PathVariable("idContract") int id, WebRequest webRequest, Model model){
 
         String currentDate = webRequest.getParameter("currentDate");
         String startDate ="${idContract.startDate}";

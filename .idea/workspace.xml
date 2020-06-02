@@ -51,6 +51,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/NordicMotorhome/pom.xml" />
@@ -63,20 +64,7 @@
       <recent name="C:\Users\Max\Documents\GitHub\nordic-motorhome\NordicMotorhome\src\main\resources\templates\contract" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.NordicMotorhomeApplication (1)">
-    <configuration name="NordicMotorhomeApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.nordic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.nordic.NordicMotorhomeApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="NordicMotorhomeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.nordic.NordicMotorhomeApplication" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -85,9 +73,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NordicMotorhomeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.nordic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.nordic.NordicMotorhomeApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.NordicMotorhomeApplication (1)" />
+        <item itemvalue="Spring Boot.NordicMotorhomeApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -116,7 +118,7 @@
       <workItem from="1591028105046" duration="205000" />
       <workItem from="1591043501569" duration="9000" />
       <workItem from="1591093137440" duration="3257000" />
-      <workItem from="1591104557033" duration="26000" />
+      <workItem from="1591104557033" duration="477000" />
     </task>
     <servers />
   </component>
@@ -140,14 +142,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" width="816" height="729" key="#Intentions/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1590734206685" />
-    <state x="618" y="118" key="#NordicMotorhomeApplication" timestamp="1591104567738">
+    <state x="618" y="118" key="#NordicMotorhomeApplication" timestamp="1591104611753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="618" y="118" key="#NordicMotorhomeApplication/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1591104567738" />
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591093642547">
+    <state x="618" y="118" key="#NordicMotorhomeApplication/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1591104611753" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591105033767">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1591093642547" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1591105033767" />
     <state x="728" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590598888536">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

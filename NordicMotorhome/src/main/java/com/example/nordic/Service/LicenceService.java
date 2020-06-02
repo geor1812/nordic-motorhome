@@ -14,21 +14,39 @@ public class LicenceService {
 
     private int workingId;
 
+    /**
+     * Link between the controller and the repo for reading contract from id
+     * @param id
+     * @return
+     */
     public List<Licence> readFromContractId(int id) {
         return licenceRepo.readFromContractId(id);
     }
 
+    //getter
     public int getWorkingId() {
         return workingId;
     }
 
+    //setter
     public void setWorkingId(int workingId) {
         this.workingId = workingId;
     }
 
-    public String createLicence(Licence licence) { return licenceRepo.createLicence(licence);
+    /**
+     * Link between the controller and the repo for creating a licence
+     * @param licence licence to be created
+     * @return result from repo
+     */
+    public String createLicence(Licence licence) {
+        return licenceRepo.createLicence(licence);
     }
 
+    /**
+     * Link between the controller and the repo for finding licence by its id
+     * @param idLicence id of the licence to be looked for
+     * @return licence of the given id
+     */
     public Licence findLicenceById(int idLicence) {return licenceRepo.findLicenceById(idLicence);
     }
 }

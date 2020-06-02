@@ -18,6 +18,11 @@ public class LicenceRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     * Executes a query to the DB which creates a new license with the given information
+     * @param licence license containing the information to be created
+     * @return the generated key
+     */
     public String createLicence(Licence licence){
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql = "INSERT INTO licence \n" +
@@ -46,6 +51,11 @@ public class LicenceRepo {
 
     }
 
+    /**
+     * Executes a query to the DB which returns licence that is connected to the contract
+     * @param id id of the contract where the licence is looked for
+     * @return licences connected to the contract
+     */
     public List<Licence> readFromContractId(int id) {
         String sql = "SELECT * FROM licence\n" +
                 "WHERE idContract = ?";
@@ -53,6 +63,11 @@ public class LicenceRepo {
         return jdbcTemplate.query(sql, rowMapper, id);
     }
 
+    /**
+     * Executes a query to the DB which returns the licence with a given id
+     * @param idLicence id of the licence to return
+     * @return the licence of the given id
+     */
     public Licence findLicenceById(int idLicence) {
         String sql = "SELECT * FROM licence WHERE idLicence = ?";
         RowMapper<Licence> rowMapper = new BeanPropertyRowMapper<>(Licence.class);

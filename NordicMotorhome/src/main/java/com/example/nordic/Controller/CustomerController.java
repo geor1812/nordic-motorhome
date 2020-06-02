@@ -24,8 +24,10 @@ public class CustomerController {
     public String createCustomerGet(Customer customer) {
         return "customer/createCustomer";}
 
-    /* Post method which creates a customer object and sends it to customerService
-
+    /**
+     * Post method which creates a customer object and sends it to customerService
+     * @param customer customer to be send to the customerService
+     * @return selectDates page
      */
     @PostMapping("/createCustomer")
     public String createCustomerPost(@ModelAttribute @Valid Customer customer, BindingResult bindingResult){

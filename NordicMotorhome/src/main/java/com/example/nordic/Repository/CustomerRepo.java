@@ -20,6 +20,10 @@ public class CustomerRepo {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    /**
+     * Executes a query to the DB which creates a new customer, and gives them a generated key
+     * @param customer customer to be inserted to DB
+     */
     public void createCustomer(Customer customer){
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String addressQuery = "INSERT INTO address\n" +
@@ -44,7 +48,10 @@ public class CustomerRepo {
 
     }
 
-
+    /**
+     * Executes a query to the DB which returns the latest customer id in the table
+     * @return id of the latest customer
+     */
     public int getLatestCustomerId(){
         String sqlQuery = "SELECT idCustomer FROM customer\n" +
                 "ORDER BY idCustomer DESC LIMIT 1 ;";
@@ -54,6 +61,11 @@ public class CustomerRepo {
         return idCustomer;
     }
 
+    /**
+     * Executes a query to the DB which returns customer with a given id
+     * @param id of the customer to return from the DB
+     * @return customer with the given id
+     */
     public Customer findCustomerById(int id){
         String sqlQuery = "SELECT * FROM customer\n" +
                 "INNER JOIN address ON customer.idAddress = address.idAddress\n" +
@@ -63,6 +75,10 @@ public class CustomerRepo {
         return c;
     }
 
+    /**
+     * Executes a query to the DB which returns all of the customers
+     * @return list of customers, mapped by the rowmapper
+     */
     public List<Customer> readAll() {
         String sql = "SELECT * FROM customer\n" +
                 "INNER JOIN address ON customer.idAddress = address.idAddress \n" +

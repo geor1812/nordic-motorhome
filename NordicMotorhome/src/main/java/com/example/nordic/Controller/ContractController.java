@@ -201,6 +201,7 @@ public class ContractController {
      * Get request for creating licence page
      * @param idContract contract to which the licence is connected
      * @param model used to pass the information from the controller to the view
+     * @param licence licence to which the contract is connected
      * @return createLicence page
      */
     @GetMapping("/createLicence/{idContract}")
@@ -209,6 +210,13 @@ public class ContractController {
         return "/contract/createLicence";
     }
 
+    /**
+     * Get request for creating licence second page
+     * @param idContract contract to which the licence is connected
+     * @param model used to pass the information from the controller to the view
+     * @param licence licence to which the contract is connected
+     * @return createLicence2 page
+     */
     @GetMapping("/createLicence2/{idContract}")
     public String createLicence2Get(@PathVariable("idContract") int idContract, Model model, Licence licence){
         contractService.setWorkingID(idContract);
@@ -231,6 +239,12 @@ public class ContractController {
         }
     }
 
+    /**
+     * Post method for creating licences
+     * @param licence to be created
+     * @param bindingResult validation that the licence is correct
+     * @return contractMenu page
+     */
     @PostMapping("/createLicence2")
     public String createLicence2Post(@ModelAttribute @Valid Licence licence, BindingResult bindingResult){
         if(bindingResult.hasErrors()) {

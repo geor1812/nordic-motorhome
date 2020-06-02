@@ -47,6 +47,15 @@ public class ContractServiceTest {
 
     @Test
     public void cancellationTest() {
-    
+        assertEquals(200.0,contractService.cancellation(1,"2020-03-20"),0.00);
+        assertEquals(332.0,contractService.cancellation(4,"2020-04-01"),0.00);
+    }
+
+    @Test
+    public void checkOutTest() {
+        int endOdometer = 2600;
+        int pickUpKm = 200;
+        boolean fuelCharge = true;
+        assertEquals(1959.0,contractService.checkout(5,endOdometer,pickUpKm,fuelCharge),0.00);
     }
 }

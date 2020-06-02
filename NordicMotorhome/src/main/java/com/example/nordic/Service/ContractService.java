@@ -118,10 +118,12 @@ public class ContractService {
             cancellationFee = (double) totalPrice / 100 * 50;
         } else {
             cancellationFee = (double) totalPrice / 100 * 20;
-            if(cancellationFee < 200){
-                cancellationFee = 200.00;
-            }
         }
+
+        if(cancellationFee < 200){
+            cancellationFee = 200.00;
+        }
+
         cancellationFee = cancellationFee * 100;
         cancellationFee = Math.round(cancellationFee);
         cancellationFee = cancellationFee / 100;

@@ -19,6 +19,7 @@ public class LicenceRepo {
     JdbcTemplate jdbcTemplate;
 
     /**
+     * Created by Remi
      * Executes a query to the DB which creates a new license with the given information
      * @param licence license containing the information to be created
      * @return the generated key
@@ -52,6 +53,7 @@ public class LicenceRepo {
     }
 
     /**
+     * Created by Remi & George
      * Executes a query to the DB which returns licence that is connected to the contract
      * @param id id of the contract where the licence is looked for
      * @return licences connected to the contract
@@ -64,6 +66,7 @@ public class LicenceRepo {
     }
 
     /**
+     * Created by Team
      * Executes a query to the DB which returns the licence with a given id
      * @param idLicence id of the licence to return
      * @return the licence of the given id

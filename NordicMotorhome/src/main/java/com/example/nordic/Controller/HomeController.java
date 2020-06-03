@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     /**
+     * Created by Team
      * Get request for the index page of the application
      * @return index page view
      */

@@ -19,6 +19,7 @@ public class VehicleRepo {
     JdbcTemplate jdbcTemplate;
 
     /**
+     * Created by Team
      * Executes a query to the DB which returns all of the vehicles
      * @return result set
      */
@@ -31,6 +32,7 @@ public class VehicleRepo {
     }
 
     /**
+     * Created by Team
      * Executes a query to the DB which returns all of the vehicles that
      * contain the search term in any of their attributes
      * @param search the search term
@@ -53,15 +55,12 @@ public class VehicleRepo {
     }
 
     /**
+     * Created by George
      * Inserts a vehicle into the DB
      * @param vehicle the vehicle to be added
      */
     public void create(Vehicle vehicle) {
-        /*
-        To deal with the vehicle being split into two tables in the database
-        we use a KeyHolder to retrieve the primary key, which is auto-incremented,
-        of the "model" we just added to the database
-         */
+        //Inserting into the model table
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String sql1 = "INSERT INTO model\n" +
                 "(brand, modelType, fuelType, noBeds, pricePerDay)\n" +
@@ -77,9 +76,7 @@ public class VehicleRepo {
             return ps;
         }, keyHolder);
 
-        /*
-        Now inserting into the vehicle table
-         */
+        //Inserting into the vehicle table
         String sql2 = "INSERT INTO vehicle\n" +
                 "(regNo, regDate, odometer, repairStatus, idModel)\n" +
                 "VALUES (?, ?, ?, ?, ?)";
@@ -88,6 +85,7 @@ public class VehicleRepo {
     }
 
     /**
+     * Created by Remi
      * Queries the DB for a vehicle with the same id as the parameter
      * @param id the id of the vehicle to be returned
      * @return the vehicle retrieved from the DB
@@ -104,6 +102,7 @@ public class VehicleRepo {
     }
 
     /**
+     * Created by Max
      * Updates a vehicle from the DB
      * @param id the id of the vehicle
      * @param v a Vehicle object containing the updated information
@@ -117,6 +116,7 @@ public class VehicleRepo {
     }
 
     /**
+     * Created by Johan
      * Deletes a vehicle from the DB based on id
      * @param idVehicle the id of the vehicle to be deleted
      */
@@ -126,6 +126,7 @@ public class VehicleRepo {
     }
 
     /**
+     * Created by Remi
      * Executes a query to the DB which returns all of the vehicles with a given number of beds
      * @param numberOfBeds the number of beds that you want the vehicles returned to have
      * @return list of vehicles with given amount of beds, mapped by the rowmapper

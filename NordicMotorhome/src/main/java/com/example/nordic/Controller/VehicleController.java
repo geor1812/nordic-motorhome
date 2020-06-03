@@ -20,6 +20,7 @@ public class VehicleController {
     VehicleService vehicleService;
 
     /**
+     * Created by Team
      * Get request for the vehicle menu page
      * @return vehicleMenu view
      */
@@ -31,6 +32,7 @@ public class VehicleController {
     }
 
     /**
+     * Created by Team
      * Post method which gets the search term inserted by the user and retrieves
      * a list of vehicles filtered down to contain the search term
      * @param webRequest used to retrieve the input from the view
@@ -46,7 +48,9 @@ public class VehicleController {
     }
 
     /**
+     * Created by George
      * Get request for the create vehicle page
+     * @param vehicle used for Thymealeaf validation
      * @return createVehicle view
      */
     @GetMapping("/createVehicle")
@@ -55,6 +59,7 @@ public class VehicleController {
     }
 
     /**
+     * Created by Max
      * Get request for the update vehicle page
      * @param idVehicle the id of the vehicle to be updated
      * @param model used to pass the information from the controller to the view
@@ -68,6 +73,7 @@ public class VehicleController {
     }
 
     /**
+     * Created by Max
      * Post method which gets the updated information
      * @param vehicle the vehicle to be updated
      * @return redirects to the VehicleMenu view
@@ -80,9 +86,11 @@ public class VehicleController {
     }
 
     /**
+     * Created by George
      * Post method which takes the information for the new vehicle to be added
      * from a form in the view and sends it to vehicleService
      * @param vehicle the vehicle to be created
+     * @param bindingResult used to validate input
      * @return redirects to the vehicleMenu view
      */
     @PostMapping("/createVehicle")
@@ -96,6 +104,7 @@ public class VehicleController {
     }
 
     /**
+     * Created by Johan
      * Get request which gets the id of the vehicle to be deleted
      * @param idVehicle the id of the vehicle to be deleted
      * @return redirects to the vehicleMenu view
@@ -107,6 +116,7 @@ public class VehicleController {
     }
 
     /**
+     * Created by Remi
      * Get request for viewing details on a vehicle
      * @param idVehicle id of the vehicle for which the details are displayed
      * @param model used to pass the information from the controller to the view

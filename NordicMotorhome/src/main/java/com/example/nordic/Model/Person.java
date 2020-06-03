@@ -1,3 +1,6 @@
+/**
+ * Created by Team
+ */
 package com.example.nordic.Model;
 
 import javax.validation.constraints.Size;

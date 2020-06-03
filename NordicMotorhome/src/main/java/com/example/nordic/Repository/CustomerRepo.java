@@ -21,7 +21,8 @@ public class CustomerRepo {
     JdbcTemplate jdbcTemplate;
 
     /**
-     * Executes a query to the DB which creates a new customer, and gives them a generated key
+     * Created by Remi
+     * Executes a query to the DB which creates a new customer
      * @param customer customer to be inserted to DB
      */
     public void createCustomer(Customer customer){
@@ -49,6 +50,7 @@ public class CustomerRepo {
     }
 
     /**
+     * Created by Remi
      * Executes a query to the DB which returns the latest customer id in the table
      * @return id of the latest customer
      */
@@ -62,6 +64,7 @@ public class CustomerRepo {
     }
 
     /**
+     * Created by George
      * Executes a query to the DB which returns customer with a given id
      * @param id of the customer to return from the DB
      * @return customer with the given id
@@ -76,6 +79,7 @@ public class CustomerRepo {
     }
 
     /**
+     * Created by Team
      * Executes a query to the DB which returns all of the customers
      * @return list of customers, mapped by the rowmapper
      */

@@ -16,6 +16,7 @@ public class VehicleService {
     private int workingID;
 
     /**
+     * Created by Team
      * Gets the result set to from vehicleRepo
      * @return query result set
      */
@@ -24,6 +25,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by Team
      * Passes the search term to the vehicleRepo and then returns the result set
      * @param search the search term
      * @return query result set
@@ -33,6 +35,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by George
      * Passes the vehicle to be added to vehicleRepo
      * @param vehicle the vehicle to be added
      */
@@ -41,6 +44,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by Max
      * Sends the id and update vehicle information to vehicleRepo
      * @param id the id of the vehicle to be updated
      * @param vehicle a Vehicle object containing the updated information
@@ -50,6 +54,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by Remi
      * Returns a Vehicle object from the vehicleRepo
      * @param id the id of the vehicle
      **/
@@ -58,6 +63,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by Johan
      * Sends the id of the vehicle that will be deleted to vehicleRepo
      * @param idVehicle the id of the vehicle to be deleted
      */
@@ -66,6 +72,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by George
      * Method to make a list of vehicles that is directly related to the list of contracts
      * @param contractList list of contracts
      * @return list of vehicles that is directly related to the list of contracts
@@ -79,6 +86,7 @@ public class VehicleService {
     }
 
     /**
+     * Created by Remi
      * Link between the controller and the repo for available vehicles
      * @param numberOfBeds number of beds required in the list of available vehicles
      * @return list of available vehicles with given amount of beds

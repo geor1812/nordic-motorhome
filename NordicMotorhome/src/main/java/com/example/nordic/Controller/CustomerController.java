@@ -17,6 +17,7 @@ public class CustomerController {
     CustomerService customerService;
 
     /**
+     * Created by Remi
      * Get request for create customer page
      * @return the create customer page
      */
@@ -25,6 +26,7 @@ public class CustomerController {
         return "customer/createCustomer";}
 
     /**
+     * Created by Remi
      * Post method which creates a customer object and sends it to customerService
      * @param customer customer to be send to the customerService
      * @return selectDates page

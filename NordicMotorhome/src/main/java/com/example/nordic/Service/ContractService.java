@@ -29,9 +29,16 @@ public class ContractService {
     private double workingPickUpCharge;
     private boolean workingFuelCharge;
 
+    /**
+     * Created by Remi
+     * Link between the controller and the repo for the create
+     * @param contract
+     * @return
+     */
     public String createContract(Contract contract){return contractRepo.createContract(contract);}
 
     /**
+     * Created by Team
      * Link between the controller and the repo for readAll
      * @return result of contractRepo.readAll()
      */
@@ -40,6 +47,7 @@ public class ContractService {
     }
 
     /**
+     * Created by Team
      * Link between the controller and the repo for readSearch
      * @param search search term to check for
      * @return result of contractRepo.readSearch()
@@ -49,6 +57,7 @@ public class ContractService {
     }
 
     /**
+     * Created by George
      * Link between the controller and the repo for findContractById
      * @param id id of the contract to be found
      * @return result of contractRepo.findContractById()
@@ -58,6 +67,7 @@ public class ContractService {
     }
 
     /**
+     * Created by Johan
      * Link between the controller and the repo for updateContract
      * @param id id of the contract to be updated
      * @param contract contract containing the information of update
@@ -67,7 +77,8 @@ public class ContractService {
     }
 
     /**
-     * Link between the controller and the repo for
+     * Created by Johan
+     * Link between the controller and the repo for deleteContract
      * @param idContract id of the contract to be deleted
      */
     public void deleteContract(int idContract) {
@@ -75,6 +86,7 @@ public class ContractService {
     }
 
     /**
+     * Created by Max & George
      * Method for calculating the total price of all accessories on a contract, per day
      * @param id id of the contract that has the accessories
      * @return total price of all accessories per day
@@ -87,7 +99,8 @@ public class ContractService {
     }
 
     /**
-     * Method for calculating the total price of a contract.
+     * Created by Max & George
+     * Method for calculating the total standard price of a contract.
      * @param id id of the contract, the price needs to be calculated for.
      * @return the total price of the contract
      */
@@ -132,6 +145,7 @@ public class ContractService {
     }
 
     /**
+     * Created by Max & George
      * Calculates the days between 2 dates.
      * @param date1 later date
      * @param date2 earlier date to be subtracted
@@ -152,6 +166,7 @@ public class ContractService {
     }
 
     /**
+     * Created by Max
      * Method for calculating the cancellation fee of a contract
      * @param id id of the contract to be cancelled
      * @param currentDate date of the day the contract is cancelled
@@ -165,7 +180,7 @@ public class ContractService {
         double cancellationFee = 0;
 
         /* calculate the percentage of the total price that the fee should be
-            based on how many days there is til the start of the contract
+            based on how many days there is until the start of the contract
          */
         if(amountOfDays < 1){
             cancellationFee = (double) totalPrice / 100 * 95;
@@ -189,6 +204,7 @@ public class ContractService {
     }
 
     /**
+     * Created by George
      * Method for calculating the final price at checkout
      * @param id id of the contract to be checked out
      * @param endOdometer the number on the odometer at the end of the contract
@@ -209,7 +225,8 @@ public class ContractService {
 
         double odometerCharge = 0;
         double kmDriven = endOdometer - vehicle.getOdometer();
-        //Checks if the odometer has an average of more than 400 km per day, if so adds the extra kilometers as a fee
+        //Checks if the odometer has an average of more than 400 km per day,
+        //if so adds the extra kilometers as a fee
         if((kmDriven / amountOfDays) > 400) {
             odometerCharge = ((kmDriven / amountOfDays) - 400) * amountOfDays;
         } else {
@@ -227,7 +244,9 @@ public class ContractService {
     }
 
     /**
-     * Link between the controller and the repo for archiving contracts
+     * Created by Max & George
+     * Link between the controller and the repo for archiving contracts and deleting them from
+     * the main contract table
      * @param id id of the contract to be archived
      * @param fee fee of the contract to be archived
      * @param odometerCharge odometer charge of the contract to be archived
@@ -240,6 +259,69 @@ public class ContractService {
         contractRepo.deleteContract(id);
     }
 
+    /**
+     * Created by Remi
+     * Returns a list of contracts that do clash with the period between the two dates
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<Contract> availableDatesList(String startDate, String endDate) {
+        Date start = null;
+        Date end = null;
+        try {
+            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        List<Contract> contracts = contractRepo.readAll();
+        for (int i = 0; i < contracts.size(); i++) {
+            Date contractStart = null;
+            Date contractEnd = null;
+            try {
+                contractStart = new SimpleDateFormat("yyyy-MM-dd").parse(contracts.get(i).getStartDate());
+                contractEnd = new SimpleDateFormat("yyyy-MM-dd").parse(contracts.get(i).getEndDate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (end.getTime() < contractStart.getTime() ||
+                    start.getTime() > contractEnd.getTime()){
+                contracts.remove(contracts.get(i));
+                i = i - 1;
+
+            }
+        }
+
+        return contracts;
+    }
+
+    /**
+     * Created By Remi
+     * Returns the List of vehicles that is available between 2 dates,
+     * that also have a given number of beds.
+     * @param startDate first date
+     * @param endDate second date
+     * @param numberOfBeds amount of beds in the vehicles of the list
+     * @return vehicles (eg. the vehicles that are available in the given timeframe)
+     */
+    public List<Vehicle> vehiclesFromContractList(int numberOfBeds, String startDate, String endDate){
+        List<Contract> contracts = availableDatesList(startDate, endDate);
+        List<Vehicle> vehicles = vehicleService.availableVehiclesList(numberOfBeds);
+        for (int i = 0; i < vehicles.size(); i++) {
+            for (Contract contract:contracts) {
+                if (contract.getIdVehicle() == vehicles.get(i).getIdVehicle()) {
+                    vehicles.remove(i);
+                    i = i - 1;
+                }
+            }
+        }
+        return vehicles;
+    }
+
+    //Getters & Setters
     public String getStartDate() {
         return startDate;
     }
@@ -296,67 +378,5 @@ public class ContractService {
         this.workingFee = workingFee;
     }
 
-    /**
-     * Link between the controller and the repo for creating
-     * @param idContract
-     * @param idLicence
-     */
-    public void createLc(int idContract, int idLicence) {
-        contractRepo.createLc(idContract, idLicence);
-    }
-
-    //returns a list of contracts where the dates dont clash
-    public List<Contract> availableDatesList(String startDate, String endDate) {
-        Date start = null;
-        Date end = null;
-        try {
-            start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
-            end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        List<Contract> contracts = contractRepo.readAll();
-        for (int i = 0; i < contracts.size(); i++) {
-            Date contractStart = null;
-            Date contractEnd = null;
-            try {
-                contractStart = new SimpleDateFormat("yyyy-MM-dd").parse(contracts.get(i).getStartDate());
-                contractEnd = new SimpleDateFormat("yyyy-MM-dd").parse(contracts.get(i).getEndDate());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            if (end.getTime() < contractStart.getTime() ||
-                start.getTime() > contractEnd.getTime()){
-                contracts.remove(contracts.get(i));
-                i = i - 1;
-
-            }
-        }
-
-        return contracts;
-    }
-
-    /**
-     * List of vehicles that is available between 2 dates, that also has a given number of beds.
-     * @param startDate first date
-     * @param endDate second date
-     * @param numberOfBeds amount of beds in the vehicles of the list
-     * @return vehicles (eg. the vehicles that are available in the given timeframe)
-     */
-    public List<Vehicle> vehiclesFromContractList(int numberOfBeds, String startDate, String endDate){
-        List<Contract> contracts = availableDatesList(startDate, endDate);
-        List<Vehicle> vehicles = vehicleService.availableVehiclesList(numberOfBeds);
-        for (int i = 0; i < vehicles.size(); i++) {
-            for (Contract contract:contracts) {
-                if (contract.getIdVehicle() == vehicles.get(i).getIdVehicle()) {
-                    vehicles.remove(i);
-                    i = i - 1;
-                }
-            }
-        }
-        return vehicles;
-    }
 }
 

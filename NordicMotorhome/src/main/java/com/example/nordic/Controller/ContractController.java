@@ -33,6 +33,7 @@ public class ContractController {
     LicenceService licenceService;
 
     /**
+     * Created by Team
      * Get request for the contract menu page
      * @param model used to pass the information from the controller to the view
      * @return contractMenu view
@@ -50,6 +51,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Team
      * Post method which gets the search term inserted by the user and retrieves
      * a list of contracts filtered down to contain the search term
      * @param webRequest used to retrieve the input from the view
@@ -71,6 +73,7 @@ public class ContractController {
     }
 
     /**
+     * Created by George
      * Get request for the view details on contract page
      * @param id the id of the contract to be viewed
      * @param model used to pass the information from the controller to the view
@@ -91,6 +94,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Johan
      * Get request for the update contract page
      * @param idContract the id of the contract to be updated
      * @param model used to pass the information from the controller to the view
@@ -107,6 +111,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Johan
      * Post method which gets the updated information
      * @param contract the contract to be updated
      * @return contractMenu page
@@ -119,6 +124,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Johan
      * Get request for the delete contract page
      * @param idContract the id of the contract to be deleted.
      * @return contractMenu page
@@ -130,6 +136,7 @@ public class ContractController {
     }
 
     /**
+     * Create by Remi
      * Get request for the choose customer in create contract
      * @param model used to pass the information from the controller to the view
      * @return createChooseCustomer page
@@ -143,6 +150,7 @@ public class ContractController {
 
 
     /**
+     * Created by Remi
      * Get request for "select dates" page
      * @param idCustomer the customer for which the date applies
      * @return selectDates page
@@ -154,6 +162,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Post method for "select dates"
      * @param contract the contract for which the dates applies
      * @param model used to pass the information from the controller to the view
@@ -171,6 +180,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Get request for adding accessories to vehicle
      * @param idVehicle vehicle to which the accessories are addded
      * @param model used to pass the information from the controller to the view
@@ -183,6 +193,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Post method for adding accessories
      * @param contract contract to which the accessories are to be added
      * @return createLicence page
@@ -198,6 +209,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Get request for creating licence page
      * @param idContract contract to which the licence is connected
      * @param model used to pass the information from the controller to the view
@@ -211,6 +223,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Johan
      * Get request for creating licence second page
      * @param idContract contract to which the licence is connected
      * @param model used to pass the information from the controller to the view
@@ -224,6 +237,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Post method for creating licences
      * @param licence to be created
      * @return finaliseContract page
@@ -240,6 +254,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Johan
      * Post method for creating licences
      * @param licence to be created
      * @param bindingResult validation that the licence is correct
@@ -257,6 +272,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Get request for finalising contracts
      * @param idLicence licence of the contract to be finalized
      * @param model used to pass the information from the controller to the view
@@ -277,6 +293,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Get request for approving contracts
      * @return contractMenu page
      */
@@ -286,6 +303,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Remi
      * Get request for non approved contracts
      * @return contractMenu page
      */
@@ -296,6 +314,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Max
      * Get request for ending contracts
      * @param id id of the contract that is to be ended
      * @param model used to pass the information from the controller to the view
@@ -316,6 +335,7 @@ public class ContractController {
     }
 
     /**
+     * Created by George
      * Get request for checking out contracts
      * @param id id of the contract that is to be checked out
      * @return contractCheckout page
@@ -327,6 +347,7 @@ public class ContractController {
     }
 
     /**
+     * Created by George
      * Post method for checking out contracts
      * @param webRequest used to retrieve the input from the view
      * @param model used to pass the information from the controller to the view
@@ -365,6 +386,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Max
      * Get request for cancelling contracts
      * @param id id of the contract that is to be cancelled
      * @param webRequest used to retrieve the input from the view
@@ -388,6 +410,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Max
      * Post method for cancelling contracts
      * @param webRequest used to retrieve the input from the view
      * @param model used to pass the information from the controller to the view
@@ -415,6 +438,7 @@ public class ContractController {
     }
 
     /**
+     * Created by Max
      * Get request for confirming the cancellation
      * @return to the contract menu
      */
@@ -428,6 +452,7 @@ public class ContractController {
     }
 
     /**
+     * Created by George
      * Get request for the confirmation of the checkout
      * @return to the contract menu
      */

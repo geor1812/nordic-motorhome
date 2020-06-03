@@ -1,3 +1,6 @@
+/**
+ * v
+ */
 package com.example.nordic.Model;
 
 import javax.persistence.Entity;

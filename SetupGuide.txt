@@ -1,0 +1,18 @@
+Software Prerequisites
+1. Java Development Kit 1.8 and above
+2. IntelliJ Idea
+3. MySQL Server 8.0
+4. MySQL Workbench 8.0
+5. Internet browser of choice
+6. WinRar, 7Zip or a similar file archiver software
+
+Setup Guide
+1. Open MySQL workbench and connect to a local connection.
+2. Run the Create.sql script from the “nordic-motorhome/SQL/” folder.
+3. Run the Populate.sql script from the “nordic-motorhome/SQL/” folder.
+4. Open the “nordic-motorhome/NordicMotorhome” folder as an IntelliJ Idea project.
+5. Resolve Maven dependencies if IntelliJ requests it.
+6. Change password and username in the application.properties found under “src/main/resources” in IntelliJ to your username and password of the used MySQL server.
+7. Run NordicMotorhomeApplication.
+9. Open an Internet browser & navigate to localhost:8080.
+10. The project should now be running fully through the webpage.

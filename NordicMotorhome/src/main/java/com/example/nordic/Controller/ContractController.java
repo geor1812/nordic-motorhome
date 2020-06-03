@@ -289,6 +289,7 @@ public class ContractController {
         model.addAttribute("customer", customer);
         model.addAttribute("contract", contract);
         model.addAttribute("licence", licence);
+        model.addAttribute("price", contractService.totalPrice(contract.getIdContract()));
         return "/contract/finaliseContract";
     }
 
